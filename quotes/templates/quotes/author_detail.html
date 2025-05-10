@@ -1,0 +1,18 @@
+{% extends 'quotes/base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'quotes/style.css' %}">
+    <script src="{% static 'quotes/js/quote_preview_toggle.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+    {% for quote in author.quote_set.all %}
+        <div class="quote-preview-fetch"
+            data-id="{{ quote.id }}"
+            hx-get="{% url 'quote_partial' quote.id %}"
+            hx-swap="outerHTML">
+            {{ quote.sentence|truncatechars:30 }}
+        </div>
+    {% endfor %}
+{% endblock %}

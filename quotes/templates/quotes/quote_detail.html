@@ -1,0 +1,7 @@
+<div class="quote-card"
+    data-id="{{ quote.id }}"
+    data-previewtext='{{ quote.sentence|truncatechars:30 }}'
+    data-expanded="true"
+    onclick="collapseQuote(this)">
+    {{ quote.sentence }}
+</div>

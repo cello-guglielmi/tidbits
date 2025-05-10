@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Quote, Author
 import random, datetime
+from django.views import generic
 
 # Create your views here.
 
@@ -28,7 +29,27 @@ def index(request):
     template = 'quotes/index.html'
     return render(request, template, context)
 
-
-
 def homepage(request):
     return render(request, 'homepage.html', {'user': request.user})
+
+class AuthorDetail(generic.DetailView):
+    model = Author
+
+    # template_name = 'quotes/author_details.html'
+    # Default is <app name>/<model name>_detail.html
+
+    '''
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['quotes'] = self.object.quotes.all()
+        return context
+    # Manually passing related quotes allows for more flexibility & filtering:
+    #    one_month_ago = timezone.now() - timedelta(days=30)
+    #    context['quotes'] = self.object.quotes.filter(created_at__gte=one_month_ago)
+    '''
+
+class QuoteDetailPartial(generic.DetailView):
+    model = Quote
+
+
+

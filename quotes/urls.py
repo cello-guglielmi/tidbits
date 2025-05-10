@@ -4,7 +4,9 @@ from . import views
 urlpatterns = [
     #
     #
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+	path('author/<int:pk>/', views.AuthorDetail.as_view(), name='author_detail'),
+    path('<int:pk>/', views.QuoteDetailPartial.as_view(), name='quote_partial')
 ]
 
 '''
