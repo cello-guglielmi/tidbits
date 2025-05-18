@@ -2,17 +2,50 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'quotes/style.css' %}">
-    <script src="{% static 'quotes/js/quote_preview_toggle.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'quotes/css/author-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/quote-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
+    <script src="{% static 'quotes/js/author_detail.js' %}" defer></script>
+    <script type="module" src="{% static 'quotes/js/quote_detail.js' %}"></script>
+    <script type="module" src="{% static 'quotes/js/share_modal.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    {% for quote in author.quote_set.all %}
-        <div class="quote-preview-fetch"
-            data-id="{{ quote.id }}"
-            hx-get="{% url 'quote_partial' quote.id %}"
-            hx-swap="outerHTML">
-            {{ quote.sentence|truncatechars:30 }}
+<section class="author-container">
+    <!-- Header row with name and nationality -->
+    <div class="author-header">
+        <h1 class="author-name">{{ author.full_name }}</h1>
+        <h1 class="author-country">{{ author.nationality }} 🇺🇸</h1>
+    </div>
+    <!-- Content area with portrait and quotes -->
+    <div class="author-body">
+        <!-- Author portrait -->
+        <div class="portrait-box">
+            <img src='/static/quotes/images/portrait/{{ author.full_name|slugify }}.jpg' alt="{{ author.full_name }}" width="275" height="450">
         </div>
-    {% endfor %}
+        <!-- Quote list -->
+        <div class="quote-list-box">
+            <i class="search-icon" data-lucide="search"></i>
+            <input type="text" class="search-bar" placeholder="Search">
+            <ul class="quote-list">
+                {% for quote in author.quote_set.all %}
+                    <li class="quote-item"
+                        data-id="{{ quote.id }}"
+                        data-author ='{{ quote.author }}'
+                        data-fulltxt='{{ quote.sentence }}'
+                        data-prevtxt='{{ quote.sentence|truncatechars:30 }}'>
+                        <div class="quote-preview"
+                            hx-get="{% url 'quote_detail' quote.id %}"
+                            hx-swap="outerHTML swap:0.2s">
+                            {{ quote.sentence|truncatechars:30 }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button class="show-more-button"><i data-lucide="chevrons-down"></i></button>
+            <script>lucide.createIcons();</script>
+            {% include 'quotes/components/share_modal.html' %}
+        </div>
+    </div>
+</section>
 {% endblock %}

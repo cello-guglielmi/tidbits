@@ -5,8 +5,7 @@ from django.views import generic
 
 # Create your views here.
 
-def index(request):
-
+def daily_page(request):
     def get_daily_seed(today):
         seed = 0
         for i in str(today):
@@ -35,7 +34,7 @@ def homepage(request):
 class AuthorDetail(generic.DetailView):
     model = Author
 
-    # template_name = 'quotes/author_details.html'
+    # template_name = 'quotes/author_detail.html'
     # Default is <app name>/<model name>_detail.html
 
     '''
@@ -50,6 +49,7 @@ class AuthorDetail(generic.DetailView):
 
 class QuoteDetailPartial(generic.DetailView):
     model = Quote
+    template_name = 'quotes/components/quote_detail.html'
 
 
 

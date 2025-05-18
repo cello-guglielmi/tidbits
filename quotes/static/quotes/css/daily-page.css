@@ -17,7 +17,7 @@ body {
     font-family: "Merienda", cursive;
     font-weight: 600;
     line-height: 1.5;
-    background: url('images/bg/ls6.png') no-repeat;
+    background: url('/static/quotes/images/bg/ls6.png') no-repeat;
     background-size: cover;
     margin:auto;
     width: 50%

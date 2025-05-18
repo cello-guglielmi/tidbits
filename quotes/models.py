@@ -41,5 +41,4 @@ class Quote(models.Model):
         return truncated
     '''
     def __str__(self):
-        string = self.sentence if len(self.sentence) <= 30 else self.sentence[:30] + '...'
-        return string
+        return self.sentence
