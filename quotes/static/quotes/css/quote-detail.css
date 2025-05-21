@@ -1,14 +1,31 @@
-/* General reset & background */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* === Quote Card Rows === */
+.quote-preview, .quote-card {
+    display: flex;
+    padding: 1em;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: background-color 0.2s ease, opacity 0.5s ease-out;
 }
 
 .quote-card {
-    display: flex;
     flex-direction: column;
     position: relative;
+    padding-bottom: 0.25em;
+}
+
+
+.quote-card.htmx-added {
+    opacity: 0;
+}
+
+.quote-preview.htmx-swapping {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+.quote-preview:hover, .quote-card:hover {
+    background-color: #e9e9e9;
 }
 
 /* === Body ===  */
@@ -41,23 +58,26 @@
 /* === Footer === */
 
 .card-footer {
-    padding-top: .5em;
-    /* border-top: 2px solid rgba(0, 0, 0, 0.4); */
-    border-top: 2px solid #eee;
-    /* box-shadow: 0 -2px 2px -1px rgba(0,0,0,0.1); */
     display: flex;
-    justify-content: center;/*flex-end;*/
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 0 0.2em 0.5em;
+    border-top: 2px solid #eee;
 }
 
-.quote-card .icon-box {
+.author-sig {
+    color: rgba(51, 51, 51, 0.8)
+}
+
+.icon-box {
     display: flex;
     gap: 1rem;
 }
 
 .icon {
     color: #333;
-    height: 18px;
-    width: 18px;
+    height: 1.5em;
+    width: 1.5em;
 }
 
 .footer-btn {
@@ -95,23 +115,23 @@
 }
 
 /* === Category Colors === */
-span.Analytical {
+span.analytical {
     color:brown;
     font-weight: bold;
 }
-span.Humble {
+span.humble {
     color:deepskyblue;
     font-weight: bold;
 }
-span.Goofy {
+span.goofy {
     color:#FFBF00;
     font-weight: bold;
 }
-span.Motivational {
+span.motivational {
     color:darkseagreen;
     font-weight: bold;
 }
-span.Love {
+span.love {
     color:crimson;
     font-weight: bold;
 }

@@ -1,0 +1,68 @@
+{# quote_list.html #}
+<div class="quote-list-box">
+    <div id="filters" class="list-header"
+        hx-get="{% url 'quote_list' %}"
+        hx-target="#quote-list"
+        hx-swap="innerHTML"
+        hx-trigger="keyup changed delay:300ms from:input[name='search'], change from:input[name='mood[]']"
+        hx-vals='{"initial": "0"}'
+        hx-include="#filters">
+        <i class="search-icon" data-lucide="search"></i>
+        <input type="text"
+                class="search-bar"
+                placeholder="Search"
+                value="{{ searchQuery }}"
+                name="search">
+        <fieldset class="tag-box">
+            <legend class="mood-title">Mood</legend>
+            <div class="mood-filter">
+                <label id="mood-love" class="mood-container">Love
+                    <input type="checkbox"
+                           value="love"
+                           name="mood[]">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label id="mood-analytical" class="mood-container">Analytical
+                    <input type="checkbox"
+                           value="analytical"
+                           name="mood[]">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label id="mood-humble" class="mood-container">Humble
+                    <input type="checkbox"
+                           value="humble"
+                           name="mood[]">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label id="mood-goofy" class="mood-container">Goofy
+                    <input type="checkbox"
+                           value="goofy"
+                           name="mood[]">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label id="mood-motivational" class="mood-container">Motivational
+                    <input type="checkbox"
+                           value="motivational"
+                           name="mood[]">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </fieldset>
+    </div>
+    <ul id="quote-list" class="quote-list"
+        hx-get="{% url 'quote_list' %}"
+        hx-vals='{"initial": "0"}'
+        hx-trigger="load">
+    </ul>
+    <div id="button-pagination-wrapper">
+        <button id="show-more-button" class="show-more-button">
+            <i data-lucide="chevrons-down"></i>
+        </button>
+    </div>
+    <script>lucide.createIcons();</script>
+    {% include 'quotes/components/share_modal.html' %}
+</div>

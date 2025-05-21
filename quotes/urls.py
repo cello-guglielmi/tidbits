@@ -6,7 +6,9 @@ urlpatterns = [
     #
     path('', views.daily_page, name='daily_page'),
 	path('author/<int:pk>/', views.AuthorDetail.as_view(), name='author_detail'),
-    path('<int:pk>/', views.QuoteDetailPartial.as_view(), name='quote_detail')
+    path('<int:pk>/', views.QuoteDetailPartial.as_view(), name='quote_detail'),
+    path('browse/', views.BrowseList.as_view(), name='browse'),
+    path('list/', views.quoteListView, name='quote_list'),
 ]
 
 '''

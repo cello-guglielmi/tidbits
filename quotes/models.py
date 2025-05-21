@@ -19,11 +19,11 @@ class Quote(models.Model):
     author = models.ForeignKey(Author, on_delete=models.DO_NOTHING)
 
     MOODS = {
-        'Love': 'Love',
-        'Motivational': 'Motivational',
-        'Analytical': 'Analytical',
-        'Humble': 'Humble',
-        'Goofy': 'Goofy',
+        'love': 'Love',
+        'motivational': 'Motivational',
+        'analytical': 'Analytical',
+        'humble': 'Humble',
+        'goofy': 'Goofy',
     }
     mood = models.CharField(max_length=50, choices=MOODS)
     '''

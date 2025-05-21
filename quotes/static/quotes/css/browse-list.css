@@ -1,0 +1,14 @@
+body {
+    font-size: 1.1rem;
+    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
+    font-family: "Merienda", cursive;
+    font-weight: 600;
+    line-height: 1.5;
+    background: url('/static/quotes/images/bg/ls6.png');
+    background-attachment: fixed;    /* keeps wallpaper fixed in viewport */
+    background-position: center;    /* centers the image */
+    background-repeat: no-repeat;   /* don't repeat the image */
+    background-size: cover;
+    margin:auto;
+    width: 50%
+}

@@ -1,31 +1,35 @@
-const modal = document.querySelector('.share-modal');
-
-function hideModal(){
-    modal.classList.remove("show");
-}
-
-document.addEventListener('keydown', function(evt) {
-if (evt.key === 'Escape' && modal.classList.contains('show')) {
-        hideModal();
-    }
-});
-
-document.addEventListener('click', function(evt) {
-    if (!modal.contains(evt.target) && modal.classList.contains('show')){
-        hideModal();
-    }
-});
-
-modal.addEventListener('click', function(evt) {
-    const close = evt.target.closest('.close');
-    if (close && modal.classList.contains('show')){
-        hideModal();
-    }
-});
 
 function isMobile() {
   const regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i;
   return regex.test(navigator.userAgent);
+}
+
+export function initShareModal(scope = document) {
+    const modal = scope.querySelector('.share-modal');
+    if (!modal) return;
+
+    function hideModal() {
+        modal.classList.remove("show");
+    }
+
+    modal.addEventListener('click', function(evt) {
+        const close = evt.target.closest('.close');
+        if (close && modal.classList.contains('show')) {
+            hideModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(evt) {
+        if (evt.key === 'Escape' && modal.classList.contains('show')) {
+            hideModal();
+        }
+    });
+
+    document.addEventListener('click', function(evt) {
+        if (!modal.contains(evt.target) && modal.classList.contains('show')) {
+            hideModal();
+        }
+    });
 }
 
 export function showModal(text, author, card) {
@@ -35,6 +39,7 @@ export function showModal(text, author, card) {
     }).catch(err => console.log('Share canceled or failed:', err));
     return
   }
+  const modal = document.querySelector('.share-modal');
     // Set modal text
     modal.querySelector('.modal-text').textContent = `"${text}"`;
     modal.querySelector('.modal-author').textContent = `— ${author}`;

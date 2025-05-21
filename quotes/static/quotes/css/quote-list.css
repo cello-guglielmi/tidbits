@@ -1,0 +1,205 @@
+#list-container {
+  display: flex;
+  justify-content: center;
+  width: 100%
+}
+
+/* === Quote List Box === */
+.quote-list-box {
+    display: flex;
+    flex-direction: column;
+    max-width: 750px;
+    width: 100%;
+    flex: 1 1 0px;
+}
+
+/* = list header = */
+
+.list-header {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+/* - tag box - */
+
+.tag-box {
+    width: 20%;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    border: 2px solid;
+    border-color: transparent;
+    border-radius: 6px;
+    padding: 0.5em;
+    background: transparent;
+}
+
+.mood-title {
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    /* padding: 3px 6px; */
+    font-weight: bold;
+    padding: 0 0.5em;
+    transition: 200ms ease;
+}
+
+.mood-title:hover{
+    background-color: black;
+}
+
+.tag-box div {
+  max-height: 0;
+  /*padding: 0.25em;*/
+  overflow: hidden;
+  transition: max-height 500ms ease-out;
+}
+
+
+.mood-container {
+  display: block;
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+/* Hide default checkbox */
+.mood-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.mood-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.mood-container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Checkmark indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.mood-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark */
+.mood-container .checkmark:after {
+  left: 7px;
+  top: 4px;
+  width: 7px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+
+.search-bar {
+    color: #666;
+    width: 80%;
+    height: 2em;
+    border: none;
+    outline: none;
+    transition: 0.5s;
+    border-radius: 2px;
+    padding-left: 22px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.search-bar:focus {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.search-icon {
+    position: absolute;
+    color:#666;
+    padding: 5px;
+}
+
+.show-more-button {
+    cursor: pointer;
+    margin: 1em auto;
+    border: none;
+    font-size: 0px;
+    background-color: transparent;
+    cursor: pointer;
+    color: #333;
+}
+
+.show-more-button:hover {
+    color: #666;
+}
+
+/* === Quote List Table === */
+.quote-list {
+    position: relative;
+    list-style: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slide-in {
+from {
+    opacity: 0;
+    transform: translateY(+20%);
+}
+to {
+    opacity: 1;
+    transform: translateY(0%);
+}
+}
+
+.quote-list li {
+    background-color: #f9f9f9;
+    border: 2px solid;
+    border-color: #333;
+    margin-top: -2px;
+    animation: slide-in 500ms;
+}
+
+.quote-list li:first-child {
+  margin-top: 0;
+}
+
+#button-pagination-wrapper {
+    text-align: center;
+    min-height: 200px;
+}
+
+
+/* === Category Colors === */
+#mood-analytical {
+    color:brown;
+}
+#mood-humble {
+    color:deepskyblue;
+}
+#mood-goofy {
+    color:#FFBF00;
+}
+#mood-motivational {
+    color:darkseagreen;
+}
+#mood-love {
+    color:crimson;
+}

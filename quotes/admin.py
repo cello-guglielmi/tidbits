@@ -5,6 +5,7 @@ from .models import Quote, Author
 
 class QuoteAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'mood', 'author', 'authors_country']
+    list_editable = ('mood',)
 
     @admin.display(description="Author's Country")
     def authors_country(self, obj):

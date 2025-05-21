@@ -5,9 +5,8 @@
     <link rel="stylesheet" href="{% static 'quotes/css/author-detail.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/quote-detail.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
-    <script src="{% static 'quotes/js/author_detail.js' %}" defer></script>
-    <script type="module" src="{% static 'quotes/js/quote_detail.js' %}"></script>
-    <script type="module" src="{% static 'quotes/js/share_modal.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'quotes/css/quote-list.css' %}">
+    <script type="module" src="{% static 'quotes/js/list-init.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -24,27 +23,10 @@
             <img src='/static/quotes/images/portrait/{{ author.full_name|slugify }}.jpg' alt="{{ author.full_name }}" width="275" height="450">
         </div>
         <!-- Quote list -->
-        <div class="quote-list-box">
-            <i class="search-icon" data-lucide="search"></i>
-            <input type="text" class="search-bar" placeholder="Search">
-            <ul class="quote-list">
-                {% for quote in author.quote_set.all %}
-                    <li class="quote-item"
-                        data-id="{{ quote.id }}"
-                        data-author ='{{ quote.author }}'
-                        data-fulltxt='{{ quote.sentence }}'
-                        data-prevtxt='{{ quote.sentence|truncatechars:30 }}'>
-                        <div class="quote-preview"
-                            hx-get="{% url 'quote_detail' quote.id %}"
-                            hx-swap="outerHTML swap:0.2s">
-                            {{ quote.sentence|truncatechars:30 }}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-            <button class="show-more-button"><i data-lucide="chevrons-down"></i></button>
-            <script>lucide.createIcons();</script>
-            {% include 'quotes/components/share_modal.html' %}
+        <div id="list-container"
+            hx-get="{% url 'quote_list' %}"
+            hx-vals='{"author": "{{ author.id }}", "initial": "1"}'
+            hx-trigger="load">
         </div>
     </div>
 </section>

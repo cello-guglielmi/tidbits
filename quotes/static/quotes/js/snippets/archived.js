@@ -1,5 +1,5 @@
-// === Swap & Cache Quote cards ===
-const quoteCache = new Map();
+// === Quote Card Caching ===
+window.quoteCache = new Map();
 document.body.addEventListener("htmx:afterSwap", function(evt) {
     /*
     htmx docu:
@@ -17,15 +17,57 @@ document.body.addEventListener("htmx:afterSwap", function(evt) {
     lucide.createIcons();
 });
 
-// === List Management ===
-const list = document.querySelector('.quote-list');
-// const items = Array.from(list.querySelectorAll('li'));
-const items = Array.from(list.children);
-const showMoreBtn = document.querySelector('.show-more-button');
-const searchInput = document.querySelector('.search-bar')
+// === Initialize quote-list functions ===
+export function initQuoteList() {
+    const list = document.querySelector('.quote-list');
+    const items = Array.from(list.children);
+    const showMoreBtn = document.querySelector('.show-more-button');
+    const searchInput = document.querySelector('.search-bar')
 
-const BATCH_SIZE = 2;
-let visibleCount = 2;
+    if (searchInput) {
+        searchInput.addEventListener('keyup', keywordFilter);
+    }
+
+    if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', () => {
+            updateList();
+        });
+    }
+}
+
+// === Quote Card Toggling ===
+document.body.addEventListener('click', function(evt) {
+    const item = evt.target.closest('.quote-item')
+    if (!item) return;
+    const card = evt.target.closest('.quote-card');
+    const preview = evt.target.closest('.quote-preview');
+    if (preview) {
+        expandQuote(preview, item);
+        return;
+    }
+    if (card) {
+        collapseQuote(card, item);
+    }
+});
+
+function expandQuote(preview, item) {
+    const id = item.dataset.id;
+    console.log(preview, item, id);
+    if (quoteCache.has(id)) {
+        preview.outerHTML = quoteCache.get(id);
+    }
+    lucide.createIcons();
+}
+
+function collapseQuote(card, item) {
+    card.outerHTML = `
+        <div class="quote-preview">
+            ${item.dataset.prevtxt}
+        </div>`;
+}
+
+// === List Filtering Management ===
+let visibleCount = BATCH_SIZE;
 let shownItems = items.slice();
 
 function updateList() {
@@ -43,14 +85,12 @@ function updateList() {
     
 }
 
-
 function keywordFilter() {
     const txt = searchInput.value.trim().toUpperCase()
     shownItems = items.filter(item => item.dataset.fulltxt.toUpperCase().includes(txt));
     // visibleCount = BATCH_SIZE;
     updateList();
 
-    // filter = input.value.toUpperCase();
     // ul = document.querySelector('.quote-list');
     // li = ul.getElementsByTagName('li');
     // for (i = 0; i < li.length; i++) {
@@ -62,9 +102,8 @@ function keywordFilter() {
     //     }
     // }
 }
-
 /*
-Funnily enough, the above section:
+Funnily enough,:
 
     ul = document.querySelector('.quote-list')
     li = ul.getElementsByTagName('li');
@@ -73,20 +112,5 @@ is roughly equivalent to below:
 
     li = document.querySelectorAll('.quote-list li');
 */
-
-showMoreBtn.addEventListener('click', () => {
-    visibleCount += BATCH_SIZE;
-    updateList();
-
-    // const hiddenItems = Array.from(list.querySelectorAll('li'))
-    //     .filter(li => getComputedStyle(li).display === 'none');
-    // hiddenItems.slice(0, 2).forEach(li => li.style.display = 'list-item');
-    // if (hiddenItems.length <= 2) {
-    //     showMoreBtn.style.display = 'none';
-    // }
-});
-
-searchInput.addEventListener('keyup', keywordFilter);
-
 // initial render
 updateList();

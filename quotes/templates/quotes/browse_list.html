@@ -1,0 +1,21 @@
+{% extends 'quotes/base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'quotes/css/browse-list.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/quote-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/quote-list.css' %}">
+    <script type="module" src="{% static 'quotes/js/list-init.js' %}"></script>
+    <script> window.BATCH_SIZE = 10;</script>
+{% endblock %}
+
+{% block content %}
+<section class="all-quotes-list">
+    <div id="list-container"
+        hx-get="{% url 'quote_list' %}"
+        hx-vals='{"initial": "1", "BATCH_SIZE": "5"}'
+        hx-trigger="load">
+    </div>
+</section>
+{% endblock %}

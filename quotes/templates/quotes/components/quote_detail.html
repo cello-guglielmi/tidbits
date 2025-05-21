@@ -1,11 +1,14 @@
-<div class="quote-card"
-    data-author ='{{ quote.author }}'
-    data-previewtext='{{ quote.sentence|truncatechars:30 }}'>
+<div class="quote-card">
     <section class="card-body">
         <div class="quote-text">{{ quote.sentence }}</div>
-        <div class="quote-category"><span class="{{ quote.mood }}">{{ quote.mood }}</span></div>
+        <div class="quote-category"><span class="{{ quote.mood }}">{{ quote.get_mood_display }}</span></div>
     </section>
     <section class="card-footer">
+        <div class="author-sig">
+            {% if not listAuthor %}
+                <p>— {{ quote.author }}<p>
+            {% endif %}
+        </div>
         <div class="icon-box">
             <button class="footer-btn" data-func="copy"><i class="icon" data-lucide="clipboard-copy"></i></button>
             <button class="footer-btn" data-func="like"><i class="icon" data-lucide="heart"></i></button>
@@ -14,4 +17,5 @@
         </div>
     </section>
     <div class="toast"></div>
+    <script>lucide.createIcons();</script>
 </div>
