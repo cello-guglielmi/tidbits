@@ -1,0 +1,19 @@
+{% for quote in quotes %}
+  <li class="quote-item"
+      data-id="{{ quote.id }}"
+      data-author='{{ quote.author }}'
+      data-fulltxt='{{ quote.sentence }}'
+      data-prevtxt='{{ quote.sentence|truncatechars:30 }}'>
+    {% include "quotes/components/quote_detail/quote_detail.html" %}
+  </li>
+{% endfor %}
+
+<div id="show-more-button-wrapper" hx-swap-oob="true">
+    {% if nextPage %}
+        {% include "quotes/components/quote_list/show_more_button.html" %}
+    {% endif %}
+</div>
+
+<div id="sort-button-wrapper" hx-swap-oob="true">
+    {% include "quotes/components/quote_list/sort_button.html" %}
+</div>

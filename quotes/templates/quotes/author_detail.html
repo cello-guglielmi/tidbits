@@ -23,9 +23,9 @@
             <img src='/static/quotes/images/portrait/{{ author.full_name|slugify }}.jpg' alt="{{ author.full_name }}" width="275" height="450">
         </div>
         <!-- Quote list -->
-        <div id="list-container"
+        <div id="list-container" data-batchsize="2"
             hx-get="{% url 'quote_list' %}"
-            hx-vals='{"author": "{{ author.id }}", "initial": "1"}'
+            hx-vals='{"author": "{{ author.id }}", "batchsize": "2"}'
             hx-trigger="load">
         </div>
     </div>

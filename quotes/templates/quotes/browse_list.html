@@ -12,9 +12,9 @@
 
 {% block content %}
 <section class="all-quotes-list">
-    <div id="list-container"
+    <div id="list-container"  data-batchsize="3"
         hx-get="{% url 'quote_list' %}"
-        hx-vals='{"initial": "1", "BATCH_SIZE": "5"}'
+        hx-vals='{"author": "{{ author.id }}", "batchsize": "3"}'
         hx-trigger="load">
     </div>
 </section>

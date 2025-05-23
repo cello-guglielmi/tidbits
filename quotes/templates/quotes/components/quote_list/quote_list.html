@@ -1,0 +1,17 @@
+{# quote_list.html #}
+<div class="quote-list-box">
+    <div id="list-header-wrapper">
+        {% include 'quotes/components/quote_list/list_header.html' %}
+    </div>
+    <ul id="quote-list" class="quote-list">
+        {% include 'quotes/components/quote_list/component_updater.html' %}
+    </ul>
+    <div id="show-more-button-wrapper">
+        {% if nextPage %}
+            {% include "quotes/components/quote_list/show_more_button.html" %}
+        {% endif %}
+    </div>
+    <script>lucide.createIcons();</script>
+    {% include 'quotes/components/quote_detail/share_modal.html' %}
+</div>
+

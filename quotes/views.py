@@ -26,7 +26,7 @@ def daily_page(request):
     context['weekday'] = today.strftime('%A')
     context['month'] = today.strftime('%B')
     context['year'] = today.strftime('%Y')
-    template = 'quotes/index.html'
+    template = 'quotes/daily_page.html'
     return render(request, template, context)
 
 def homepage(request):
@@ -36,6 +36,7 @@ class AuthorDetail(generic.DetailView):
     model = Author
 
 def quoteListView(request):
+    trigger = request.headers.get('hx-trigger')
     quotes = Quote.objects.all()
     try:
         author = int(request.GET.get('author'))
@@ -49,12 +50,17 @@ def quoteListView(request):
     mood_tags = request.GET.getlist('mood[]')
     if mood_tags:
         quotes = quotes.filter(mood__in=mood_tags)
-
-    sz = int(request.GET.get('BATCH_SIZE', 3))
-    paginator = Paginator(quotes, sz)
-    page_number = int(request.GET.get('page', 1))
-    page_obj = paginator.get_page(page_number)
+    sort = request.GET.get('sort_value', 'id')
+    quotes = quotes.order_by(sort)
     
+    batchSize = int(request.GET.get('batchsize', 5))
+    page_number = int(request.GET.get('page', 1))
+    # ", batchSize)" because on first page load, page_count input doesn't exist.
+    page_count = int(request.GET.get('page_count', batchSize)) if page_number == 1 else batchSize
+    paginator = Paginator(quotes, page_count)
+    page_obj = paginator.get_page(page_number)
+
+
     context = {
         'quotes': page_obj.object_list,
         'page': page_number,
@@ -64,22 +70,21 @@ def quoteListView(request):
         'moodTags': mood_tags,
         'nextPage': page_obj.next_page_number() if page_obj.has_next() else None,
     }
-    
-    initial = int(request.GET.get('initial'))
 
-    if initial == 1:
+    if trigger == 'list-container':
         # For initial load, return the complete list with search bar
-        #print("========INITIAL RENDER========>", initial, "<")
-        return render(request, 'quotes/components/quote_list.html', context)
+        return render(request, 'quotes/components/quote_list/quote_list.html', context)
     else:
         # For pagination requests and searches, return just the quote items as HTML fragments
-        return render(request, 'quotes/components/quote_items_wrapper.html', context)
+        return render(request, 'quotes/components/quote_list/component_updater.html', context)
+
+
 
 
 
 class QuoteDetailPartial(generic.DetailView):
     model = Quote
-    template_name = 'quotes/components/quote_detail.html'
+    template_name = 'quotes/components/quote_detail/quote_detail.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["show_author"] = self.request.GET.get('show_author') == '1'
