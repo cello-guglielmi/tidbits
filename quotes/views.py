@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from django.urls import reverse_lazy
 from .models import Quote, Author
+from .forms import AuthorForm
 import random, datetime
 from django.views import generic
 
@@ -14,6 +16,9 @@ def daily_page(request):
                 seed += int(i)
         return seed
     
+    num_vis = request.session.get('num_vis', 0)
+    num_vis += 1
+    request.session['num_vis'] = num_vis
     context = {}
     quote = None
     today = datetime.date.today()
@@ -21,6 +26,7 @@ def daily_page(request):
     if all_quotes:
         seed = get_daily_seed(today) % len(all_quotes)
         quote = all_quotes[seed]
+    context['number_of_visits'] = num_vis
     context['quote'] = quote
     context['day'] = today.strftime('%d')
     context['weekday'] = today.strftime('%A')
@@ -60,7 +66,6 @@ def quoteListView(request):
     paginator = Paginator(quotes, page_count)
     page_obj = paginator.get_page(page_number)
 
-
     context = {
         'quotes': page_obj.object_list,
         'page': page_number,
@@ -79,8 +84,23 @@ def quoteListView(request):
         return render(request, 'quotes/components/quote_list/component_updater.html', context)
 
 
+class AuthorListView(generic.ListView):
+    model = Author
 
+class AuthorCreateView(generic.CreateView):
+    # model = Author
+    # fields = ["full_name"]
+    form_class = AuthorForm
+    template_name = 'quotes/author_form.html'
+    success_url = '/quotes/browse/'
 
+class AuthorUpdateView(generic.UpdateView):
+    model = Author
+    fields = ["full_name"]
+
+class AuthorDeleteView(generic.DeleteView):
+    model = Author
+    success_url = reverse_lazy("author-list")
 
 class QuoteDetailPartial(generic.DetailView):
     model = Quote
@@ -89,6 +109,19 @@ class QuoteDetailPartial(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["show_author"] = self.request.GET.get('show_author') == '1'
         return context
+    
+
+class QuoteCreateView(generic.CreateView):
+    model = Quote
+    fields = ["sentence"]
+
+class QuoteUpdateView(generic.UpdateView):
+    model = Quote
+    fields = ["sentence"]
+
+class QuoteDeleteView(generic.DeleteView):
+    model = Quote
+    success_url = reverse_lazy("quote-list")
 
 
 class BrowseList(generic.ListView):

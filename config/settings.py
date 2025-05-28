@@ -54,18 +54,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# ✅ Only add the toolbar if we're NOT testing
-if not TESTING:
-    INSTALLED_APPS += ['debug_toolbar']
-    # INSTALLED_APPS = [
-    #     *INSTALLED_APPS,
-    #     "debug_toolbar",
-    # ]
-    MIDDLEWARE.insert(1, 'debug_toolbar.middleware.DebugToolbarMiddleware')
-    # MIDDLEWARE = [
-    #     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    #     *MIDDLEWARE,
-    # ]
+# # ✅ Only add the toolbar if we're NOT testing
+# if not TESTING:
+#     INSTALLED_APPS += ['debug_toolbar']
+#     # INSTALLED_APPS = [
+#     #     *INSTALLED_APPS,
+#     #     "debug_toolbar",
+#     # ]
+#     MIDDLEWARE.insert(1, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+#     # MIDDLEWARE = [
+#     #     "debug_toolbar.middleware.DebugToolbarMiddleware",
+#     #     *MIDDLEWARE,
+#     # ]
 
 ROOT_URLCONF = 'config.urls'
 

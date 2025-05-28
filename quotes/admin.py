@@ -4,8 +4,8 @@ from .models import Quote, Author
 # Register your models here.
 
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'mood', 'author', 'authors_country']
-    list_editable = ('mood',)
+    list_display = ['__str__', 'likes', 'mood', 'author', 'authors_country']
+    list_editable = ('mood', 'likes')
 
     @admin.display(description="Author's Country")
     def authors_country(self, obj):
@@ -16,7 +16,7 @@ class QuoteAdmin(admin.ModelAdmin):
         
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'nationality']
+    list_display = ['full_name', 'nationality', 'id']
     search_fields = ['full_name']
     list_filter = ['nationality']
 

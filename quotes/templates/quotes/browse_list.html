@@ -11,11 +11,10 @@
 {% endblock %}
 
 {% block content %}
-<section class="all-quotes-list">
-    <div id="list-container"  data-batchsize="3"
-        hx-get="{% url 'quote_list' %}"
-        hx-vals='{"author": "{{ author.id }}", "batchsize": "3"}'
-        hx-trigger="load">
-    </div>
-</section>
+<h1 id="browse-titlehead" class="fancy-title"><span>Browse All Quotes</span></h1>
+<div id="list-container"  data-batchsize="5"
+    hx-get="{% url 'quote_list' %}"
+    hx-vals='{"author": "{{ author.id }}", "batchsize": "5"}'
+    hx-trigger="load">
+</div>
 {% endblock %}

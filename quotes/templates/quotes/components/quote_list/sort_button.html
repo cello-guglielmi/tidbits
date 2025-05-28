@@ -1,8 +1,0 @@
-<button id="sort-button" data-action="sort" data-sortval="sentence"
-        hx-get="{% url 'quote_list' %}"
-        hx-target="#quote-list"
-        hx-swap="innerHTML"
-        hx-vals='{"sort": "sentence", "dir": "{{ sortDir }}", "itemsPerPage": "{{ itemsPerPage }}"}'
-        hx-include="#filters">
-    Sort by Text (<span id="dir-label">asc</span>)
-</button>

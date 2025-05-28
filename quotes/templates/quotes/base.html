@@ -8,11 +8,37 @@
     <link rel="stylesheet" href="{% static 'quotes/css/base.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Merienda:wght@300..900&family=Onest:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Merienda, Manrope, Onset, Plus Jakarta Sans, Space Grotesk, Urbanist -->
     {% block head %}
     {% endblock %}
 </head>
 <body>
-    <div id='navbar'>Home / Browse / Submit / Login</div>
+    <header id="topbar-container">
+        <nav id='topbar-nav' class="navbar">
+            <div id="left-side" class="subnav">
+                <img style="display: inline; margin: 0 5px;" src="{% static 'quotes/images/logo.png' %}" height="50" />
+                <a href="#">Daily</a>
+                <a href="#">Browse</a>
+                <a href="#">Submit</a>
+            </div>
+            <div id="right-side" class="subnav">
+                <a href="#">Login</a>
+            </div> 
+        </nav>
+    </header>
+    <aside id="sidebar-container">
+        <nav id="sidebar-nav" class="navbar">
+                <a href="#">Daily</a>
+                <a href="#">Browse</a>
+                <a href="#">Submit</a>
+        </nav>
+    </aside>
     <div id="content">{% block content %}{% endblock %}</div>
+    <section id="main">
+    </section>
 </body>
 </html>
+

@@ -36,6 +36,7 @@
         {% else %}
             <p>No quotes available</p>
         {% endif %}
+        <p>You have visited this page {{ number_of_visits }} time{{ number_of_visits|pluralize }}.</p>
         {% endblock %}
     </body>
 </html>
