@@ -21,7 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-	path('polls/', include('django_polls.urls')),
+    path('accounts/', include('accounts.urls')),            # defines: register/, profile/, etc.
 	path('quotes/', include('quotes.urls'))
 ] # + debug_toolbar_urls()
 

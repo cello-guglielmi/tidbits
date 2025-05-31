@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from .models import Quote, Author
@@ -92,11 +92,23 @@ class AuthorCreateView(generic.CreateView):
     # fields = ["full_name"]
     form_class = AuthorForm
     template_name = 'quotes/author_form.html'
-    success_url = '/quotes/browse/'
+    success_url = reverse_lazy('browse')
 
-class AuthorUpdateView(generic.UpdateView):
-    model = Author
-    fields = ["full_name"]
+def AuthorUpdateViewFunc(request, pk):
+    # 1️⃣ Look up the Author instance or return 404
+    author = get_object_or_404(Author, pk=pk)
+    if request.method == 'POST':
+        # 2️⃣ Bind POST data *and* the instance to the form
+        form = AuthorForm(request.POST, instance=author)
+        if form.is_valid():
+            form.save()
+            # 3️⃣ Redirect to your browse page (use the correct URL name)
+            return redirect('quotes:browse')
+    else:
+        # 4️⃣ For GET, instantiate the form with the existing instance
+        form = AuthorForm(instance=author)
+    # 5️⃣ Render the same template for both GET and invalid POST
+    return render(request, 'quotes/author_form.html', {'form': form})
 
 class AuthorDeleteView(generic.DeleteView):
     model = Author

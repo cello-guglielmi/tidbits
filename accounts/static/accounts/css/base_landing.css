@@ -1,0 +1,51 @@
+/* General reset & background */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+    overflow-y: hidden;
+}
+body {
+    display: grid;
+    grid-template-columns: 3fr 2fr auto 2fr;
+    grid-template-areas:". content-cell bg-cell .";
+    font-size: 1.1rem;
+    font-family: "Urbanist", sans-serif;
+    font-weight: 600;
+    line-height: 1.5;
+    height: 100vh;
+    background: rgba(0,0,0, 1);
+    color: #f5f5f5;
+}
+
+#content-cell {
+    grid-area: content-cell;
+    padding: 25vh 5em;
+    max-height: 100%;
+}
+
+#bg-cell {
+    grid-area: bg-cell;
+    position: relative;
+    overflow: hidden;
+}
+
+#bg-cell img {
+  display: block;    /* kill inline-gap */
+  height: 100vh;     /* fill your viewport-height cell */
+  width: auto;       /* preserve aspect ratio */
+  max-width: 100%;   /* never spill wider than the cell */
+}
+
+#bg-cell::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  pointer-events: none;
+  background: 
+    linear-gradient(to right, rgba(0,0,0,1), transparent 20%, transparent 80%, rgba(0,0,0,1));
+  /* tweak the colors and stops for softness and width */
+}
