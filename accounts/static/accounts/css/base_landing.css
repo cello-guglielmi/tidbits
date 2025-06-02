@@ -9,7 +9,7 @@ html {
 }
 body {
     display: grid;
-    grid-template-columns: 3fr 2fr auto 2fr;
+    grid-template-columns: 3fr 3fr auto 2fr;
     grid-template-areas:". content-cell bg-cell .";
     font-size: 1.1rem;
     font-family: "Urbanist", sans-serif;
@@ -22,7 +22,7 @@ body {
 
 #content-cell {
     grid-area: content-cell;
-    padding: 25vh 5em;
+    padding: 20vh 2em;
     max-height: 100%;
 }
 
