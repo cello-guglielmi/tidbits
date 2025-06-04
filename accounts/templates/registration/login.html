@@ -1,101 +1,48 @@
 {% extends "accounts/base_landing.html" %}
 
 {% block content %}
-  <h2>Log in</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div>
-      {{ form.username.label_tag }}
-      {{ form.username }}
-    </div>
-    <div>
-      {{ form.password.label_tag }}
-      {{ form.password }}
-    </div>
-    <button type="submit">Login</button>
-  </form>
-{% endblock %}
 
 <div class="landing-box">
+    
     <div class="header">
-        <div class="logo">Tidbits</div>
-        <h1>Log in</h1>
-        <!-- <p>It's quick and easy, just fill out the following information:</p> -->
+        <div class="logo">Tidbits<!-- <img src="img/icon.svg"> --></div>
+        <h1>Log into your account</h1>
+        <p>Enter your credentials to continue:</p>
     </div>
-    <form method="post">
+
+    <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
+        {{ form.non_field_errors }}
+        <!-- Username / Email Field -->
+        <div class="email-container">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            <input id="{{ form.username.id_for_label }}"
+                   name="{{ form.username.html_name }}"
+                   value="{{ form.username.value|default_if_none:'' }}"
+                   placeholder="example@gmail.com"
+                   class="account-input"
+                   type="email">
+            {{ form.username.errors }}
+        </div>
+        <!-- Password Field -->
+        <div class="password-container">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            <input id="{{ form.password.id_for_label }}"
+                   name="{{ form.password.html_name }}"
+                   placeholder="***********"
+                   class="account-input"
+                   type="password">
+            {{ form.password.errors }}
+        </div>
+        <!-- Submit Button -->
+        <div class="submit-button-wrapper">
+            <button type="submit" class="submit-button">Log In</button>
+        </div>
     </form>
-    <div class="email-container">
-        <h2><label for="{{ form.username.id_for_label }}">{{ form.username.label_tag }}</label></h2>
-        <input class="account-input" type="email" id="email" placeholder="john.doe@gmail.com">
-    </div>
-    <div class="password-container">
-        <h2>Password</h2>
-        <input class="account-input" type="password" id="password" placeholder="***********">
-    </div>
-    <div class="password-confirm-container">
-        <h2>Confirm Password</h2>
-        <input class="account-input" type="password" id="password-confirm" placeholder="***********">
-    </div>
-    <div class="submit-button-wrapper">
-        <button class="submit-button">Create Account</button>
-    </div>
+
     <div class="login-option-wrapper">
-        <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        <p>Don't have an account yet? <a href="{% url 'signup' %}">Sign up</a></p>
     </div>
 </div>
 
-
-
-
-
-
-
-
-<!-- //////////////////////
-{ % block content %}
-  <h2>Login</h2>
-  <form method="post" action="{% url 'login' %}">
-    { % csrf_token %}
-
-    <div class="form-group">
-      <label for="{{ form.username.id_for_label }}">Username</label>
-      <input
-        type="text"
-        name="{{ form.username.html_name }}"
-        value="{{ form.username.value|default_if_none:'' }}"
-        class="custom-input"
-        id="{{ form.username.id_for_label }}"
-      >
-      { % if form.username.errors %}
-        <div class="error">
-          {{ form.username.errors }}
-        </div>
-      { % endif %}
-    </div>
-
-    <div class="form-group">
-      <label for="{{ form.password.id_for_label }}">Password</label>
-      <input
-        type="password"
-        name="{{ form.password.html_name }}"
-        class="custom-input"
-        id="{{ form.password.id_for_label }}"
-      >
-      { % if form.password.errors %}
-        <div class="error">
-          {{ form.password.errors }}
-        </div>
-      { % endif %}
-    </div>
-
-    { % if form.non_field_errors %}
-      <div class="error">
-        {{ form.non_field_errors }}
-      </div>
-    { % endif %}
-
-    <button type="submit" class="btn">Log In</button>
-  </form>
-{ % endblock %} -->
+{% endblock %}

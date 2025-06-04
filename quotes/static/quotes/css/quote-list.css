@@ -12,7 +12,7 @@
 }
 #list-top-cell {
     grid-area: topCell;
-    background: url('/static/quotes/images/bg/ls6.png');
+    background: url('/static/images/bg/ls6.png');
     background-attachment: fixed;    /* keeps wallpaper fixed in viewport */
     background-position: center;    /* centers the image */
     background-repeat: no-repeat;   /* don't repeat the image */
