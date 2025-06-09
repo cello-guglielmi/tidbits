@@ -153,6 +153,17 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
+# Limiting access to logged-in users
+# https://docs.djangoproject.com/en/5.2/topics/auth/default/#limiting-access-to-logged-in-users
+# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-user-model
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'user_profile'
+LOGOUT_REDIRECT_URL = 'login'
+
+# Email Backend functionality setup
+# https://docs.djangoproject.com/en/5.2/topics/email/#topic-email-backends
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

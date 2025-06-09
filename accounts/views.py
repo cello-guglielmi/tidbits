@@ -1,29 +1,49 @@
-from django.contrib.auth.forms import UserCreationForm
-from .forms import EmailSignupForm
-from django.shortcuts import render, redirect
+from .forms import EmailSignupForm, NicknameForm
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your views here.
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect(settings.LOGIN_REDIRECT_URL)
     if request.method == 'POST':
         form = EmailSignupForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect(settings.LOGIN_URL)
     else:
         form = EmailSignupForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
-from django.template.response import TemplateResponse
-from django.contrib.auth.views import PasswordResetCompleteView
+'''
+class UserDetail(DetailView):
+    model = User
+    template_name = 'user_profile.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+'''
 
-class MyPasswordResetCompleteView(PasswordResetCompleteView):
-    template_name = 'registration/password_reset_complete.html'
+@login_required
+def userProfile(request):
+    return render(request, 'accounts/user_profile.html', {'user': request.user})
 
-    def get(self, request, *args, **kwargs):
-        response = TemplateResponse(
-            request,
-            self.template_name,
-            context=self.get_context_data()
-        )
-        print(f"Resolved template: {response.template_name}")  # Log the resolved template
-        return response
+@login_required
+def updateNickname(request):
+    user = request.user
+    if request.method == 'POST':
+        form = NicknameForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return render(request, 'accounts/components/nickname-view.html')
+        else:
+            return render(request, 'accounts/components/nickname-edit.html', {'form': form})
+    # elif request.method == 'GET':
+    edit_toggle = request.GET.get('edit')
+    if edit_toggle:
+        form = NicknameForm(instance=user)
+        return render(request, 'accounts/components/nickname-edit.html', {'form': form})
+    # elif not edit_toggle:
+    return render(request, 'accounts/components/nickname-view.html')

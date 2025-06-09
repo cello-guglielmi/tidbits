@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
+from django.core.validators import RegexValidator
 
 # Create your models here.
 
@@ -48,14 +49,21 @@ def random_username():
                 return usrname
         return uuid.uuid4().hex
     '''
-    noun = random.choice(NOUNS)
     adj = random.choice(ADJECTIVES)
+    noun = random.choice(NOUNS)
     suffix = uuid.uuid4().hex[:6]
-    return f'{noun}{adj}-{suffix}'
+    return f'{adj}{noun}-{suffix}'
+
+
+
+nickname_validator = RegexValidator(
+    regex=r'^[\w.\-]+$',
+    message="Nicknames may contain letters, numbers, '.', '-' and '_' only.",
+)
 
 class CustomUser(AbstractUser):
     username = models.CharField('Internal username', max_length=50, unique=True, default=random_username)
-    nickname = models.CharField('Display name', max_length=50, help_text="This is what's displayed on your profile!")
+    nickname = models.CharField('Display name', max_length=50, validators=[nickname_validator], help_text="This is what's displayed on your profile!")
     email = models.EmailField('Email address', unique=True)
 
     USERNAME_FIELD = 'email'

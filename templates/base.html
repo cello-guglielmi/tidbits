@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Quotes App</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/forms.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,9 +37,7 @@
                 <a href="#">Submit</a>
         </nav>
     </aside>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <section id="main">
-    </section>
+    <main id="content">{% block content %}{% endblock %}</main>
 </body>
 </html>
 

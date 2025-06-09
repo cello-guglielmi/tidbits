@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'accounts/css/user-profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="left-panels">
+    <div class="content-panel" id="profile-details">
+        <section class="left-panels" style="gap: 0;">
+            <div class="header">
+                <h1>Welcome back, <span id='nickname-inline'>{% include "accounts/components/nickname-view.html" %}</span></h1>
+            </div>
+            <h2>Profile Details</h2>
+            <div class="info-box">
+                <p class="info-label">ID</p>
+                <p class="info-field">{{ user.username }}</p>
+            </div>
+            <div class="info-box">
+                <p class="info-label">Email</p>
+                <p class="info-field">{{ user.email }}</p>
+            </div>
+        </section>
+        <section class="right-panels" style="gap: 0; align-items: flex-end; color: #E11D487f;">
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn"><h1>Log out</h1></button>
+            </form>
+        </section>
+    </div>
+    <div class="content-panel" id="user-submissions">
+        <div class="header">
+            <h2>Your submissions</h2>
+        </div>
+    </div>
+</section>
+
+<section class="right-panels">
+    <div class="content-panel" id="change-password">
+        <div class="header">
+            <h2>Change password</h2>
+        </div>
+        <div class="info-box">
+            <p class="info-label">Use this option to alter your password. You must provide your current password in order to alter it.</p>
+        </div>
+        <div class="button-box">
+            <a href="{% url 'password_change' %}" class="button-style">Change Password</a>
+        </div>
+    </div>
+
+    <div class="content-panel" id="close-account">
+        <div class="header">
+            <h2>Close account</h2>
+        </div>
+        <div class="info-box">
+            <p class="info-label">You can permanently terminate your account should you wish. Your password is required for this process.</p>
+        </div>
+        <div class="button-box">
+            <a href="{% url 'password_change' %}" class="button-style" id="delete-acc">Close Account</a>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

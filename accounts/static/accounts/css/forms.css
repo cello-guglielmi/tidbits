@@ -20,11 +20,9 @@
   margin-top: 1.5em;
 }
 
-/* Global Reset */
-
 /* Main Container */
 .landing-box {
-    background-color: #ffffff93;
+    background-color: #ffffff97;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -35,8 +33,8 @@
 
 p {
     margin-top: 0.5rem;
-    color: #666;
-    font-size: 0.95rem;
+    color: #555;
+    font-size: 1.1rem;
 }
 
 a {
@@ -52,6 +50,18 @@ a:hover {
 .login-option-wrapper {
     margin-top: 1rem;
     text-align: center;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.forgot-pw-link {
+    color: #666;
+    font-size: smaller;
+    text-align: end;
 }
 
 /* Header */
@@ -87,7 +97,7 @@ a:hover {
 
 form label {
     font-size: 1rem;
-    margin-bottom: 0.5rem;
+    margin-right: 1rem;
     color: #444;
 }
 
@@ -112,16 +122,17 @@ form label {
 }
 
 .submit-button {
-    background-color: #e36883;
+    background-color: #e9869c;
     color: #fff;
     border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.5em 1.5em;
+    font: inherit;
+    font-size: 1em;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
 .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #e36883;
 }

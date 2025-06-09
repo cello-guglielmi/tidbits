@@ -26,7 +26,10 @@
         </div>
         <!-- Password Field -->
         <div class="password-container">
-            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            <div class="label-row">
+                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                <a class="forgot-pw-link" href="{% url 'password_reset' %}">(Forgot your password?)</a>
+            </div>
             <input id="{{ form.password.id_for_label }}"
                    name="{{ form.password.html_name }}"
                    placeholder="***********"
@@ -34,6 +37,7 @@
                    type="password">
             {{ form.password.errors }}
         </div>
+
         <!-- Submit Button -->
         <div class="submit-button-wrapper">
             <button type="submit" class="submit-button">Log In</button>
