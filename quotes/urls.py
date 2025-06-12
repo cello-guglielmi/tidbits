@@ -13,7 +13,8 @@ urlpatterns = [
     path('author/add/', views.AuthorCreateView.as_view(), name='author-add'),
     path('author/<int:pk>/update', views.AuthorUpdateViewFunc, name='author-update'),
     path('author/<int:pk>/delete', views.AuthorDeleteView.as_view(), name='author-delete'),
-    path('quote/add/', views.QuoteCreateView.as_view(), name='quote-add'),
+    path('submission/', views.submitQuote, name='submit_quote'),
+    path('submission_success', views.submitQuote, name='submit_success'),
     path('quote/<int:pk>/update', views.QuoteUpdateView.as_view(), name='quote-update'),
     path('quote/<int:pk>/delete', views.QuoteDeleteView.as_view(), name='quote-delete'),
 ]

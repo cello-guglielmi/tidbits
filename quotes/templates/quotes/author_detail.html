@@ -13,14 +13,14 @@
 <section class="author-container">
     <!-- Header row with name and nationality -->
     <div class="author-header">
-        <h1 class="author-name">{{ author.full_name }}</h1>
+        <h1 class="author-name">{{ author.name }}</h1>
         <h1 class="author-country">{{ author.nationality }} 🇺🇸</h1>
     </div>
     <!-- Content area with portrait and quotes -->
     <div class="author-body">
         <!-- Author portrait -->
         <div class="portrait-box">
-            <img src='/static/quotes/images/portrait/{{ author.full_name|slugify }}.jpg' alt="{{ author.full_name }}" width="275" height="450">
+            <img src='/static/quotes/images/portrait/{{ author.name|slugify }}.jpg' alt="{{ author.name }}" width="275" height="450">
         </div>
         <!-- Quote list -->
         <div id="list-container" data-batchsize="2"

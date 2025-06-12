@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
-from .models import Quote, Author
-from .forms import AuthorForm
+from .models import Quote, Author, QuoteSubmission
+from .forms import AuthorForm, QuoteSubmissionForm
 import random, datetime
 from django.views import generic
 
 # Create your views here.
+
+def homepage(request):
+    return render(request, 'homepage.html', {'user': request.user})
 
 def daily_page(request):
     def get_daily_seed(today):
@@ -34,12 +37,6 @@ def daily_page(request):
     context['year'] = today.strftime('%Y')
     template = 'quotes/daily_page.html'
     return render(request, template, context)
-
-def homepage(request):
-    return render(request, 'homepage.html', {'user': request.user})
-
-class AuthorDetail(generic.DetailView):
-    model = Author
 
 def quoteListView(request):
     trigger = request.headers.get('hx-trigger')
@@ -82,14 +79,61 @@ def quoteListView(request):
     else:
         # For pagination requests and searches, return just the quote items as HTML fragments
         return render(request, 'quotes/components/quote_list/component_updater.html', context)
+    
+class QuoteDetailPartial(generic.DetailView):
+    model = Quote
+    template_name = 'quotes/components/quote_detail/quote_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["show_author"] = self.request.GET.get('show_author') == '1'
+        return context
+    
+class AuthorDetail(generic.DetailView):
+    model = Author
 
+
+class BrowseList(generic.ListView):
+    model = Quote
+    template_name = 'quotes/browse_list.html' # Default is <app name>/<model name>_list.html ('polls/question_list.html')
+    context_object_name = 'browse_quote_list'
+
+# /////////////
+
+""" class QuoteSubmissionCreateView(LoginRequiredMixin, generic.CreateView):
+    model = QuoteSubmission
+    form_class = QuoteSubmissionForm
+    template_name = 'quotes/submit_quote.html'
+    success_url = '/thanks/'
+
+    def form_valid(self, form):
+        form.instance.submitted_by = self.request.user
+        return super().form_valid(form) """
+
+def submitQuote(request):
+    if request.method == 'POST':
+        form = QuoteSubmissionForm(request.POST)
+        if form.is_valid():
+            # instance = form.save(commit=False)
+            # instance.submitted_by = request.user
+            # instance.save()
+            form.save(request.user)
+            return redirect('quotes:submission_success')
+    else:
+        form = QuoteSubmissionForm()
+    authorList = Author.objects.all().order_by('name')
+    return render(request, 'quotes/submit_quote.html', {'form': form, 'authors': authorList})
+
+
+
+
+# /////////////
 
 class AuthorListView(generic.ListView):
     model = Author
 
 class AuthorCreateView(generic.CreateView):
     # model = Author
-    # fields = ["full_name"]
+    # fields = ["name"]
     form_class = AuthorForm
     template_name = 'quotes/author_form.html'
     success_url = reverse_lazy('browse')
@@ -113,14 +157,6 @@ def AuthorUpdateViewFunc(request, pk):
 class AuthorDeleteView(generic.DeleteView):
     model = Author
     success_url = reverse_lazy("author-list")
-
-class QuoteDetailPartial(generic.DetailView):
-    model = Quote
-    template_name = 'quotes/components/quote_detail/quote_detail.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["show_author"] = self.request.GET.get('show_author') == '1'
-        return context
     
 
 class QuoteCreateView(generic.CreateView):
@@ -136,9 +172,5 @@ class QuoteDeleteView(generic.DeleteView):
     success_url = reverse_lazy("quote-list")
 
 
-class BrowseList(generic.ListView):
-    model = Quote
-    template_name = 'quotes/browse_list.html' # Default is <app name>/<model name>_list.html ('polls/question_list.html')
-    context_object_name = 'browse_quote_list'
 
 

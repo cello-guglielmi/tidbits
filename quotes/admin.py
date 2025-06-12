@@ -12,12 +12,12 @@ class QuoteAdmin(admin.ModelAdmin):
         return obj.author.get_nationality_display()
     
     list_filter = ['author__nationality']
-    search_fields = ['sentence', 'author__full_name']
+    search_fields = ['sentence', 'author__name']
         
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'nationality', 'id']
-    search_fields = ['full_name']
+    list_display = ['name', 'nationality', 'id']
+    search_fields = ['name']
     list_filter = ['nationality']
 
 admin.site.register(Quote, QuoteAdmin)

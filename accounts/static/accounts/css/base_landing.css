@@ -4,9 +4,11 @@
   margin: 0;
   padding: 0;
 }
+
 html {
     overflow-y: hidden;
 }
+
 body {
     display: grid;
     grid-template-columns: 3fr 3fr auto 2fr;
@@ -33,10 +35,10 @@ body {
 }
 
 #bg-cell img {
-  display: block;    /* kill inline-gap */
-  height: 100vh;     /* fill your viewport-height cell */
-  width: auto;       /* preserve aspect ratio */
-  max-width: 100%;   /* never spill wider than the cell */
+  display: block;
+  height: 100vh;
+  width: auto;
+  min-width: 100%;
 }
 
 #bg-cell::before {

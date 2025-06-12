@@ -1,0 +1,158 @@
+/* Called in base.html and accounts/base_landing.html */
+
+/* === Technical Elements === */
+.hidden { display: none; }
+a { all: unset; cursor: pointer; color: #333; text-decoration: inherit; }
+a:hover { text-decoration: underline solid; }
+.logo { color: #fff }
+.logo img { width: 40px; height: 40px; margin-bottom: 1rem; }
+
+h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+h2 { font-size: 1.75rem; }
+
+
+/* === Structural Elements === */
+
+.header { margin-bottom: 0.7rem ;}
+.header-center { text-align: center; }
+
+.content-panel {
+    background-color: #f5f5f5;
+    padding: 2rem;
+    font-size: 1.2rem;
+    border: 6px solid rgba(0,0,0,0.05);
+    border-radius: 1em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    color: #333;
+}
+
+.outter-content-panel {
+    background-color: #999;
+    width: 400px;
+}
+
+.info-box {
+    margin: 0.25em;
+}
+
+.field-box {
+    margin: 0.5em;
+    line-height: 1.5rem;
+}
+
+.field-row {
+  margin-bottom: 1rem;
+}
+
+.field-wrapper {
+    margin-bottom: 0.25em;
+    font-size: 1rem;
+}
+
+.field-label-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.login-option-wrapper {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.button-box {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* === Individual Elements === */
+.field-wrapper label {
+    display: block;
+}
+
+.field-wrapper input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.2s ease;
+}
+
+.field-wrapper input:focus {
+    border-color: #e9869c;
+    outline: none;
+}
+
+.info-text {
+    color: #666;
+    font-size: 1.25rem;
+}
+
+.info-field {
+    padding: 5px;
+    width: 20ch;
+    background-color: #ddd;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    margin: 0.4rem 0;
+}
+
+.forgot-pw-link {
+    color: #666;
+    text-align: end;
+}
+
+.help-text, .errorlist {
+    font-size: smaller;
+    margin-left: 1.5rem;
+    color: #999;
+}
+
+.help-text {
+    line-height: 1.5rem;
+}
+
+.errorlist {
+    color: crimson;
+}
+
+/* === Re-style an <a> link as a button element. === */
+.button-style {
+  background-color: #e9869c; /* #db3d60; */
+  color: #f5f5f5;
+  display: inline-block;
+  /* width: 20ch; */
+  font: inherit;
+  font-size: 1.5rem;
+  padding: 0.3em 1em;
+  border: none;
+  border-radius: 0.25em;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: 0.2s ease;
+}
+.button-style .lucide {
+    color: #f5f5f5;
+    margin: 4px 0px 0px 4px
+}
+.button-style:hover { text-decoration: none; background-color: #e36883; /*#d7274e;*/ }
+.button-style:active { box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4); background-color: #E11D48;}
+.button-style-deactive { background-color: #f5f5f5; }
+/* Inverted colors */
+.button-inverted-colors {
+    background-color: #f5f5f5; /* #db3d60; */
+    color: #E11D487f;
+}
+.button-inverted-colors:hover { background-color: #ddd; /*#d7274e;*/ }
+
+/* === Re-style a <button> as a link element. === */
+.link-style {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.link-style:hover { text-decoration: underline; color: #e36883; }

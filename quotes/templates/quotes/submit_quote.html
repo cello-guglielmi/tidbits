@@ -1,2 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block content %}
+
+<div class="content-panel">
+    <h1>Submit a Quote</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>.</p>
+        <div class="field-box">
+
+            <div class="field-row">
+                <div class="field-wrapper">
+                    <label for="{{ form.author_name.id_for_label }}">{{ form.author_name.label }}</label>
+                    <input id="{{ form.author_name.id_for_label }}"
+                        name="{{ form.author_name.html_name }}"
+                        value="{{ form.initial.author_name.value|default:'' }}"
+                        list="authors_list"
+                        autocomplete="off"
+                        placeholder="Enter an author's name..."
+                        class="account-input">
+                    <datalist id="authors_list">
+                        {% for author in authors %}
+                            <option value="{{ author.name }}">
+                        {% endfor %}
+                    </datalist>
+                </div>
+                {{ form.author_name.errors }}
+                <div class="help-text">{{form.author_name.help_text|safe }}</div>
+            </div>
+
+            <div class="field-row">
+                <div class="field-wrapper">
+                    <p>{{ form.sentence.label_tag }}</p>
+                    <p>{{ form.sentence }}</p>
+                </div>
+                {{ form.sentence.errors }}
+            </div>
+
+        </div>
+        <div class="button-box">
+            <button type="submit" class="button-style">Submit for Review</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

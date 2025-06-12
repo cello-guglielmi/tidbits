@@ -1,51 +1,55 @@
-{% extends "accounts/base_landing.html" %}
+{% extends "accounts/outter_base.html" %}
 
 {% block content %}
 
-<div class="landing-box">
+<div class="content-panel outter-content-panel">
     
-    <div class="header">
+    <div class="header header-center">
         <div class="logo">Tidbits<!-- <img src="img/icon.svg"> --></div>
         <h1>Log into your account</h1>
-        <p>Enter your credentials to continue:</p>
+        <p class="info-text">Enter your credentials.</p>
     </div>
 
     <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <!-- Username / Email Field -->
-        <div class="email-container">
-            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-            <input id="{{ form.username.id_for_label }}"
-                   name="{{ form.username.html_name }}"
-                   value="{{ form.username.value|default_if_none:'' }}"
-                   placeholder="example@gmail.com"
-                   class="account-input"
-                   type="email">
+        <div class="field-row">
+            <div class="field-wrapper">
+                <label class="field-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                <input class="field-input" id="{{ form.username.id_for_label }}"
+                    name="{{ form.username.html_name }}"
+                    value="{{ form.username.value|default_if_none:'' }}"
+                    placeholder="example@gmail.com"
+                    class="account-input"
+                    type="email">
+            </div>
             {{ form.username.errors }}
         </div>
         <!-- Password Field -->
-        <div class="password-container">
-            <div class="label-row">
-                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-                <a class="forgot-pw-link" href="{% url 'password_reset' %}">(Forgot your password?)</a>
+        <div class="field-row">
+            <div class="field-wrapper">
+                <div class="field-label-wrapper">
+                    <label class="field-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                    <a class="forgot-pw-link" href="{% url 'password_reset' %}">(Forgot your password?)</a>
+                </div>
+                <input class="field-input" id="{{ form.password.id_for_label }}"
+                    name="{{ form.password.html_name }}"
+                    placeholder="***********"
+                    class="account-input"
+                    type="password">
             </div>
-            <input id="{{ form.password.id_for_label }}"
-                   name="{{ form.password.html_name }}"
-                   placeholder="***********"
-                   class="account-input"
-                   type="password">
             {{ form.password.errors }}
         </div>
 
         <!-- Submit Button -->
-        <div class="submit-button-wrapper">
-            <button type="submit" class="submit-button">Log In</button>
+        <div class="button-box">
+            <button type="submit" class="button-style">Log In</button>
         </div>
     </form>
 
     <div class="login-option-wrapper">
-        <p>Don't have an account yet? <a href="{% url 'signup' %}">Sign up</a></p>
+        <p class="info-text">Don't have an account yet? <a href="{% url 'signup' %}">Sign up</a></p>
     </div>
 </div>
 
