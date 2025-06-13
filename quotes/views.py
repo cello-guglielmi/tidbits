@@ -117,13 +117,14 @@ def submitQuote(request):
             # instance.submitted_by = request.user
             # instance.save()
             form.save(request.user)
-            return redirect('quotes:submission_success')
+            return redirect('quotes:submit_success')
     else:
         form = QuoteSubmissionForm()
     authorList = Author.objects.all().order_by('name')
     return render(request, 'quotes/submit_quote.html', {'form': form, 'authors': authorList})
 
-
+def submitQuoteSuccess(request):
+    return render(request, 'quotes/submit_success.html')
 
 
 # /////////////

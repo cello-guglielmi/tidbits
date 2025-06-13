@@ -18,7 +18,7 @@ h2 { font-size: 1.75rem; }
 
 .content-panel {
     background-color: #f5f5f5;
-    padding: 2rem;
+    padding: 1.25rem 2rem;
     font-size: 1.2rem;
     border: 6px solid rgba(0,0,0,0.05);
     border-radius: 1em;
@@ -27,9 +27,19 @@ h2 { font-size: 1.75rem; }
     color: #333;
 }
 
-.outter-content-panel {
+.content-panel--outter {
     background-color: #999;
-    width: 400px;
+    min-width: 40ch;
+    max-width: 40ch;
+}
+
+.content-panel--wide {
+    min-width: 70ch;
+}
+
+.content-panel--narrow {
+    min-width: 40ch;
+    max-width: 40ch;
 }
 
 .info-box {
@@ -71,7 +81,7 @@ h2 { font-size: 1.75rem; }
     display: block;
 }
 
-.field-wrapper input {
+.field-wrapper input, .field-wrapper textarea, .field-wrapper select {
     width: 100%;
     padding: 0.6rem 0.8rem;
     border: 3px solid #ccc;
@@ -79,9 +89,19 @@ h2 { font-size: 1.75rem; }
     transition: border 0.2s ease;
 }
 
-.field-wrapper input:focus {
+.field-wrapper select {
+    width: 20ch;
+}
+
+.field-wrapper input:focus, .field-wrapper textarea:focus, .field-wrapper select:focus {
     border-color: #e9869c;
     outline: none;
+}
+
+.field-wrapper textarea, .field-wrapper select {
+    font-size: inherit;
+    font-family: inherit;
+    resize: none;
 }
 
 .info-text {
@@ -105,7 +125,7 @@ h2 { font-size: 1.75rem; }
 
 .help-text, .errorlist {
     font-size: smaller;
-    margin-left: 1.5rem;
+    margin-left: 0.5rem;
     color: #999;
 }
 

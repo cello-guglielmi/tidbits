@@ -3,11 +3,15 @@
 
 {% block content %}
 
-<div class="content-panel">
-    <h1>Submit a Quote</h1>
+<div class="content-panel content-panel--wide">
+    <div class="header">
+        <h1>Submit a quote</h1>
+        <p class="info-text">Fill out the form to submit a quote for review!</p>
+    </div>
+
     <form method="post">
         {% csrf_token %}
-        <p>.</p>
+        <p class="info-text">
         <div class="field-box">
 
             <div class="field-row">
@@ -19,7 +23,8 @@
                         list="authors_list"
                         autocomplete="off"
                         placeholder="Enter an author's name..."
-                        class="account-input">
+                        class="account-input"
+                        style="font-family: inherit; font-size: inherit;">
                     <datalist id="authors_list">
                         {% for author in authors %}
                             <option value="{{ author.name }}">
@@ -32,10 +37,18 @@
 
             <div class="field-row">
                 <div class="field-wrapper">
-                    <p>{{ form.sentence.label_tag }}</p>
-                    <p>{{ form.sentence }}</p>
+                    {{ form.sentence.label_tag }}
+                    {{ form.sentence.as_widget }}
                 </div>
                 {{ form.sentence.errors }}
+            </div>
+
+            <div class="field-row">
+                <div class="field-wrapper">
+                    {{ form.mood.label_tag }}
+                    {{ form.mood.as_widget }}
+                </div>
+                {{ form.mood.errors }}
             </div>
 
         </div>

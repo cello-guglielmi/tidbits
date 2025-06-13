@@ -2,9 +2,9 @@ from django.urls import path
 from django.contrib import admin
 from quotes import views
 
+app_name = 'quotes'
+
 urlpatterns = [
-    #
-    #
     path('daily/', views.daily_page, name='daily_page'),
 	path('author/<int:pk>/', views.AuthorDetail.as_view(), name='author_detail'),
     path('<int:pk>/', views.QuoteDetailPartial.as_view(), name='quote_detail'),
@@ -13,8 +13,8 @@ urlpatterns = [
     path('author/add/', views.AuthorCreateView.as_view(), name='author-add'),
     path('author/<int:pk>/update', views.AuthorUpdateViewFunc, name='author-update'),
     path('author/<int:pk>/delete', views.AuthorDeleteView.as_view(), name='author-delete'),
-    path('submission/', views.submitQuote, name='submit_quote'),
-    path('submission_success', views.submitQuote, name='submit_success'),
+    path('submit/', views.submitQuote, name='submit_quote'),
+    path('submit/success', views.submitQuoteSuccess, name='submit_success'),
     path('quote/<int:pk>/update', views.QuoteUpdateView.as_view(), name='quote-update'),
     path('quote/<int:pk>/delete', views.QuoteDeleteView.as_view(), name='quote-delete'),
 ]

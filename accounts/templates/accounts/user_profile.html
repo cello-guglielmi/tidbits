@@ -8,7 +8,7 @@
 {% block content %}
 
 <section class="left-panels">
-    <div class="content-panel" id="profile-details">
+    <div class="content-panel content-panel--wide" id="profile-details">
         <section class="left-panels" style="gap: 0;">
             <div class="header">
                 <h1>Welcome back, <span id='nickname-inline'>{% include "accounts/components/nickname-view.html" %}</span></h1>
@@ -29,7 +29,7 @@
             </form>
         </section>
     </div>
-    <div class="content-panel" id="user-submissions">
+    <div class="content-panel content-panel--wide" id="user-submissions">
         <div class="header">
             <h2>Your submissions</h2>
         </div>
@@ -37,7 +37,7 @@
 </section>
 
 <section class="right-panels">
-    <div class="content-panel" id="change-password">
+    <div class="content-panel content-panel--narrow" id="change-password">
         <div class="header header-center">
             <h2>Change password</h2>
         </div>
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="content-panel" id="close-account">
+    <div class="content-panel content-panel--narrow" id="close-account">
         <div class="header header-center">
             <h2>Close account</h2>
         </div>
