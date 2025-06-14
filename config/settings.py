@@ -36,6 +36,7 @@ TESTING = "test" in sys.argv
 # Application definition
 
 INSTALLED_APPS = [
+    'django_cleanup',
     'quotes.apps.QuotesConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
@@ -143,6 +144,12 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# Media files (user uploads)
+# https://docs.djangoproject.com/en/5.2/ref/settings/#std-setting-MEDIA_ROOT
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

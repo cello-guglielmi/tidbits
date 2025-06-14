@@ -1,5 +1,4 @@
 from django.urls import path
-from django.contrib import admin
 from quotes import views
 
 app_name = 'quotes'
