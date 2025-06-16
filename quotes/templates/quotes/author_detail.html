@@ -24,7 +24,7 @@
         </div>
         <!-- Quote list -->
         <div id="list-container" data-batchsize="2"
-            hx-get="{% url 'quote_list' %}"
+            hx-get="{% url 'quotes:quote_list' %}"
             hx-vals='{"author": "{{ author.id }}", "batchsize": "2"}'
             hx-trigger="load">
         </div>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Quotes App</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'accounts/css/form-layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form-layout.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,5 +39,12 @@
     </aside>
     <main id="content">{% block content %}{% endblock %}</main>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    lucide.createIcons();
+  });
+  document.body.addEventListener("htmx:afterSwap", (evt) => {
+    lucide.createIcons()
+  });
+</script>
 </html>
-

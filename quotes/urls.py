@@ -9,13 +9,9 @@ urlpatterns = [
     path('<int:pk>/', views.QuoteDetailPartial.as_view(), name='quote_detail'),
     path('browse/', views.BrowseList.as_view(), name='browse'),
     path('list/', views.quoteListView, name='quote_list'),
-    path('author/add/', views.AuthorCreateView.as_view(), name='author-add'),
-    path('author/<int:pk>/update', views.AuthorUpdateViewFunc, name='author-update'),
-    path('author/<int:pk>/delete', views.AuthorDeleteView.as_view(), name='author-delete'),
     path('submit/', views.submitQuote, name='submit_quote'),
     path('submit/success', views.submitQuoteSuccess, name='submit_success'),
-    path('quote/<int:pk>/update', views.QuoteUpdateView.as_view(), name='quote-update'),
-    path('quote/<int:pk>/delete', views.QuoteDeleteView.as_view(), name='quote-delete'),
+    path('like/<int:quote_id>', views.toggle_like, name='toggle_like')
 ]
 
 '''

@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from .models import Quote, Author, QuoteSubmission
 from .forms import AuthorForm, QuoteSubmissionForm
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 import random, datetime
 from django.views import generic
 
@@ -125,6 +127,24 @@ def submitQuote(request):
 
 def submitQuoteSuccess(request):
     return render(request, 'quotes/submit_success.html')
+
+
+@login_required
+@require_POST
+def toggle_like(request, quote_id):
+    quote = get_object_or_404(Quote, pk=quote_id)
+
+    if request.user in quote.likes.all():
+        quote.likes.remove(request.user)
+        liked = False
+    else:
+        quote.likes.add(request.user)
+        liked = True
+    
+    # if request.htmx:
+    return render(request, 'quotes/components/quote_detail/like_button.html', {'quote': quote, 'liked': liked})
+    
+    # return redirect('quote_detail', pk=quote_id)
 
 
 # /////////////

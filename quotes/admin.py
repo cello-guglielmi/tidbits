@@ -10,8 +10,8 @@ from django.db import transaction
 
 @admin.register(models.Quote)
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'created_at', 'updated_at', 'likes', 'mood', 'author']
-    list_editable = ['mood', 'likes']
+    list_display = ['__str__', 'created_at', 'updated_at', 'mood', 'author'] # 'likes']
+    list_editable = ['mood',] # 'likes']
     list_filter = ['mood']
     search_fields = ['sentence', 'author__name']
 

@@ -1,5 +1,5 @@
 <button id="show-more-button" class="show-more-button" data-action="loadmore"
-        hx-get="{% url 'quote_list' %}"
+        hx-get="{% url 'quotes:quote_list' %}"
         hx-target="#quote-list"
         hx-swap="beforeend"
         hx-vals='{"author": "{{ listAuthor }}", "page": "{{ nextPage }}"}'

@@ -17,4 +17,16 @@
     <script>lucide.createIcons();</script>
     {% include 'quotes/components/quote_detail/share_modal.html' %}
 </div>
-
+<script>
+  function updateStickyOffset() {
+    const navbar = document.getElementById('topbar-nav');
+    const navHeight = navbar ? navbar.offsetHeight : 0;
+    document.querySelectorAll("#list-top-cell").forEach(ele => {
+      const docY = ele.getBoundingClientRect().top - navHeight;
+      ele.style.setProperty("--sticky-offset", docY + "px");
+    });
+  }
+  window.addEventListener("DOMContentLoaded",  updateStickyOffset);
+  window.addEventListener("resize", updateStickyOffset);
+  updateStickyOffset();
+</script>

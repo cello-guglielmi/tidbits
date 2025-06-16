@@ -1,15 +1,24 @@
 /* Merienda, Manrope, Onset, Plus Jakarta Sans, Space Grotesk, Urbanist */
 
-#browse-titlehead {
+body {
+    background: url('/static/images/bg/ls6.png');
+    background-attachment: fixed;    /* keeps wallpaper fixed in viewport */
+    background-position: center;    /* centers the image */
+    background-repeat: no-repeat;   /* don't repeat the image */
+    background-size: cover;  
+}
+
+main {
+    flex-direction: column;
+    padding: 0px;
+    gap: 0;
+}
+
+#header {
     position: sticky;
     top: 0;
-    padding: 1em 0;
-    display: flex;
-    align-items: center;
-    font-family: 'Merienda';
-    font-size: 3em;
-    color: #333;
-    text-shadow: 3px 3px 2px rgba(255, 255, 255, 0.8);
+    width: 100%;
+    padding: 80px 0 48px 0;
     z-index: 10;
     background: url('/static/images/bg/ls6.png');
     background-attachment: fixed;    /* keeps wallpaper fixed in viewport */
@@ -17,6 +26,15 @@
     background-repeat: no-repeat;   /* don't repeat the image */
     background-size: cover;
     pointer-events: none;
+}
+
+#browse-titlehead {
+    display: flex;
+    align-items: center;
+    font-family: 'Merienda';
+    font-size: 3rem;
+    color: #333;
+    text-shadow: 3px 3px 2px rgba(255, 255, 255, 0.8);
 }
 
 #browse-titlehead::before,
