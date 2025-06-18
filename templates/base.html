@@ -46,5 +46,16 @@
   document.body.addEventListener("htmx:afterSwap", (evt) => {
     lucide.createIcons()
   });
+
+
+  function updateStickyOffset() {
+    const header = document.getElementById("header");
+    const offset = header ? header.offsetHeight : 0;
+    document.documentElement.style.setProperty("--header-offset", `${offset}px`);
+  }
+  window.addEventListener("DOMContentLoaded",  updateStickyOffset);
+  window.addEventListener("resize", updateStickyOffset);
+  updateStickyOffset();
+
 </script>
 </html>

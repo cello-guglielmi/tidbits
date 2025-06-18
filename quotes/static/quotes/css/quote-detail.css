@@ -76,20 +76,23 @@
 
 .footer-icon {
     color: #333;
-    height: 1.5rem;
-    width: 1.5rem;
-    transition: fill 0.25s ease;
+    height: 1.75rem;
+    width: 1.75rem;
 }
 
-.filled-icon{
+.filled-icon-red{
     fill: #E11D48;
+}
+
+.filled-icon-yellow{
+    fill: gold;
 }
 
 .empty-icon {
     fill: #f5f5f5
 }
 
-.likes-wrapper {
+.footer-btn-wrapper {
     display: flex;
     align-items: flex-end;
 }

@@ -4,31 +4,32 @@ h1 {
     margin-bottom: 0px;
 }
 
-#list-container {
+#header {
+    margin-right: -5px;
+    padding-right: 5px;
+}
+
+
+#list-container  {
+    display: grid;
     width: 100%;
 }
 
-.quote-list-box {
-    display: grid;
-    grid-template-columns: 3fr 7fr 3fr 3fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:". topCell . ."
-                        ". centerCell rightCell .";
-}
 #list-top-cell {
     grid-area: topCell;
-    background: url('/static/images/bg/ls6.png');
-    background-attachment: fixed;    /* keeps wallpaper fixed in viewport */
-    background-position: center;    /* centers the image */
-    background-repeat: no-repeat;   /* don't repeat the image */
+    background: var(--bg-image);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
     position: sticky;
     margin-right: -5px;
     padding-right: 5px;
-    top: var(--sticky-offset, 0);
+    top: var(--header-offset, 0);
     height: 40px;
     z-index: 99;
 }
+
 /* pseudo-element for border */
 #list-top-cell::after {
   content: "";
@@ -46,7 +47,7 @@ h1 {
 #list-right-cell {
     grid-area: rightCell;
     position: sticky;
-    top: 240px; /* 185px titlehead + 40px top cell (distance from #content top) */
+    top: calc(var(--header-offset, 0) + 40px);
     height: 500px;
     z-index: 9999;
 }
@@ -204,8 +205,7 @@ h1 {
 /* || side panel */
 #side-panel {
     width: 105px;
-    min-width: 105px;
-    margin-top: 4em;
+    margin-top: 3rem;
     margin-left: -2px;
     display: flex;
     flex-direction: column;

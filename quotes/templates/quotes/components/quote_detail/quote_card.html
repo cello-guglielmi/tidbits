@@ -11,10 +11,10 @@
         </div>
         <div class="icon-box">
             <!-- <span>likes: {{quote.likes}}</span> -->
-             {% include 'quotes/components/quote_detail/like_button.html' %}
+            {% include 'quotes/components/quote_detail/like_button.html' %}
             <button class="footer-btn" data-func="copy"><i class="footer-icon" data-lucide="clipboard-copy"></i></button>
             <!-- <button class="footer-btn" data-func="like"><i class="icon" data-lucide="heart"></i></button> -->
-            <button class="footer-btn" data-func="fave"><i class="footer-icon" data-lucide="star"></i></button>
+            {% include 'quotes/components/quote_detail/favorite_button.html' %}
             <button class="footer-btn" data-func="share"><i class="footer-icon" data-lucide="share"></i></button>
         </div>
     </section>

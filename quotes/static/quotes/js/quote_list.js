@@ -8,11 +8,11 @@ export function initQuoteList() {
     const sort_val_Node = document.querySelector('input[name="sort_value"]');
     const sort_dir_Node = document.querySelector('input[name="sort_dir"]');
     const page_count_Node = document.querySelector('input[name="page_count"]');
-    console.log('PC VALUE::::', page_count_Node.value)
+    // console.log('PC VALUE::::', page_count_Node.value)
     const batchSize = parseInt(document.getElementById('list-container').dataset.batchsize);
-    console.log('BATCH SIZE::::', batchSize)
+    // console.log('BATCH SIZE::::', batchSize)
     page_count_Node.value = batchSize;
-    console.log('NOW PC VALUE::::', page_count_Node.value)
+    // console.log('NOW PC VALUE::::', page_count_Node.value)
 
     // Using pointerdown to beat HTMX to value collection
     // HTMX collects inputs before click listeners run, so we need to mutate state earlier
@@ -50,10 +50,10 @@ export function initQuoteList() {
                 break;
             case 'loadmore':
                 const currentCount = parseInt(page_count_Node.value) || 0;
-                console.log('currentCount:', currentCount, 'batchSize:', batchSize);
-                console.log(currentCount, '+', batchSize, '=', currentCount + batchSize);
+                // console.log('currentCount:', currentCount, 'batchSize:', batchSize);
+                // console.log(currentCount, '+', batchSize, '=', currentCount + batchSize);
                 page_count_Node.value = currentCount + batchSize;
-                console.log(page_count_Node.value)
+                // console.log(page_count_Node.value)
                 break;
         }
     });

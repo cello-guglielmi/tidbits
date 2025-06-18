@@ -3,13 +3,13 @@
     hx-target="this"
     hx-swap="outerHTML"
     method="POST"
-    class="likes-wrapper"
+    class="footer-btn-wrapper"
     >
     {% csrf_token %}
     <span class="likes-counter"> {{ quote.likes.count }}</span>
     <button class="footer-btn" data-func="like" type="submit">
         {% if user in quote.likes.all %}
-            <i class="footer-icon filled-icon" data-lucide="heart"></i> 
+            <i class="footer-icon filled-icon-red" data-lucide="heart"></i> 
         {% else %}
             <i class="footer-icon empty-icon" data-lucide="heart"></i> 
         {% endif %}

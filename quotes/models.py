@@ -38,6 +38,7 @@ class Quote(models.Model):
     sentence = models.TextField(max_length=300)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_quotes', blank=True)
+    favorites = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='favorite_quotes', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     submitted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)

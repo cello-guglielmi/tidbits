@@ -14,9 +14,13 @@
     <div id="header">
         <h1 id="browse-titlehead" class="fancy-title"><span>Browse All Quotes</span></h1>
     </div>
-    <div id="list-container"  data-batchsize="5"
-        hx-get="{% url 'quotes:quote_list' %}"
-        hx-vals='{"author": "{{ author.id }}", "batchsize": "5"}'
-        hx-trigger="load">
+    {% with BATCH_SIZE=4 %}
+    {# data-batchsize: For JS pagination tracking. #}
+    {# hx-vals batchsize: For view request pagination fetching. #}
+    <div id="list-container" data-batchsize='{{ BATCH_SIZE }}'
+            hx-get="{% url 'quotes:quote_list' %}"
+            hx-vals='{"batchsize": "{{ BATCH_SIZE }}"}' 
+            hx-trigger="load">
     </div>
+    {% endwith %}
 {% endblock %}

@@ -1,32 +1,18 @@
 {# quote_list.html #}
-<div class="quote-list-box">
-    <section id="list-top-cell">
-        {% include 'quotes/components/quote_list/list_header.html' %}
-    </section>
-    <section id="list-center-cell">
-        <ul id="quote-list" class="quote-list">
-            {% include 'quotes/components/quote_list/component_updater.html' %}
-        </ul>
-        <div id="show-more-button-wrapper">
-            {% include "quotes/components/quote_list/show_more_button.html" %}
-        </div>
-    </section>
-    <section id="list-right-cell">
-        {% include 'quotes/components/quote_list/sort_panel.html' %}
-    </section>
-    <script>lucide.createIcons();</script>
-    {% include 'quotes/components/quote_detail/share_modal.html' %}
-</div>
-<script>
-  function updateStickyOffset() {
-    const navbar = document.getElementById('topbar-nav');
-    const navHeight = navbar ? navbar.offsetHeight : 0;
-    document.querySelectorAll("#list-top-cell").forEach(ele => {
-      const docY = ele.getBoundingClientRect().top - navHeight;
-      ele.style.setProperty("--sticky-offset", docY + "px");
-    });
-  }
-  window.addEventListener("DOMContentLoaded",  updateStickyOffset);
-  window.addEventListener("resize", updateStickyOffset);
-  updateStickyOffset();
-</script>
+
+<section id="list-top-cell">
+    {% include 'quotes/components/quote_list/list_header.html' %}
+</section>
+<section id="list-center-cell">
+    <ul id="quote-list" class="quote-list">
+        {% include 'quotes/components/quote_list/component_updater.html' %}
+    </ul>
+    <div id="show-more-button-wrapper">
+        {% include "quotes/components/quote_list/show_more_button.html" %}
+    </div>
+</section>
+<section id="list-right-cell">
+    {% include 'quotes/components/quote_list/sort_panel.html' %}
+</section>
+<script>lucide.createIcons();</script>
+{% include 'quotes/components/quote_detail/share_modal.html' %}

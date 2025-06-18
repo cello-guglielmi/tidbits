@@ -4,7 +4,7 @@
       data-author='{{ quote.author }}'
       data-fulltxt='{{ quote.sentence }}'
       data-prevtxt='{{ quote.sentence|truncatechars:30 }}'>
-    {% include "quotes/components/quote_detail/quote_detail.html" %}
+    {% include "quotes/components/quote_detail/quote_card.html" %}
   </li>
 {% endfor %}
 

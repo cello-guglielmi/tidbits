@@ -1,27 +1,72 @@
+:root {
+  --bg-image: url('/static/images/bg/paper_bg.jpg');
+  /* --bg-image: var(--gradient-bg); */
+}
+
 body {
     margin: 0;
-    background: url('/static/images/bg/paper_bg.jpg');
+    background: var(--bg-image);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
-.author-container {
-  max-width: 1000px;
-  width: 90%;
-  margin: 0 auto;
-  overflow: hidden;
+/* main, # */
+#content {
+    padding: 0 calc((100vw - 600px)/2) 0 10rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 57px; /* side panel width 105px - gap 3rem (48px) */
+    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-areas:"aHeader aHeader ."
+                        "pBox lCont lCont"
+                        ". lCont lCont";
+    gap: 0 3rem;
 }
 
-/* === Header Section === */
-.author-header {
+#portrait-box {
+    grid-area: pBox;
+    position: sticky;
+    /* Author-header height: 7rem + padding: 2rem+3rem */
+    /* top: 12rem; */
+    top: var(--header-offset, 0);
+}
+
+#header {
+    grid-area: aHeader;
+    position: sticky;
+    top: 0;
+    padding: 50px 0 3rem 0;
+    z-index: 10;
+    background: var(--bg-image);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#author-banner {
     display: flex;
     justify-content: space-between;
     align-items: center;
     white-space: nowrap;
+    height: 7rem;
     gap: 2em;
     padding: 1em;
     background-color: rgba(255, 255, 255, .8);
     border-bottom: 2px solid #333;
 }
+
+#list-container  {
+    grid-area: lCont;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:"topCell ."
+                        "centerCell rightCell";
+}
+
+/* === Header Section === */
+
 
 .author-name {
     font-size: 2.5em;
@@ -34,13 +79,14 @@ body {
 /* === Body Section === */
 .author-body {
   display: flex;
-  gap: 3em;
-  padding-top: 2em;
+
 }
 
 /* === Portrait Box === */
 
-.portrait-box img{
+
+
+#portrait-box img{
     display: block;
     max-width: 100%;
     min-width: 150px;

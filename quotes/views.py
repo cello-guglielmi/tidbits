@@ -84,7 +84,7 @@ def quoteListView(request):
     
 class QuoteDetailPartial(generic.DetailView):
     model = Quote
-    template_name = 'quotes/components/quote_detail/quote_detail.html'
+    template_name = 'quotes/components/quote_detail/quote_card.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["show_author"] = self.request.GET.get('show_author') == '1'
@@ -93,6 +93,9 @@ class QuoteDetailPartial(generic.DetailView):
 class AuthorDetail(generic.DetailView):
     model = Author
 
+class AuthorListView(generic.ListView):
+    model = Author
+    template_name = 'quotes/author_list.html'
 
 class BrowseList(generic.ListView):
     model = Quote
@@ -133,65 +136,23 @@ def submitQuoteSuccess(request):
 @require_POST
 def toggle_like(request, quote_id):
     quote = get_object_or_404(Quote, pk=quote_id)
-
     if request.user in quote.likes.all():
         quote.likes.remove(request.user)
-        liked = False
     else:
         quote.likes.add(request.user)
-        liked = True
-    
-    # if request.htmx:
-    return render(request, 'quotes/components/quote_detail/like_button.html', {'quote': quote, 'liked': liked})
-    
-    # return redirect('quote_detail', pk=quote_id)
+    return render(request, 'quotes/components/quote_detail/like_button.html', {'quote': quote})
+
+@login_required
+@require_POST
+def toggle_favorite(request, quote_id):
+    quote = get_object_or_404(Quote, pk=quote_id)
+    if request.user in quote.favorites.all():
+        quote.favorites.remove(request.user)
+    else:
+        quote.favorites.add(request.user)
+    return render(request, 'quotes/components/quote_detail/favorite_button.html', {'quote': quote})
 
 
 # /////////////
-
-class AuthorListView(generic.ListView):
-    model = Author
-
-class AuthorCreateView(generic.CreateView):
-    # model = Author
-    # fields = ["name"]
-    form_class = AuthorForm
-    template_name = 'quotes/author_form.html'
-    success_url = reverse_lazy('browse')
-
-def AuthorUpdateViewFunc(request, pk):
-    # 1️⃣ Look up the Author instance or return 404
-    author = get_object_or_404(Author, pk=pk)
-    if request.method == 'POST':
-        # 2️⃣ Bind POST data *and* the instance to the form
-        form = AuthorForm(request.POST, instance=author)
-        if form.is_valid():
-            form.save()
-            # 3️⃣ Redirect to your browse page (use the correct URL name)
-            return redirect('quotes:browse')
-    else:
-        # 4️⃣ For GET, instantiate the form with the existing instance
-        form = AuthorForm(instance=author)
-    # 5️⃣ Render the same template for both GET and invalid POST
-    return render(request, 'quotes/author_form.html', {'form': form})
-
-class AuthorDeleteView(generic.DeleteView):
-    model = Author
-    success_url = reverse_lazy("author-list")
-    
-
-class QuoteCreateView(generic.CreateView):
-    model = Quote
-    fields = ["sentence"]
-
-class QuoteUpdateView(generic.UpdateView):
-    model = Quote
-    fields = ["sentence"]
-
-class QuoteDeleteView(generic.DeleteView):
-    model = Quote
-    success_url = reverse_lazy("quote-list")
-
-
 
 

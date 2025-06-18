@@ -10,24 +10,29 @@
 {% endblock %}
 
 {% block content %}
-<section class="author-container">
+
     <!-- Header row with name and nationality -->
-    <div class="author-header">
-        <h1 class="author-name">{{ author.name }}</h1>
-        <h1 class="author-country">{{ author.nationality }} 🇺🇸</h1>
-    </div>
-    <!-- Content area with portrait and quotes -->
-    <div class="author-body">
-        <!-- Author portrait -->
-        <div class="portrait-box">
-            <img src='/static/quotes/images/portrait/{{ author.name|slugify }}.jpg' alt="{{ author.name }}" width="275" height="450">
+    <div id="header">
+        <div id="author-banner">
+            <h1 class="author-name">{{ author.name }}</h1>
+            <h1 class="author-country">{{ author.nationality }} 🇺🇸</h1>
         </div>
-        <!-- Quote list -->
-        <div id="list-container" data-batchsize="2"
+    </div>
+    <!-- Author portrait -->
+    <div id="portrait-box">
+        <img src='/static/quotes/images/portrait/{{ author.name|slugify }}.jpg' alt="{{ author.name }}" width="275" height="450">
+    </div>
+    <!-- Quote list -->
+    {% with BATCH_SIZE=4 %}
+    {# data-batchsize: For JS pagination tracking. #}
+    {# hx-vals batchsize: For view request pagination fetching. #}
+    <div id="list-container" data-batchsize='{{ BATCH_SIZE }}'
             hx-get="{% url 'quotes:quote_list' %}"
-            hx-vals='{"author": "{{ author.id }}", "batchsize": "2"}'
+            hx-vals='{"author": "{{ author.id }}", "batchsize": "{{ BATCH_SIZE }}"}' 
             hx-trigger="load">
-        </div>
     </div>
-</section>
+    {% endwith %}
+
 {% endblock %}
+
+<!--          -->
