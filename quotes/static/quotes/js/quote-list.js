@@ -1,4 +1,7 @@
-export function initQuoteList() {
+import { initShareModal } from './share-modal.js';
+import { initQuoteCards } from './quote-detail.js';
+
+function initQuoteList() {
     const tagbox = document.getElementById('tag-box');
     const moodTitleBtn = document.getElementById('mood-title');
     const moodContent = document.getElementById('mood-filter');
@@ -62,3 +65,12 @@ export function initQuoteList() {
         tagbox.style.padding = '0.5em';
     });
 }
+
+function initComponents(scope = document) {
+    initShareModal(scope);
+    initQuoteCards(scope);
+    initQuoteList(scope);
+}
+
+initComponents();
+lucide.createIcons();

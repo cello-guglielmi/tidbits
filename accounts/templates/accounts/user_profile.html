@@ -23,7 +23,7 @@
             </div>
         </section>
         <section class="right-panels" style="gap: 0; align-items: flex-end; color: #E11D487f;">
-            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="link-style"><h1>Log out</h1></button>
             </form>
@@ -45,7 +45,7 @@
             <p class="info-text">Use this option to alter your password. You must provide your current password in order to alter it.</p>
         </div>
         <div class="button-box">
-            <a href="{% url 'password_change' %}" class="button-style">Change Password</a>
+            <a href="{% url 'accounts:password_change' %}" class="button-style">Change Password</a>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
             <p class="info-text">You can permanently terminate your account should you wish. Your password is required for this process.</p>
         </div>
         <div class="button-box">
-            <a href="{% url 'password_change' %}" class="button-style button-inverted-colors">Close Account</a>
+            <a href="{% url 'accounts:password_change' %}" class="button-style button-inverted-colors">Close Account</a>
         </div>
     </div>
 </section>

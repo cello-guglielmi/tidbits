@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),            # defines: register/, profile/, etc.
+    path('accounts/', include('accounts.urls', namespace='accounts')),            # defines: register/, profile/, etc.
 	path('quotes/', include('quotes.urls', namespace='quotes'))
 ] # + debug_toolbar_urls()
 

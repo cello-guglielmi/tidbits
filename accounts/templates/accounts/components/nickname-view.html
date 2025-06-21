@@ -1,6 +1,6 @@
 <span id="nickname-text">{{ request.user.nickname }}</span><button
         id="nickname-edit-btn"
-        hx-get="{% url 'update_nickname' %}"
+        hx-get="{% url 'accounts:update_nickname' %}"
         hx-vals='{"edit": "1"}'
         hx-target="#nickname-inline"
         hx-swap="innerHTML"><sup>✎</sup>

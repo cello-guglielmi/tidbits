@@ -3,6 +3,8 @@ from . import views
 from .forms import EmailLoginForm
 from django.contrib.auth import views as auth_views
 
+app_name = 'accounts'
+
 urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('my-profile', views.userProfile, name='user_profile'),

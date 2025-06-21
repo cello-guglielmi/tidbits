@@ -10,7 +10,7 @@
         <p class="info-text">Enter your credentials.</p>
     </div>
 
-    <form method="POST" action="{% url 'login' %}">
+    <form method="POST" action="{% url 'accounts:login' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <!-- Username / Email Field -->
@@ -31,7 +31,7 @@
             <div class="field-wrapper">
                 <div class="field-label-wrapper">
                     <label class="field-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-                    <a class="forgot-pw-link" href="{% url 'password_reset' %}">(Forgot your password?)</a>
+                    <a class="forgot-pw-link" href="{% url 'accounts:password_reset' %}">(Forgot your password?)</a>
                 </div>
                 <input class="field-input" id="{{ form.password.id_for_label }}"
                     name="{{ form.password.html_name }}"
@@ -49,7 +49,7 @@
     </form>
 
     <div class="login-option-wrapper">
-        <p class="info-text">Don't have an account yet? <a href="{% url 'signup' %}">Sign up</a></p>
+        <p class="info-text">Don't have an account yet? <a href="{% url 'accounts:signup' %}">Sign up</a></p>
     </div>
 </div>
 

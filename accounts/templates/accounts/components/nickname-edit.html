@@ -1,5 +1,5 @@
 <form id="nickname-form"
-        hx-post="{% url 'update_nickname' %}"
+        hx-post="{% url 'accounts:update_nickname' %}"
         hx-target="#nickname-inline"
         hx-swap="innerHTML">
     {% csrf_token %}
@@ -13,7 +13,7 @@
     <button type="submit" id="nickname-form-save">Save</button>
     <button type="button"
             id="nickname-form-cancel"
-            hx-get="{% url 'update_nickname' %}"
+            hx-get="{% url 'accounts:update_nickname' %}"
             hx-target="#nickname-inline"
             hx-swap="innerHTML"
             >Cancel</button>

@@ -10,7 +10,7 @@
         <p class="info-text">It's quick and easy.</p>
     </div>
 
-    <form method="POST" action="{% url 'signup' %}">
+    <form method="POST" action="{% url 'accounts:signup' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <!-- Username / Email Field -->
@@ -57,7 +57,7 @@
     </form>
 
     <div class="login-option-wrapper">
-        <p class="info-text">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        <p class="info-text">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
     </div>
 </div>
 
