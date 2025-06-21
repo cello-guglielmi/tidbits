@@ -21,24 +21,26 @@
         <nav id='topbar-nav' class="navbar">
             <div id="left-side" class="subnav">
                 <img style="display: inline; margin: 0 5px;" src="{% static '/images/logo.png' %}" height="50" />
-                <a href="#">Daily</a>
-                <a href="#">Browse</a>
-                <a href="#">Submit</a>
+                <a href="{% url 'quotes:browse_quotes' %}">Browse Quotes</a>
+                <a href="{% url 'quotes:browse_authors' %}">Browse Authors</a>
             </div>
             <div id="right-side" class="subnav">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'accounts:' %}">Profile</a>
+                    <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="link-style">Logout</button>
+                    </form>
                 {% else %}
-                    <a href="#">Login</a>
+                    <a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
                 {% endif %}
             </div> 
         </nav>
     </header>
     <aside id="sidebar-container">
         <nav id="sidebar-nav" class="navbar">
-                <a href="#">Daily</a>
-                <a href="#">Browse</a>
-                <a href="#">Submit</a>
+            <a href="{% url 'quotes:daily_page' %}">Daily</a>
+            <a href="{% url 'accounts:user_profile' %}">Profile</a>
+            <a href="{% url 'quotes:submit_quote' %}">Submit</a>
         </nav>
     </aside>
     <main id="content">{% block content %}{% endblock %}</main>

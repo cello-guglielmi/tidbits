@@ -41,7 +41,7 @@
             </div>
             {{ form.password.errors }}
         </div>
-
+        <input type="hidden" name="next" value="{{ next|default:'/' }}">
         <!-- Submit Button -->
         <div class="button-box">
             <button type="submit" class="button-style">Log In</button>

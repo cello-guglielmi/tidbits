@@ -164,9 +164,9 @@ INTERNAL_IPS = [
 # https://docs.djangoproject.com/en/5.2/topics/auth/default/#limiting-access-to-logged-in-users
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-user-model
 
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'user_profile'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:user_profile'
+LOGOUT_REDIRECT_URL = 'accounts:login'
 
 # Email Backend functionality setup
 # https://docs.djangoproject.com/en/5.2/topics/email/#topic-email-backends

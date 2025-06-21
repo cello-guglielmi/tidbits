@@ -14,7 +14,6 @@
         <h1 id="browse-titlehead" class="fancy-title"><span>Browse All Quotes</span></h1>
     </div>
     <div id="list-container">
-        {% include 'quotes/quote_list.html' %}
-        <input type="hidden" id="batchsize" name="batchsize" value="8">
+        {% include 'quotes/quote_list.html' with batch_size=8 %}
     </div>
 {% endblock %}

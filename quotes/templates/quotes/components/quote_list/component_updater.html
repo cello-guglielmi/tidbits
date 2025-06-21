@@ -12,7 +12,7 @@
             <section class="card-footer">
                 <div class="author-sig--unused">
                     {% if not listAuthor %}
-                        <p>— {{ quote.author }}<p>
+                        <p>— <a href="{{ quote.author.get_absolute_url }}">{{ quote.author }}</a><p>
                     {% endif %}
                 </div>
                 <div class="icon-box">

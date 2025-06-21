@@ -32,7 +32,7 @@ class QuoteAdmin(admin.ModelAdmin):
 
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'nationality', 'portrait', 'id']
+    list_display = ['__str__', 'slug', 'nationality', 'portrait', 'id']
     list_filter = ['nationality']
     search_fields = ['name', 'nationality']
 

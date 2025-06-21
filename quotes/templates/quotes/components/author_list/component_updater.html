@@ -2,7 +2,7 @@
     <li class="object-item"
         data-id="{{ author.id }}"
         data-author='{{ author.name }}'>
-        <a class="author-page-link" href="{% url 'quotes:author_detail' author.id %}">
+        <a class="author-page-link" href="{{ author.get_absolute_url }}">
             <div class="object-card">
                 <section class="card-body">
                     <div class="author-name">{{ author.name }}</div>

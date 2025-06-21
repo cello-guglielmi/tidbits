@@ -9,7 +9,7 @@
   --header-offset: 0px;
   --gradient-bg: radial-gradient(49% 81% at 45% 47%, #666 0%, #ffffff00 100%),radial-gradient(113% 91% at 17% -2%, #111 1%, #ffffff00 100%),radial-gradient(142% 91% at 83% 7%, #333 1%, #ffffff00 100%),radial-gradient(142% 91% at -6% 74%, #222 50%, #e36883 100%),radial-gradient(142% 91% at 111% 84%, #333 0%, #666 100%);
 }
-
+/* === Main Page === */
 html {
     overflow-y: hidden;
 }
@@ -44,36 +44,6 @@ main {
     background: inherit;
     background-attachment: fixed;
 }
-
-/* .form-field input {
-    border: none;
-    font-size: 1.25rem;
-    padding: 5px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    border-radius: 4px;
-}
-
-.form-field input, .form-field textarea {
-    width: 100%;
-    padding: 0.5rem 0.8rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1.2rem;
-    font-family: inherit;
-    box-sizing: border-box;
-    transition: border 0.2s ease;
-}
-
-.form-field input:focus, .form-field textarea:focus {
-    outline: none;
-}
-
-.form-field textarea {
-    resize: none;
-} */
-
-
 /* === Navbar Containers === */
 #topbar-container {
     grid-area: topbar;
@@ -101,9 +71,10 @@ main {
 }
 #sidebar-nav {
     display: flex;
-    height: calc(100vh - 75px);
     justify-content: flex-start;
     flex-direction: column;
+    height: calc(100vh - 75px);
+    width: 9ch;
     gap: 1em;
     padding: 1em;
     color: #f5f5f5;
@@ -129,5 +100,6 @@ main {
 }
 .navbar a:hover, .navbar a:focus {
     color: #e36883;
+    text-decoration: none;
 }
 

@@ -76,7 +76,9 @@ body {
   display: flex;
 
 }
-
+#sort-button-author {
+    display: None;
+}
 /* === Portrait Box === */
 
 

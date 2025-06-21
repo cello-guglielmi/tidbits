@@ -20,12 +20,11 @@
     </div>
     <!-- Author portrait -->
     <div id="portrait-box">
-        <img src='/static/quotes/images/portrait/{{ author.name|slugify }}.jpg' alt="{{ author.name }}" width="275" height="450">
+        <img src='/static/quotes/images/portrait/{{ author.slug }}.jpg' alt="{{ author.name }}" width="275" height="450">
     </div>
     <!-- Quote list -->
     <div id="list-container">
-        {% include 'quotes/quote_list.html' with author_id=author.id %}
-        <input type="hidden" id="batchsize" name="batchsize" value="4">
+        {% include 'quotes/quote_list.html' with author=author.slug batch_size=4 %}
     </div>
 
 {% endblock %}

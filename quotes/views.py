@@ -84,11 +84,11 @@ def authorListView(request):
 def quoteListView(request):
     qs = Quote.objects.all()
     try:
-        author = int(request.GET.get('author'))
+        author = request.GET.get('author')
     except (TypeError, ValueError):
         author = None
     if author:
-        qs = qs.filter(author_id=author)
+        qs = qs.filter(author__slug=author)
     search_query = request.GET.get('search', '')
     if search_query:
         qs = qs.filter(sentence__icontains=search_query)

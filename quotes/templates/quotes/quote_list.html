@@ -6,8 +6,7 @@
 <section id="list-center-cell">
     <ul id="quote-list" class="object-list"
         hx-get="{% url 'quotes:quote_list' %}"
-        hx-vals='{"author": "{{ author_id }}"}'
-        hx-include="#batchsize"
+        hx-include="#filters"
         hx-trigger="load">>
     </ul>
     <div id="show-more-button-wrapper">

@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from django.utils.text import slugify
+from django.urls import reverse
 
 '''
 def truncate(self):
@@ -26,13 +28,23 @@ class Nationality(models.Model):
         return self.name
     
 class Author(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     nationality = models.ForeignKey(Nationality, on_delete=models.SET_NULL, null=True, blank=True, related_name='authors')
     portrait = models.ImageField(upload_to='authors', null=True, blank=True)
+    
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('quotes:author_detail', kwargs={'slug': self.slug})
 
 class Quote(models.Model):
     sentence = models.TextField(max_length=300)
