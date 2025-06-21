@@ -3,9 +3,9 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'quotes/css/author-detail.css' %}">
-    <link rel="stylesheet" href="{% static 'quotes/css/quote-detail.css' %}">
-    <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/generic-list.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/quote-list.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
     <script type="module" src="{% static 'quotes/js/list-init.js' %}"></script>
 {% endblock %}
 
@@ -26,10 +26,9 @@
     {% with BATCH_SIZE=4 %}
     {# data-batchsize: For JS pagination tracking. #}
     {# hx-vals batchsize: For view request pagination fetching. #}
-    <div id="list-container" data-batchsize='{{ BATCH_SIZE }}'
-            hx-get="{% url 'quotes:quote_list' %}"
-            hx-vals='{"author": "{{ author.id }}", "batchsize": "{{ BATCH_SIZE }}"}' 
-            hx-trigger="load">
+    <div id="list-container">
+        {% include 'quotes/quote_list.html' with author_id=author.id %}
+        <input type="hidden" id="batchsize" name="batchsize" value="4">
     </div>
     {% endwith %}
 

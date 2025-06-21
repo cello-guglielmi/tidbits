@@ -3,9 +3,9 @@ import { showModal } from './share-modal.js';
 
 export function initQuoteCards(scope = document) {
     document.body.addEventListener('click', function(evt) {
-        const item = evt.target.closest('.quote-item')
+        const item = evt.target.closest('.object-item')
         if (!item) return;
-        const card = evt.target.closest('.quote-card');
+        const card = evt.target.closest('.object-card');
         //const preview = evt.target.closest('.quote-preview');
         const btn = evt.target.closest('.footer-btn');
         if (btn) {

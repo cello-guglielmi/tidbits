@@ -1,0 +1,40 @@
+/* === Center Cell Content === */
+.author-page-link {
+    display: block;
+    color: inherit;
+}
+.author-page-link:hover {
+    text-decoration: none;
+}
+/* == card body == */
+.author-name{
+    font-size: 2rem;
+    padding-right: 1em;
+    width: 75%;
+    border-right: 2px solid #eee;
+    overflow: hidden;
+}
+
+.author-nationality {
+    color: #333333cc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    width: 25%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/* === card footer === */
+.card-footer {
+    /* justify-content: space-between; */
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.author-quote-counter, .author-like-counter {
+    gap: .25em;
+    font-size: 1.25em;
+    display: flex;
+    align-items: center;
+}

@@ -8,9 +8,5 @@ function initComponents(scope = document) {
     initQuoteList(scope);
 }
 
-document.body.addEventListener("htmx:afterSettle", function(evt) {
-    if (evt.detail.target.id === "list-container") {
-        initComponents();
-        lucide.createIcons();
-    }
-});
+initComponents();
+lucide.createIcons();

@@ -5,10 +5,12 @@ app_name = 'quotes'
 
 urlpatterns = [
     path('daily/', views.daily_page, name='daily_page'),
-    path('author/', views.AuthorListView.as_view(), name='author_list'),
+    path('browse_quotes/', views.BrowseQuotes.as_view(), name='browse_quotes'),
+    path('browse_authors/', views.BrowseAuthors.as_view(), name='browse_authors'),
+    path('quotes/', views.quoteListView, name='quote_list'),
+    path('authors/', views.authorListView, name='author_list'),
+    # path('quote/<int:pk>/', views.QuoteDetailPartial.as_view(), name='quote_detail'),
 	path('author/<int:pk>/', views.AuthorDetail.as_view(), name='author_detail'),
-    path('<int:pk>/', views.QuoteDetailPartial.as_view(), name='quote_detail'),
-    path('browse/', views.BrowseList.as_view(), name='browse'),
     path('submit/', views.submitQuote, name='submit_quote'),
     path('submit/success', views.submitQuoteSuccess, name='submit_success'),
     path('like/<int:quote_id>', views.toggle_like, name='toggle_like'),

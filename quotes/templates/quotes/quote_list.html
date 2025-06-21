@@ -4,8 +4,11 @@
     {% include 'quotes/components/quote_list/list_header.html' %}
 </section>
 <section id="list-center-cell">
-    <ul id="quote-list" class="quote-list">
-        {% include 'quotes/components/quote_list/component_updater.html' %}
+    <ul id="quote-list" class="object-list"
+        hx-get="{% url 'quotes:quote_list' %}"
+        hx-vals='{"author": "{{ author_id }}"}'
+        hx-include="#batchsize"
+        hx-trigger="load">>
     </ul>
     <div id="show-more-button-wrapper">
         {% include "quotes/components/quote_list/show_more_button.html" %}

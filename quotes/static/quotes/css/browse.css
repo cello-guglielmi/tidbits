@@ -51,9 +51,4 @@ body {
 #browse-titlehead::before { flex: 1; }
 #browse-titlehead::after  { flex: 4; }
 
-#list-container  {
-    grid-template-columns: 2fr 5fr auto 3fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:". topCell . ."
-                        ". centerCell rightCell .";
-}
+#list-container  { padding-left: 18%; padding-right: 35%; }

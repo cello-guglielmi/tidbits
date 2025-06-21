@@ -3,7 +3,7 @@
     hx-target="#quote-list"
     hx-swap="innerHTML"
     hx-trigger="keyup changed delay:300ms from:input[name='search'], change from:input[name='mood[]']"
-    hx-include="#filters">
+    hx-include="#filters, #batchsize">
     <i class="search-icon" data-lucide="search"></i>
     <input type="text"
             class="search-bar"
@@ -50,7 +50,6 @@
     </fieldset>
     <div class="hidden-vars">
         <input type="hidden" name="sort_value" value="id">
-        <input type="hidden" name="sort_dir" value="asc">
         <input type="hidden" name="page_count" value="1">
     </div>
 </div>

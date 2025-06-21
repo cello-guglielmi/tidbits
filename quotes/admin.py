@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib import messages
+from django.db.models import Count
 from . import models
 from . import forms
 from django.utils.safestring import mark_safe
@@ -10,10 +11,24 @@ from django.db import transaction
 
 @admin.register(models.Quote)
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'created_at', 'updated_at', 'mood', 'author'] # 'likes']
+    list_display = ['__str__', 'created_at', 'updated_at', 'mood', 'author', 'num_likes', 'num_faves']
     list_editable = ['mood',] # 'likes']
     list_filter = ['mood']
     search_fields = ['sentence', 'author__name']
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        # annotate each Quote with a _likes_count attribute
+        return qs.annotate(likes_count=Count('likes'), fave_count=Count('favorites'))
+
+    def num_likes(self, obj):
+        return obj.likes_count
+    
+    def num_faves(self, obj):
+        return obj.fave_count
+    
+    num_likes.admin_order_field = 'likes_count'
+    num_faves.admin_order_field = 'fave_count'
 
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):

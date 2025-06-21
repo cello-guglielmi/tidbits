@@ -6,12 +6,10 @@ export function initQuoteList() {
     // Make the legend clickable
 
     const sort_val_Node = document.querySelector('input[name="sort_value"]');
-    const sort_dir_Node = document.querySelector('input[name="sort_dir"]');
     const page_count_Node = document.querySelector('input[name="page_count"]');
-    // console.log('PC VALUE::::', page_count_Node.value)
-    const batchSize = parseInt(document.getElementById('list-container').dataset.batchsize);
-    // console.log('BATCH SIZE::::', batchSize)
-    page_count_Node.value = batchSize;
+    const batch_size = parseInt(document.querySelector('input[name="batchsize"]').value);
+    // console.log('BATCH SIZE::::', batch_size)
+    page_count_Node.value = batch_size;
     // console.log('NOW PC VALUE::::', page_count_Node.value)
 
     // Using pointerdown to beat HTMX to value collection
@@ -29,30 +27,27 @@ export function initQuoteList() {
         hxbtn.classList.add('sort-button-active');
         switch (hxbtn.dataset.action) {
             case 'sort':
-                const sortAscIco = hxbtn.querySelector('.sort-asc');
-                const sortDescIco = hxbtn.querySelector('.sort-desc');
+                const currSort = sort_val_Node.value;
                 const sortBy = hxbtn.dataset.sortby
-                const isAsc = hxbtn.dataset.dir === 'asc';
-                // Toggle logic
-                let newValue = isAsc ? sortBy : '-' + sortBy;
-                const sameButtonClick = newValue === sort_val_Node.value;
-                let newDir = hxbtn.dataset.dir; // Start as oldDir
-                // Only change dir if same button click
-                if (sameButtonClick) {
-                    newValue = isAsc ? '-' + sortBy : sortBy;
-                    newDir = isAsc ? 'desc' : 'asc';
-                    sortAscIco.style.display = isAsc ? 'none' : 'inline';
-                    sortDescIco.style.display = isAsc ? 'inline' : 'none';
-                }
-                sort_dir_Node.value = newDir;
-                hxbtn.dataset.dir = newDir;
-                sort_val_Node.value = newValue;
+                const sameBtn = currSort === sortBy || currSort === '-' + sortBy;
+                // Toggle direction if re-clicking the same button.
+                const isAsc = sameBtn ? hxbtn.dataset.dir === 'desc' : hxbtn.dataset.dir === 'asc';
+                
+                const newSort = isAsc ? hxbtn.dataset.sortby : '-' + hxbtn.dataset.sortby;
+                const newDir = isAsc ? 'asc' : 'desc';
+                const ascIco = isAsc ? 'inline' : 'none';
+                const descIco = isAsc ? 'none' : 'inline';
+
+                hxbtn.querySelector('.sort-asc').style.display = ascIco;
+                hxbtn.querySelector('.sort-desc').style.display = descIco;
+                hxbtn.dataset.dir = newDir
+                sort_val_Node.value = newSort;
                 break;
             case 'loadmore':
                 const currentCount = parseInt(page_count_Node.value) || 0;
-                // console.log('currentCount:', currentCount, 'batchSize:', batchSize);
-                // console.log(currentCount, '+', batchSize, '=', currentCount + batchSize);
-                page_count_Node.value = currentCount + batchSize;
+                // console.log('currentCount:', currentCount, 'batch_size:', batch_size);
+                // console.log(currentCount, '+', batch_size, '=', currentCount + batch_size);
+                page_count_Node.value = currentCount + batch_size;
                 // console.log(page_count_Node.value)
                 break;
         }

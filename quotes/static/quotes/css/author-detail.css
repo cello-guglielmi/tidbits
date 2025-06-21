@@ -36,7 +36,8 @@ body {
     grid-area: aHeader;
     position: sticky;
     top: 0;
-    padding: 50px 0 3rem 0;
+    padding: 50px 10px 3rem 0;
+    margin-right: -10px;
     z-index: 10;
     background: var(--bg-image);
     background-attachment: fixed;
@@ -57,13 +58,7 @@ body {
     border-bottom: 2px solid #333;
 }
 
-#list-container  {
-    grid-area: lCont;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:"topCell ."
-                        "centerCell rightCell";
-}
+#list-container  { grid-area: lCont; }
 
 /* === Header Section === */
 

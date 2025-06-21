@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
+from django.db.models import Q, Count, Sum
 from .models import Quote, Author, QuoteSubmission
 from .forms import AuthorForm, QuoteSubmissionForm
 from django.contrib.auth.decorators import login_required
@@ -39,30 +40,68 @@ def daily_page(request):
     context['year'] = today.strftime('%Y')
     template = 'quotes/daily_page.html'
     return render(request, template, context)
+    
+    
+class AuthorDetail(generic.DetailView):
+    model = Author
+
+class BrowseAuthors(generic.TemplateView):
+    template_name = 'quotes/browse_authors.html'
+
+class BrowseQuotes(generic.TemplateView):
+    template_name = 'quotes/browse_quotes.html'
+
+def authorListView(request):
+    qs = (Author.objects
+                    .all()
+                    .annotate(
+                        num_quotes=Count('quotes'),
+                        total_likes=Sum('quotes__likes')))
+    search_query = request.GET.get('search', '')
+    if search_query:
+        qs = qs.filter(
+            Q(name__icontains=search_query) |
+            Q(nationality__name__icontains=search_query)
+        )
+    sort = request.GET.get('sort_value', 'id') # default sort 'id'
+    qs = qs.order_by(sort)
+
+    batchSize = 5
+    page_number = int(request.GET.get('page', 1))
+    page_count = int(request.GET.get('page_count', batchSize))
+    paginator = Paginator(qs, page_count) if page_number == 1 else Paginator(qs, batchSize)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'authors': page_obj.object_list,
+        'page': page_number,
+        'page_obj': page_obj,
+        'searchQuery': search_query,
+        'nextPage': page_obj.next_page_number() if page_obj.has_next() else None,
+    }
+    return render(request, 'quotes/components/author_list/component_updater.html', context)
 
 def quoteListView(request):
-    trigger = request.headers.get('hx-trigger')
-    quotes = Quote.objects.all()
+    qs = Quote.objects.all()
     try:
         author = int(request.GET.get('author'))
     except (TypeError, ValueError):
         author = None
     if author:
-        quotes = quotes.filter(author_id=author)
+        qs = qs.filter(author_id=author)
     search_query = request.GET.get('search', '')
     if search_query:
-        quotes = quotes.filter(sentence__icontains=search_query)
+        qs = qs.filter(sentence__icontains=search_query)
     mood_tags = request.GET.getlist('mood[]')
     if mood_tags:
-        quotes = quotes.filter(mood__in=mood_tags)
-    sort = request.GET.get('sort_value', 'id')
-    quotes = quotes.order_by(sort)
+        qs = qs.filter(mood__in=mood_tags)
+    sort = request.GET.get('sort_value', 'id') # default sort 'id'
+    qs = qs.order_by(sort)
     
     batchSize = int(request.GET.get('batchsize', 5))
     page_number = int(request.GET.get('page', 1))
-    # ", batchSize)" because on first page load, page_count input doesn't exist.
-    page_count = int(request.GET.get('page_count', batchSize)) if page_number == 1 else batchSize
-    paginator = Paginator(quotes, page_count)
+    page_count = int(request.GET.get('page_count', batchSize))
+    paginator = Paginator(qs, page_count) if page_number == 1 else Paginator(qs, batchSize)
     page_obj = paginator.get_page(page_number)
 
     context = {
@@ -74,33 +113,7 @@ def quoteListView(request):
         'moodTags': mood_tags,
         'nextPage': page_obj.next_page_number() if page_obj.has_next() else None,
     }
-
-    if trigger == 'list-container':
-        # For initial load, return the complete list with search bar
-        return render(request, 'quotes/components/quote_list/quote_list.html', context)
-    else:
-        # For pagination requests and searches, return just the quote items as HTML fragments
-        return render(request, 'quotes/components/quote_list/component_updater.html', context)
-    
-class QuoteDetailPartial(generic.DetailView):
-    model = Quote
-    template_name = 'quotes/components/quote_detail/quote_card.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["show_author"] = self.request.GET.get('show_author') == '1'
-        return context
-    
-class AuthorDetail(generic.DetailView):
-    model = Author
-
-class AuthorListView(generic.ListView):
-    model = Author
-    template_name = 'quotes/author_list.html'
-
-class BrowseList(generic.ListView):
-    model = Quote
-    template_name = 'quotes/browse_list.html' # Default is <app name>/<model name>_list.html ('polls/question_list.html')
-    context_object_name = 'browse_quote_list'
+    return render(request, 'quotes/components/quote_list/component_updater.html', context)
 
 # /////////////
 
