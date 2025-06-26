@@ -44,6 +44,7 @@ main {
 #topbar-container {
     grid-area: topbar;
     position: sticky;
+    min-width: 1000px;
     top: 0;
     font-size: 1.75em;
     z-index: 9999;
@@ -102,6 +103,7 @@ main {
 /* === Navbars Content === */
 .navbar a {
     color: inherit;
+    white-space: nowrap;
     text-decoration: none;
     transition: color 0.1s;
 }

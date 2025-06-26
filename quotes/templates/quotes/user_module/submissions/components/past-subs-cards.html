@@ -23,9 +23,6 @@
     </li>
 {% endfor %}
 
-{# Despite this template being included inside a ul, only the above gets rendered within.  #}
-{# 'hx-swap-oob' places the div below wherever it found a matching id in the DOM. #}
-
 {% if not hasMore %}
     <div id="show-more-button-wrapper" hx-swap-oob="true"></div>
 {% endif %}

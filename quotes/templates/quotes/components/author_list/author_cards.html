@@ -19,10 +19,6 @@
 <p>No authors found.</p>
 {% endfor %}
 
-{# ==============================================================================
-# 'hx-swap-oob' places the div below wherever it found a matching id in the DOM,
-# instead of inside the ul like the items above. 
-# ============================================================================== #}
 {% if not hasMore %}
     <div id="show-more-button-wrapper" hx-swap-oob="true"></div>
 {% endif %}
