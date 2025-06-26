@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-panel content-panel--wide">
+    <div class="header">
+        <h1>Submit a quote</h1>
+        <p class="info-text">Your quote has been submitted successfully!</p>
+        <p class="info-text">Pending submissions are visible under your <a href="{% url 'accounts:user_profile' %}">Profile</a>.</p>
+        <p class="info-text">Once approved, your quote will be listed over at <a href="{% url 'accounts:user_contributions' %}">Contributions</a>!</p>
+    </div>
+</div>
+
+{% endblock %}

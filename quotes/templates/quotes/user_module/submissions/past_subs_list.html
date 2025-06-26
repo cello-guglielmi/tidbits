@@ -1,0 +1,20 @@
+
+<div id="filters" class="hidden-vars">
+    <input type="hidden" name="sort_value" value="id">
+    <input type="hidden" name="page_count" value="1">
+    <input type="hidden" id="batchsize" name="batchsize" value="{{ batch_size }}">
+</div>
+
+<section id="list-center-cell">
+<ul id="past-sub-list" class="object-list">
+    <div id="past-sub-cards-standin"
+        hx-get="{% url 'accounts:past_sub_cards' %}"
+        hx-target="this"
+        hx-swap="outerHTML"
+        hx-trigger="load">
+    </div>
+</ul>
+<div id="show-more-button-wrapper">
+    {% include "quotes/components/quote_list/show_more_button.html" %}
+</div>
+</section>

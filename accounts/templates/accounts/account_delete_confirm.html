@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content-panel content-panel--wide">
+    <div class="header">
+        <h1>Delete Account</h1>
+        <p class="info-text">Are you sure you want to proceed?</p>
+        <p class="info-text">This will permanently terminate your Tidbits account and cannot be undone.</p>
+        <form method="POST" action="{% url 'accounts:close_account' %}">
+            {% csrf_token %}
+            <button class="button-style">Yes, close account</button>
+            <a class='button-style' href="{% url 'accounts:profile' %}">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+Added features: Account deletion, current/past quote submissions visualization, 
+
+
+        deleted:    quotes/templates/quotes/submit_quote.html
+        deleted:    quotes/templates/quotes/submit_success.html
+        quotes/migrations/0014_rename_favorites_quote_bookmarks_and_more.py
+        quotes/migrations/0015_alter_quote_bookmarks.py
+        quotes/migrations/0016_rename_bookmarks_quote_bookmarked_by.py
+        quotes/migrations/0017_alter_quote_submitted_by.py

@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static 'quotes/css/generic-list.css' %}">
+<link rel="stylesheet" href="{% static 'quotes/css/quote-list.css' %}">
+<link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
 <link rel="stylesheet" href="{% static 'accounts/css/user-profile.css' %}">
 {% endblock %}
 
@@ -30,8 +33,33 @@
         </section>
     </div>
     <div class="content-panel content-panel--wide" id="user-submissions">
-        <div class="header">
-            <h2>Your submissions</h2>
+        <div id="pending-subs-wrapper">
+            <div class="header">
+                <h2>Your submissions</h2>
+            </div>
+            <div id="list-container">
+                {% if pending_quote_subs %}
+                <ul id="pending-sub-list" class="object-list">
+                    {% include 'quotes/user_module/submissions/components/pending-subs-cards.html' %}
+                </ul>
+                {% else %}
+                <p>You don't have any pending submissions!</p>
+                {% endif %}
+            </div>
+        </div>
+        <div id="past-subs-wrapper">
+            <div class="header">
+                <button id="toggle-past-subs-button" class="past-subs-button">
+                    <h2>Submission history</h2>
+                </button>
+            </div>
+            <div id="list-container">
+                {% if past_quote_subs %}
+                    {% include 'quotes/user_module/submissions/past_subs_list.html' with batch_size=3 %}
+                {% else %}
+                    <p>You don't have any past submissions!</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </section>
@@ -57,7 +85,7 @@
             <p class="info-text">You can permanently terminate your account should you wish. Your password is required for this process.</p>
         </div>
         <div class="button-box">
-            <a href="{% url 'accounts:password_change' %}" class="button-style button-inverted-colors">Close Account</a>
+            <a href="{% url 'accounts:close_account' %}" class="button-style button-inverted-colors">Close Account</a>
         </div>
     </div>
 </section>

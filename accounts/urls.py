@@ -7,8 +7,9 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('signup/', views.signup, name='signup'),
-    path('my-profile', views.userProfile, name='user_profile'),
-    path("update_nickname/", views.updateNickname, name="update_nickname"),
+    path('profile', views.userProfile, name='user_profile'),
+    path('close_account', views.closeAccount, name='close_account'),
+    path('update_nickname/', views.updateNickname, name='update_nickname'),
     # path('', include('django.contrib.auth.urls')),
     path('login/', auth_views.LoginView.as_view(authentication_form=EmailLoginForm, redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

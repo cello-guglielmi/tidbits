@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'quotes/css/browse.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/generic-list.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/quote-list.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
+    <script type="module" src="{% static 'quotes/js/quote-list.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="header">
+        <h1 id="titlehead" class="fancy-title"><span>Bookmarked Quotes</span></h1>
+    </div>
+    <div id="list-container">
+        {% include 'quotes/quote_list.html' with batch_size=5 user_bms=user.id sort_panel=True %}
+    </div>
+{% endblock %}

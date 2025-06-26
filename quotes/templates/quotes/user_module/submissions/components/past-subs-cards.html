@@ -1,0 +1,33 @@
+{% for quote_sub in past_quote_subs %}
+    <li class="object-item">
+        <div class="quote-card object-card">
+            <section class="card-body">
+                <div class="quote-sentence">{{ quote_sub.sentence }}</div>
+                <div class="quote-mood"><span class="{{ quote_sub.mood }}">{{ quote_sub.get_mood_display }}</span></div>
+            </section>
+            <section class="card-footer">
+                <div>Author:
+                    {% if quote_sub.author %}
+                        <span class="quote-author">{{ quote_sub.author }}</span>
+                    {% else %}
+                        <span class="quote-author {{ quote_sub.new_author_submission.status }}">{{ quote_sub.new_author_submission.status|capfirst }}</span>
+                    {% endif %}
+                </div>
+                <div>Status: <span class="status {{ quote_sub.status }}">{{ quote_sub.status|capfirst }}</span></div>
+            </section>
+            <section class="card-footer">
+                <div><span>Created at:{{ quote_sub.created_at }}</span></div>
+                <div><span>Updated at:{{ quote_sub.updated_at }}</span></div>
+            </section>
+        </div>
+    </li>
+{% endfor %}
+
+{# Despite this template being included inside a ul, only the above gets rendered within.  #}
+{# 'hx-swap-oob' places the div below wherever it found a matching id in the DOM. #}
+
+<div id="show-more-button-wrapper" hx-swap-oob="true">
+    {% if nextPage %}
+        {% include "accounts/components/show_more_button.html" %}
+    {% endif %}
+</div>

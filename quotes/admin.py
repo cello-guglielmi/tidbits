@@ -11,7 +11,7 @@ from django.db import transaction
 
 @admin.register(models.Quote)
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'created_at', 'updated_at', 'mood', 'author', 'num_likes', 'num_faves']
+    list_display = ['__str__', 'created_at', 'updated_at', 'mood', 'author', 'num_likes', 'num_faves', 'submitted_by']
     list_editable = ['mood',] # 'likes']
     list_filter = ['mood']
     search_fields = ['sentence', 'author__name']
@@ -19,7 +19,7 @@ class QuoteAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         # annotate each Quote with a _likes_count attribute
-        return qs.annotate(likes_count=Count('likes'), fave_count=Count('favorites'))
+        return qs.annotate(likes_count=Count('likes'), fave_count=Count('bookmarked_by'))
 
     def num_likes(self, obj):
         return obj.likes_count

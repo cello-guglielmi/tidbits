@@ -1,11 +1,11 @@
 from .forms import EmailSignupForm, NicknameForm
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .decorators import active_login_required
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout
+from quotes.models import QuoteSubmission
 User = get_user_model()
 
-# Create your views here.
 def signup(request):
     if request.user.is_authenticated:
         return redirect(settings.LOGIN_REDIRECT_URL)
@@ -18,19 +18,27 @@ def signup(request):
         form = EmailSignupForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
-'''
-class UserDetail(DetailView):
-    model = User
-    template_name = 'user_profile.html'
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
-'''
-
-@login_required
+@active_login_required
 def userProfile(request):
-    return render(request, 'accounts/user_profile.html', {'user': request.user})
+    context = {
+        'user': request.user,
+        'pending_quote_subs': QuoteSubmission.objects.filter(status='pending'),
+        'past_quote_subs': QuoteSubmission.objects.exclude(status='pending'),
+    }
+    return render(request, 'accounts/user_profile.html', context)
 
-@login_required
+@active_login_required
+def closeAccount(request):
+    if request.method == 'POST':
+        user = request.user
+        user.is_active = False
+        user.save()
+        logout(request)
+        return redirect(settings.LOGIN_URL)
+    return render(request, 'accounts/account_delete_confirm.html')
+
+
+@active_login_required
 def updateNickname(request):
     user = request.user
     if request.method == 'POST':

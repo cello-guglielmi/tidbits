@@ -34,7 +34,7 @@ class Author(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     nationality = models.ForeignKey(Nationality, on_delete=models.SET_NULL, null=True, blank=True, related_name='authors')
     portrait = models.ImageField(upload_to='authors', null=True, blank=True)
-    
+
     def __str__(self):
         return self.name
     
@@ -50,10 +50,10 @@ class Quote(models.Model):
     sentence = models.TextField(max_length=300)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="quotes")
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_quotes', blank=True)
-    favorites = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='favorite_quotes', blank=True)
+    bookmarked_by = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='bookmarks', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
-    submitted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    submitted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name='contributions', null=True)
     MOODS = {
         'love': 'Love',
         'motivational': 'Motivational',

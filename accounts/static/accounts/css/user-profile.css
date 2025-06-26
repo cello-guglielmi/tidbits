@@ -56,3 +56,48 @@
     color: #666;
     text-decoration: underline;
 }
+
+/* === Lists override === */
+.object-list {
+    list-style: none;
+    box-shadow: none;
+}
+.object-item {
+    background-color: #f9f9f9;
+    border: 2px solid;
+    border-color: #333;
+    margin-top: -2px;
+    animation: none;
+}
+
+#list-top-cell {
+    position: static;
+    top: 0;
+}
+
+.search-bar {
+    box-shadow: none;
+    border: 2px solid;
+}
+
+.search-bar:focus {
+    box-shadow: none;
+}
+
+#show-more-button-wrapper {
+    margin-bottom: 0;
+}
+
+/* === Coloring of Submission Status === */
+span.pending {
+    color: orange;
+    font-weight: bold;
+}
+span.approved {
+    color: darkgreen;
+    font-weight: bold;
+}
+span.rejected {
+    color: red;
+    font-weight: bold;
+}
