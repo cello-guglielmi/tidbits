@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
-from quotes.views import HelpSection
+from quotes.views.public import HelpSection
 # from debug_toolbar import debug_toolbar_urls
 
 urlpatterns = [
