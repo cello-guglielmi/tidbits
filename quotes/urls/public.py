@@ -1,8 +1,6 @@
 from django.urls import path
 from quotes.views import public
 
-app_name = 'quotes'
-
 urlpatterns = [
     path('daily/', public.dailyPage, name='daily_page'),
     path('browse_quotes/', public.BrowseQuotes.as_view(), name='browse_quotes'),

@@ -1,7 +1,7 @@
 from django.urls import path
 from quotes.views import user_module
 
-app_name = 'quotes'
+app_name = 'user'
 
 urlpatterns = [
     path('submit/', user_module.submitQuote, name='submit_quote'),
@@ -9,7 +9,7 @@ urlpatterns = [
     path('like/<int:quote_id>', user_module.toggle_like, name='toggle_like'),
     path('save/<int:quote_id>', user_module.toggle_bookmark, name='toggle_bookmark'),
     path('bookmarks', user_module.myBookmarks, name='user_bookmarks'),
-    path('contributions', user_module.myContributions, name='user_contributions'),
+    path('contributions', user_module.myContributions, name=''),
     path('past_submissions', user_module.pastSubmissions, name='past_subs'),
     path('past_sub_cards', user_module.pastSubCards, name='past_sub_cards'),
 ]
