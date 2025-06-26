@@ -41,9 +41,9 @@
         <nav id="sidebar-nav" class="navbar">
             <a href="{% url 'quotes:daily_page' %}"><i data-lucide="sun"></i><span>Daily</span></a>
             <a href="{% url 'accounts:user_profile' %}"><i data-lucide="user-round"></i><span>Profile</span></a>
-            <a href="{% url 'accounts:user_bookmarks' %}"><i data-lucide="bookmark-check"></i><span>Marks</span></a>
-            <a href="{% url 'accounts:user_contributions' %}"><i data-lucide="book-text"></i><span>Entries</span></a>
-            <a href="{% url 'quotes:submit_quote' %}"><i data-lucide="notebook-pen"></i><span>Submit</span></a>
+            <a href="{% url 'quotes:user:user_bookmarks' %}"><i data-lucide="bookmark-check"></i><span>Marks</span></a>
+            <a href="{% url 'quotes:user:user_contributions' %}"><i data-lucide="book-text"></i><span>Entries</span></a>
+            <a href="{% url 'quotes:user:submit_quote' %}"><i data-lucide="notebook-pen"></i><span>Submit</span></a>
         </nav>
     </aside>
     <main id="content">{% block content %}{% endblock %}</main>

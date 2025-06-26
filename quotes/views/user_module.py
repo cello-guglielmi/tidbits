@@ -7,26 +7,6 @@ from django.views.decorators.http import require_POST
 # Create your views here.
 
 @active_login_required
-def submitQuote(request):
-    if request.method == 'POST':
-        form = QuoteSubmissionForm(request.POST)
-        if form.is_valid():
-            # instance = form.save(commit=False)
-            # instance.submitted_by = request.user
-            # instance.save()
-            form.save(request.user)
-            return redirect('quotes:submit_success')
-    else:
-        form = QuoteSubmissionForm()
-    authorList = Author.objects.all().order_by('name')
-    return render(request, 'quotes/submit_quote.html', {'form': form, 'authors': authorList})
-
-@active_login_required
-def submitQuoteSuccess(request):
-    return render(request, 'quotes/submit_success.html')
-
-
-@active_login_required
 @require_POST
 def toggle_like(request, quote_id):
     quote = get_object_or_404(Quote, pk=quote_id)
@@ -34,7 +14,7 @@ def toggle_like(request, quote_id):
         quote.likes.remove(request.user)
     else:
         quote.likes.add(request.user)
-    return render(request, 'quotes/components/quote_card/like_button.html', {'quote': quote})
+    return render(request, 'quotes/user_module/components/quote_card/like_button.html', {'quote': quote})
 
 @active_login_required
 @require_POST
@@ -44,20 +24,39 @@ def toggle_bookmark(request, quote_id):
         quote.bookmarked_by.remove(request.user)
     else:
         quote.bookmarked_by.add(request.user)
-    return render(request, 'quotes/components/quote_card/bookmark_button.html', {'quote': quote})
+    return render(request, 'quotes/user_module/components/quote_card/bookmark_button.html', {'quote': quote})
+
+@active_login_required
+def submitQuote(request):
+    if request.method == 'POST':
+        form = QuoteSubmissionForm(request.POST)
+        if form.is_valid():
+            # instance = form.save(commit=False)
+            # instance.submitted_by = request.user
+            # instance.save()
+            form.save(request.user)
+            return redirect('quotes:user:submit_success')
+    else:
+        form = QuoteSubmissionForm()
+    authorList = Author.objects.all().order_by('name')
+    return render(request, 'quotes/user_module/submissions/submit_quote.html', {'form': form, 'authors': authorList})
+
+@active_login_required
+def submitQuoteSuccess(request):
+    return render(request, 'quotes/user_module/submissions/submit_success.html')
 
 
 @active_login_required
 def myBookmarks(request):
-    return render(request, 'accounts/user_bookmarks.html', {'user': request.user})
+    return render(request, 'quotes/user_module/user_bookmarks.html', {'user': request.user})
 
 @active_login_required
 def myContributions(request):
-    return render(request, 'accounts/user_contributions.html', {'user': request.user})
+    return render(request, 'quotes/user_module/user_contributions.html', {'user': request.user})
 
 @active_login_required
 def pastSubmissions(request):
-    return render(request, 'accounts/past_subs_list.html', {'user': request.user})
+    return render(request, 'quotes/user_module/submissions/past_subs_list.html', {'user': request.user})
 
 @active_login_required
 def pastSubCards(request):
@@ -80,4 +79,4 @@ def pastSubCards(request):
         'batchSize': batchSize,
         'hasMore': hasMore,
     }
-    return render(request, 'accounts/components/past-subs-cards.html', context)
+    return render(request, 'quotes/user_module/submissions/components/past-subs-cards.html', context)
