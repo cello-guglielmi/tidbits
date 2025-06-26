@@ -8,6 +8,7 @@
 }
 /* == card body == */
 .author-name{
+    color: #333;
     font-size: 2rem;
     padding-right: 1em;
     width: 75%;

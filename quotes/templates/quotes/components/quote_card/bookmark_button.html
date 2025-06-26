@@ -1,0 +1,14 @@
+<form hx-post="{% url 'quotes:toggle_bookmark' quote.id %}"
+      hx-target="this"
+      hx-swap="outerHTML"
+      method="POST"
+      class="footer-btn-wrapper">
+    {% csrf_token %}
+    <button class="footer-btn" data-func="fave" type="submit">
+        {% if user in quote.bookmarked_by.all %}
+            <i class="footer-icon filled-icon-orange" data-lucide="bookmark-check"></i> 
+        {% else %}
+            <i class="footer-icon empty-icon" data-lucide="bookmark"></i> 
+        {% endif %}
+    </button>
+</form>

@@ -1,38 +1,39 @@
 <div id="side-panel">
     <button id="sort-button-text" class="sort-button" data-action="sort" data-dir="asc" data-sortby="sentence" title="Sort alphabetically"
-            hx-get="{% url 'quotes:quote_list' %}"
+            hx-get="{% url 'quotes:quote_cards' %}"
             hx-target="#quote-list"
             hx-swap="innerHTML"
-            hx-include="#filters">
+            hx-include="#filters, #view-state, #sort-tracker">
         <i class="case-sensitive" data-lucide="case-sensitive"></i>
         <i class="sort-asc" data-lucide="arrow-up-narrow-wide"></i>
         <i class="sort-desc" data-lucide="arrow-down-wide-narrow"></i>
     </button>
     <button id="sort-button-author" class="sort-button" data-action="sort" data-dir="asc" data-sortby="author__name" title="Sort by Author name"
-            hx-get="{% url 'quotes:quote_list' %}"
+            hx-get="{% url 'quotes:quote_cards' %}"
             hx-target="#quote-list"
             hx-swap="innerHTML"
-            hx-include="#filters">
+            hx-include="#filters, #view-state, #sort-tracker">
         <i class="user-round-pen" data-lucide="user-round-pen"></i>
         <i class="sort-asc" data-lucide="arrow-up-narrow-wide"></i>
         <i class="sort-desc" data-lucide="arrow-down-wide-narrow"></i>
     </button>
     <button id="sort-button-mood" class="sort-button" data-action="sort" data-dir="asc" data-sortby="mood" title="Sort by mood"
-            hx-get="{% url 'quotes:quote_list' %}"
+            hx-get="{% url 'quotes:quote_cards' %}"
             hx-target="#quote-list"
             hx-swap="innerHTML"
-            hx-include="#filters">
+            hx-include="#filters, #view-state, #sort-tracker">
         <i class="smile" data-lucide="smile"></i>
         <i class="sort-asc" data-lucide="arrow-up-narrow-wide"></i>
         <i class="sort-desc" data-lucide="arrow-down-wide-narrow"></i>
     </button>
     <button id="sort-button-likes" class="sort-button" data-action="sort" data-dir="asc" data-sortby="likes" title="Sort by number of likes"
-            hx-get="{% url 'quotes:quote_list' %}"
+            hx-get="{% url 'quotes:quote_cards' %}"
             hx-target="#quote-list"
             hx-swap="innerHTML"
-            hx-include="#filters">
+            hx-include="#filters, #view-state, #sort-tracker">
         <i class="heart-plus" data-lucide="heart-plus"></i>
         <i class="sort-asc" data-lucide="arrow-up-narrow-wide"></i>
         <i class="sort-desc" data-lucide="arrow-down-wide-narrow"></i>
     </button>
+    <input id="sort-tracker" type="hidden" name="sort_value" value="id">
 </div>

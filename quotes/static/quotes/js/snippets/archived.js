@@ -114,3 +114,29 @@ is roughly equivalent to below:
 */
 // initial render
 updateList();
+
+// === Old List Control ===
+
+    switch (hxbtn.dataset.action) {
+        case 'sort':
+            const currSort = sort_val_Node.value;
+            const sortBy = hxbtn.dataset.sortby
+            const sameBtn = currSort === sortBy || currSort === '-' + sortBy;
+            // Toggle direction if re-clicking the same button.
+            const isAsc = sameBtn ? hxbtn.dataset.dir === 'desc' : hxbtn.dataset.dir === 'asc';
+            
+            const newSort = isAsc ? hxbtn.dataset.sortby : '-' + hxbtn.dataset.sortby;
+            const newDir = isAsc ? 'asc' : 'desc';
+            const ascIco = isAsc ? 'inline' : 'none';
+            const descIco = isAsc ? 'none' : 'inline';
+
+            hxbtn.querySelector('.sort-asc').style.display = ascIco;
+            hxbtn.querySelector('.sort-desc').style.display = descIco;
+            hxbtn.dataset.dir = newDir
+            sort_val_Node.value = newSort;
+            break;
+        case 'loadmore':
+            const currentCount = parseInt(page_count_Node.value) || 0;
+            page_count_Node.value = currentCount + batch_size;
+            break;
+    }

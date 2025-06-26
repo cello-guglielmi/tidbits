@@ -1,8 +1,0 @@
-<button id="show-more-button" class="show-more-button" data-action="loadmore"
-        hx-get="{% url 'quotes:quote_list' %}"
-        hx-target="#quote-list"
-        hx-swap="beforeend"
-        hx-vals='{"author": "{{ listAuthor }}", "page": "{{ nextPage }}"}'
-        hx-include="#filters, #batchsize">
-    <i data-lucide="chevrons-down"></i>
-</button>

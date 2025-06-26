@@ -4,17 +4,32 @@
     {% include 'quotes/components/quote_list/list_header.html' %}
 </section>
 <section id="list-center-cell">
-    <ul id="quote-list" class="object-list"
-        hx-get="{% url 'quotes:quote_list' %}"
-        hx-include="#filters"
-        hx-trigger="load">>
+    <!-- HTMX instead of include because of list-specific context not available to the parent page. -->
+    <ul id="quote-list" class="object-list">
+        <div id="quote-cards-standin"
+            hx-get="{% url 'quotes:quote_cards' %}"
+            hx-target="this"
+            hx-swap="outerHTML"
+            hx-vals='{
+                "batch_size": "{{ batch_size }}",
+                "list_author": "{{ list_author }}"}'
+            hx-trigger="load">
+        </div>
     </ul>
     <div id="show-more-button-wrapper">
-        {% include "quotes/components/quote_list/show_more_button.html" %}
+        <button id="show-more-button" class="show-more-button" data-action="loadmore"
+                hx-get="{% url 'quotes:quote_cards' %}"
+                hx-target="#quote-list"
+                hx-swap="beforeend"
+                hx-include="#filters, #view-state, #sort-tracker">
+            <i data-lucide="chevrons-down"></i>
+        </button>
     </div>
+    <div id="view-state" class="hidden"></div>
 </section>
+{% if sort_panel %}
 <section id="list-right-cell">
     {% include 'quotes/components/quote_list/sort_panel.html' %}
 </section>
-<script>lucide.createIcons();</script>
-{% include 'quotes/components/quote_detail/share_modal.html' %}
+{% endif %}
+{% include 'quotes/components/quote_card/share_modal.html' %}

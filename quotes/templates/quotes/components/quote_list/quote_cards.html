@@ -1,0 +1,37 @@
+{% for quote in quotes %}
+    <li class="object-item">
+        <div class="quote-card object-card">
+            <section class="card-body">
+                <div class="quote-sentence">{{ quote.sentence }}</div>
+                <div class="quote-mood"><span class="{{ quote.mood }}">{{ quote.get_mood_display }}</span></div>
+            </section>
+            <section class="card-footer">
+                <div>
+                    {% if not listAuthor %}
+                        — <a class="quote-author" href="{{ quote.author.get_absolute_url }}">{{ quote.author }}</a>
+                    {% endif %}
+                </div>
+                {% include 'quotes/components/quote_card/button_container.html' %}
+            </section>
+            <div class="toast"></div>
+        </div>
+    </li>
+{% empty %}
+<p>No quotes found.</p>
+{% endfor %}
+
+{# ==============================================================================
+# 'hx-swap-oob' places the div below wherever it found a matching id in the DOM,
+# instead of inside the ul like the items above. 
+# ============================================================================== #}
+{% if not hasMore %}
+    <div id="show-more-button-wrapper" hx-swap-oob="true"></div>
+{% endif %}
+
+<div id="view-state" class="hidden" hx-swap-oob="true">
+    <input type="hidden" name="item_counter" value="{{ itemCounter }}">
+    <input type="hidden" name="batch_size" value="{{ batchSize }}">
+    <input type="hidden" name="list_author" value="{{ listAuthor }}">
+    <input type="hidden" name="contributions" value="{{ user_contr }}">
+    <input type="hidden" name="bookmarks" value="{{ user_bms }}">
+</div>

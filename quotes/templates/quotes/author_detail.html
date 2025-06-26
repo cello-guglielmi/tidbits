@@ -10,7 +10,6 @@
 {% endblock %}
 
 {% block content %}
-
     <!-- Header row with name and nationality -->
     <div id="header">
         <div id="author-banner">
@@ -24,9 +23,7 @@
     </div>
     <!-- Quote list -->
     <div id="list-container">
-        {% include 'quotes/quote_list.html' with author=author.slug batch_size=4 %}
+        {% include 'quotes/quote_list.html' with batch_size=2 list_author=author.slug sort_panel=True%}
     </div>
 
 {% endblock %}
-
-<!--          -->

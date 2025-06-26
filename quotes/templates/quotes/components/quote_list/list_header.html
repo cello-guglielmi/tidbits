@@ -1,9 +1,9 @@
 <div id="filters" class="list-header"
-    hx-get="{% url 'quotes:quote_list' %}"
+    hx-get="{% url 'quotes:quote_cards' %}"
     hx-target="#quote-list"
     hx-swap="innerHTML"
     hx-trigger="keyup changed delay:300ms from:input[name='search'], change from:input[name='mood[]']"
-    hx-include="#filters, #batchsize">
+    hx-include="#filters, #view-state, #sort-tracker">
     <i class="search-icon" data-lucide="search"></i>
     <input type="text"
             class="search-bar"
@@ -12,35 +12,35 @@
     <fieldset id = "tag-box" class="tag-box">
         <legend id="mood-title"class="mood-title">Mood</legend>
         <div id="mood-filter" class="mood-filter">
-            <label id="mood-love" class="mood-container">Love
+            <label id="mood-love" class="mood-container love">Love
                 <input type="checkbox"
                         value="love"
                         name="mood[]">
                 <span class="checkmark"></span>
             </label>
 
-            <label id="mood-analytical" class="mood-container">Analytical
+            <label id="mood-analytical" class="mood-container analytical">Analytical
                 <input type="checkbox"
                         value="analytical"
                         name="mood[]">
                 <span class="checkmark"></span>
             </label>
 
-            <label id="mood-humble" class="mood-container">Humble
+            <label id="mood-humble" class="mood-container humble">Humble
                 <input type="checkbox"
                         value="humble"
                         name="mood[]">
                 <span class="checkmark"></span>
             </label>
 
-            <label id="mood-silly" class="mood-container">Silly
+            <label id="mood-silly" class="mood-container silly">Silly
                 <input type="checkbox"
                         value="silly"
                         name="mood[]">
                 <span class="checkmark"></span>
             </label>
 
-            <label id="mood-motivational" class="mood-container">Motivational
+            <label id="mood-motivational" class="mood-container motivational">Motivational
                 <input type="checkbox"
                         value="motivational"
                         name="mood[]">
@@ -48,10 +48,4 @@
             </label>
         </div>
     </fieldset>
-    <div class="hidden-vars">
-        <input type="hidden" name="sort_value" value="id">
-        <input type="hidden" name="page_count" value="1">
-        <input type="hidden" id="batchsize" name="batchsize" value="{{ batch_size }}">
-        <input type="hidden" id="author_field" name="author" value="{{ author }}">
-    </div>
 </div>

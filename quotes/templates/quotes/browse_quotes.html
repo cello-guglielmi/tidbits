@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'quotes/css/browse.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/header-body-page.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/generic-list.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/quote-list.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
@@ -11,9 +11,9 @@
 
 {% block content %}
     <div id="header">
-        <h1 id="browse-titlehead" class="fancy-title"><span>Browse All Quotes</span></h1>
+        <h1 id="titlehead" class="fancy-title"><span>Browse All Quotes</span></h1>
     </div>
     <div id="list-container">
-        {% include 'quotes/quote_list.html' with batch_size=8 %}
+        {% include 'quotes/quote_list.html' with batch_size=8 sort_panel=True %}
     </div>
 {% endblock %}

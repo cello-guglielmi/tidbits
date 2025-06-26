@@ -1,17 +1,17 @@
 import { showModal } from './share-modal.js';
+import { initShareModal } from './share-modal.js';
 
 
 export function initQuoteCards(scope = document) {
     document.body.addEventListener('click', function(evt) {
-        const item = evt.target.closest('.object-item')
-        if (!item) return;
         const card = evt.target.closest('.object-card');
+        if (!card) return;
         //const preview = evt.target.closest('.quote-preview');
         const btn = evt.target.closest('.footer-btn');
         if (btn) {
             evt.stopPropagation();
-            const txt = item.dataset.fulltxt;
-            const author = item.dataset.author;
+            const txt = card.querySelector('.quote-sentence').textContent;
+            const author = card.querySelector('.quote-author').textContent;
             const func = btn.dataset.func;
             switch(func) {
                 case 'copy':
@@ -20,10 +20,8 @@ export function initQuoteCards(scope = document) {
                         .catch(() => copyToast(card, 'Failed to copy quote.'));
                     break;
                 case 'like':
-                    
                     break;
                 case 'fave':
-
                     break;
                 case 'share':
                     showModal(txt, author, card)
@@ -31,13 +29,6 @@ export function initQuoteCards(scope = document) {
             }
             return;
         }
-        // if (preview) {
-        //     expandQuote(preview, item);
-        //     return;
-        // }
-        // if (card) {
-        //     collapseQuote(card, item);
-        // }
     });
 }
 
@@ -50,3 +41,6 @@ setTimeout(() => {
     toast.classList.remove('show');
 }, 1000); // visible for 1 second
 }
+
+initShareModal();
+initQuoteCards();

@@ -1,4 +1,3 @@
-
 function isMobile() {
   const regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i;
   return regex.test(navigator.userAgent);
@@ -59,3 +58,5 @@ export function showModal(text, author, card) {
     //const url = encodeURIComponent(window.location.href);
     //const text = encodeURIComponent(`"${quote}" — ${author}`);
 }
+
+initShareModal();

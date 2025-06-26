@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'quotes/css/browse.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/header-body-page.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/generic-list.css' %}">
     <link rel="stylesheet" href="{% static 'quotes/css/author-list.css' %}">
     <script type="module" src="{% static 'quotes/js/author-list.js' %}"></script>
@@ -10,10 +10,9 @@
 
 {% block content %}
     <div id="header">
-        <h1 id="browse-titlehead" class="fancy-title"><span>Browse All Authors</span></h1>
+        <h1 id="titlehead" class="fancy-title"><span>Browse All Authors</span></h1>
     </div>
-<div id="list-container">
-{% include 'quotes/author_list.html' %}
-</div>
-<script>lucide.createIcons();</script>
+    <div id="list-container">
+        {% include 'quotes/author_list.html' with batch_size=5 %}
+    </div>
 {% endblock %}
