@@ -123,31 +123,27 @@
      transform="translate(-147.29091,-17.92312)">
     <g
        id="group-R5"
-       transform="translate(-4.8264189,5.0804401)">
+       transform="translate(-4.8264189,5.0804401)"
+        style="display:inline;fill:#333;fill-opacity:1;fill-rule:nonzero;stroke:white; stroke-width:40; stroke-linecap:round; stroke-linejoin:arcs; stroke-opacity:1; paint-order:stroke fill">
       <path
          id="path4"
-         style="display:inline;fill:#211c1d;fill-opacity:1;fill-rule:nonzero;stroke:none"
          d="M 1537.0616 4220.5892 L 1537.0616 4190.5892 L 3247.7355 4190.5892 L 3247.7355 3524.7444 L 3277.7355 3524.7444 L 3277.7355 4220.5892 L 1537.0616 4220.5892 z M 1323.9708 4007.4984 L 1323.9708 3311.6536 L 3064.6447 3311.6536 L 3064.6447 3341.6536 L 1353.9708 3341.6536 L 1353.9708 4007.4984 L 1323.9708 4007.4984 z "
          transform="matrix(0.13333333,0,0,-0.13333333,0,600)" />
       <path
          id="path16"
          d="m 3226.46,3458.24 v -102.56 c 0,-101.38 -31.85,-154.91 -95.54,-160.59 v 55.03 c 23.01,9.68 34.51,31.19 34.51,64.53 h -34.51 v 143.59 h 95.54"
-         style="display:inline;fill:#100f0d;fill-opacity:1;fill-rule:nonzero;stroke:none"
          transform="matrix(0.13333333,0,0,-0.13333333,0,600)" />
       <path
          id="path17"
          d="m 3394.55,3458.24 v -102.56 c 0,-101.38 -31.85,-154.91 -95.55,-160.59 v 55.03 c 23.01,9.68 34.52,31.19 34.52,64.53 H 3299 v 143.59 h 95.55"
-         style="display:inline;fill:#100f0d;fill-opacity:1;fill-rule:nonzero;stroke:none"
          transform="matrix(0.13333333,0,0,-0.13333333,0,600)" />
       <path
          id="path67"
          d="m 1375.24,4074.02 v 102.56 c 0,101.38 31.86,154.91 95.55,160.58 v -55.03 c -23.01,-9.67 -34.52,-31.19 -34.52,-64.53 h 34.52 v -143.58 h -95.55"
-         style="display:inline;fill:#100f0d;fill-opacity:1;fill-rule:nonzero;stroke:none"
          transform="matrix(0.13333333,0,0,-0.13333333,0,600)" />
       <path
          id="path68"
          d="m 1207.15,4074.02 v 102.56 c 0,101.38 31.85,154.91 95.55,160.58 v -55.03 c -23.01,-9.67 -34.52,-31.19 -34.52,-64.53 h 34.52 v -143.58 h -95.55"
-         style="display:inline;fill:#100f0d;fill-opacity:1;fill-rule:nonzero;stroke:none"
          transform="matrix(0.13333333,0,0,-0.13333333,0,600)" />
     </g>
   </g>

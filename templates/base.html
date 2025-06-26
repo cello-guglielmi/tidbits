@@ -16,7 +16,7 @@
     {% block head %}
     {% endblock %}
 </head>
-<body>
+<body {% block background_styling %}{% endblock %}>
     <header id="topbar-container">
         <nav id='topbar-nav' class="navbar">
             <div id="left-side" class="subnav">
@@ -25,6 +25,7 @@
                 <a href="{% url 'quotes:browse_authors' %}">Browse Authors</a>
             </div>
             <div id="right-side" class="subnav">
+                <a href="{% url 'help' %}">Help</a>
                 {% if user.is_authenticated %}
                     <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
                         {% csrf_token %}
@@ -38,9 +39,11 @@
     </header>
     <aside id="sidebar-container">
         <nav id="sidebar-nav" class="navbar">
-            <a href="{% url 'quotes:daily_page' %}">Daily</a>
-            <a href="{% url 'accounts:user_profile' %}">Profile</a>
-            <a href="{% url 'quotes:submit_quote' %}">Submit</a>
+            <a href="{% url 'quotes:daily_page' %}"><i data-lucide="sun"></i><span>Daily</span></a>
+            <a href="{% url 'accounts:user_profile' %}"><i data-lucide="user-round"></i><span>Profile</span></a>
+            <a href="{% url 'accounts:user_bookmarks' %}"><i data-lucide="bookmark-check"></i><span>Marks</span></a>
+            <a href="{% url 'accounts:user_contributions' %}"><i data-lucide="book-text"></i><span>Entries</span></a>
+            <a href="{% url 'quotes:submit_quote' %}"><i data-lucide="notebook-pen"></i><span>Submit</span></a>
         </nav>
     </aside>
     <main id="content">{% block content %}{% endblock %}</main>

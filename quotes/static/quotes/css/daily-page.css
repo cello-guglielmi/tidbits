@@ -1,30 +1,5 @@
-html {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
-
-
-*, *:before, *:after {
-    margin: 0;
-    border: 0;
-    box-sizing: inherit;
-}
-
-
-body {
-    font-size: 1.1rem;
-    /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
-    font-family: "Merienda", cursive;
-    font-weight: 600;
-    line-height: 1.5;
-    background: url('/static/images/bg/ls6.png') no-repeat;
-    background-size: cover;
-    margin:auto;
-    width: 50%
-}
-
-.quotation {
-    float: left
+:root {
+  --bg-image: inherit;
 }
 
 .portrait {
@@ -36,61 +11,99 @@ body {
     margin: 1rem
 }
 
-.quote-section {
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    width: 700px;
-    margin-right: auto;
-    margin-left: auto;
+.quotation {
+    width: 910px;
+    margin: 4rem auto;
 }
 
-.quote-box {
+.quote-box, .signature-box {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-  
 
-.quote-rectangle {
-    position: relative;
-    width: 700px;
-    height: 350px;
+.signature-box {
+    float: right;
 }
 
 .markers {
     position: absolute;
-    width: 625px;
-    height: 325px;
+    /* width: 625px; */
+    /* height: 325px; */
+    width: 815px;
+    height: 425px;
 }
 
-.quote-text {
+.mood-wrapper {
     position: absolute;
-    font-size: 1.4em;
-    max-width: 450px;
+    top: 88%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bolder;
+    text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;
+}
+
+.quotation-text {
+    position: absolute;
+    color: #333;
+    font-size: 1.75em;
+    /* max-width: 450px; */
+    max-width: 585px;
     word-wrap: normal;
 }
 
-.signature-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-left: auto; 
-    margin-right: 0;
-    margin-bottom: auto;
-    margin-top: 0; 
+.brush-panel {
+    position: relative;
+    /* width: 700px; */
+    /* height: 350px; */
+    width: 910px;
+    height: 455px;
 }
 
-.signature-rectangle {
-    position: relative;
-    width: 400px;
-    height: 80px;
+.signature-brush-panel {
+    /* width: 400px; */
+    /* height: 80px; */
+    width: 520px;
+    height: 105px;
     top: 5px;
     left: 20px;
 }
-
-.signature-text {
+/* === Overrides === */
+/* == header-body-page.css overrides */
+#titlehead {
+    color: #333;
+    text-shadow: -2px -2px 2px white, 2px -2px 2px white, -2px 2px 2px white, 2px 2px 2px white;
+    /* text-shadow: 3px 3px 2px rgba(255, 255, 255, 1); */
+}
+/* == quote-list.css overrides */
+.icon-box {
     position: absolute;
+    top: 72%;
+    right: 64%;
+}
+
+.quote-sentence{
+    padding-right: 0;
+    width: auto;
+    border: none;
+    overflow: inherit;
+}
+
+/* === Category Colors === */
+.analytical {
+    color:brown;
+}
+.humble {
+    color:deepskyblue;
+}
+.silly {
+    color:#FFBF00;
+}
+.motivational {
+    color:darkseagreen;
+}
+.love {
+    color:crimson;
 }

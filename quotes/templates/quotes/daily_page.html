@@ -1,42 +1,37 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=devide-width" />
-        <title>Quote Repository ~</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-        <link rel="stylesheet" href="{% static 'quotes/css/daily-page.css' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        {% block daily_quote %}
-        <h2>Quote for {{ weekday }}, {{ day }} of {{ month }} {{ year }}</h2>
-        {% if quote %}
-            <h1>Here's your daily quote:</h1>
-            <!-- <div class="quotation">
-                <h3>{{ quote.mood }}</h3>
-                <p>"{{ quote.sentence }}"</p>
-                <p>- {{ quote.author }}</p>
-            </div> -->
-            <section class="quote-section">
-                <div class ="quote-box">
-                    <img class="quote-rectangle" src="{% static 'quotes/images/brush_strokes.png' %}" />
-                    <img class="markers" src="{% static 'quotes/images/markers.svg' %}" />
-                    <p class="quote-text">{{ quote.sentence }}</p>
-                </div>
-                <div class="signature-box">
-                    <img class="signature-rectangle" src="{% static 'quotes/images/signature.png' %}" />
-                    <p class="quote-text">- {{ quote.author }}</p>
-                </div>
-            </section>
-            <!-- <img class="portait" src="{% static 'quotes/images/portrait/aslan.jpg' %}" alt="Aslan"> -->
-        {% else %}
-            <p>No quotes available</p>
-        {% endif %}
-        <p>You have visited this page {{ number_of_visits }} time{{ number_of_visits|pluralize }}.</p>
-        {% endblock %}
-    </body>
-</html>
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'quotes/css/header-body-page.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/quote-list.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/daily-page.css' %}">
+    <link rel="stylesheet" href="{% static 'quotes/css/share-modal.css' %}">
+    <script type="module" src="{% static 'quotes/js/quote-card.js' %}"></script>
+{% endblock %}
+
+{% block background_styling %}{{ backgroundURL|safe }}{% endblock %}
+
+{% block content %}
+    <div id="header">
+        <h1 id="titlehead" class="fancy-title"><span>Quote for {{ weekday }}, {{ day }} of {{ month }} - {{ year }}</span></h1>
+    </div>
+
+    <section class="quotation object-card">
+        <div class="quote-box">
+            <img class="brush-panel" src="{% static 'quotes/images/brush_strokes.png' %}" />
+            <img class="markers" src="{% static 'quotes/images/markers.svg' %}" />
+            <p class="quotation-text quote-sentence">{{ quote.sentence }}</p>
+            {% include 'quotes/components/quote_card/button_container.html' %}
+            <div class="mood-wrapper {{quote.mood}}">{{quote.mood|capfirst}}</div>
+        </div>
+        <div class="signature-box">
+            <img class="brush-panel signature-brush-panel" src="{% static 'quotes/images/signature.png' %}" />
+            <p class="quotation-text">— <a class="quote-author" href="{{ quote.author.get_absolute_url }}">{{ quote.author }}</a></p>
+        </div>
+            <div class="toast"></div>
+        </div>
+    {% include 'quotes/components/quote_card/share_modal.html' %}
+    </section>
+
+
+{% endblock %}
