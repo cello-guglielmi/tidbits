@@ -8,8 +8,8 @@ urlpatterns = [
     path('submit/success', user_module.submitQuoteSuccess, name='submit_success'),
     path('like/<int:quote_id>', user_module.toggle_like, name='toggle_like'),
     path('save/<int:quote_id>', user_module.toggle_bookmark, name='toggle_bookmark'),
-    path('bookmarks', user_module.myBookmarks, name='user_bookmarks'),
-    path('contributions', user_module.myContributions, name=''),
+    path('bookmarks', user_module.myBookmarks, name='bookmarks'),
+    path('contributions', user_module.myContributions, name='contributions'),
     path('past_submissions', user_module.pastSubmissions, name='past_subs'),
     path('past_sub_cards', user_module.pastSubCards, name='past_sub_cards'),
 ]
