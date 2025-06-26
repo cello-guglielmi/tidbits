@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'accounts/css/user-profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="left-panels">
+        <div class="content-panel content-panel--wide">
+        <div class="header">
+            <h1>About</h1>
+        </div>
+        <div class="info-box">
+            <p class="info-text">This site was built as a personal project by Marcello Guglielmi to share and organize inspiring quotes.</p>
+        </div>
+    </div>
+    <div class="content-panel content-panel--wide">
+        <div class="header">
+            <h2>How To</h2>
+        </div>
+        <div class="info-box">
+            <ul>
+                <li class="info-text"><b>Browse quotes/authors:</b> The top Navbar contains links to the entire catalogue of quotes & authors currently in the database.</li>
+                <li class="info-text"><b>Submit a quote:</b> The side Navbar has a Submit link that directs you to a page where you can fill out a quote submission form. Your submission is then forwarded to the moderation team for approval.</li>
+                <li class="info-text"><b>View my submissions:</b> Your current pending submissions (as well as submission history) are displayed under your Profile. You can check their information & status there.</li>
+                <li class="info-text">Once approved, a list of your contributions to the side can be viewed under Entries! Thank you for helping us grow!</li>
+                <li class="info-text"><b>Bookmark a quote:</b> You can save your favorite quotes on the site via the BOOKMARK button. Bookmarked quotes can be accessed later in the Marked section.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="content-panel content-panel--wide">
+        <div class="header">
+            <h2>FAQ</h2>
+        </div>
+        <div class="info-box">
+            <ul>
+                <li class="info-text"><b><i>"Why was my submission rejected?"</i></b> — Approval of submissions can depend on a variety of reasons. A Moderator will typically include a comment upon approval or rejection of a submission, that can be viewed under the specific submission card on your Profile. Additionally, you likely received an email with said comment.</li>
+                <li class="info-text"><b><i>"What's taking so long to review my submission?"</i></b> — The reviewing process can be lengthy at times, specially if the quote was attributed to an author not currently present in the databse. We appreciate your understanding and patience!</li>
+                <li class="info-text"><b><i>"Do you accept quotes in other languages?"</i></b> — Currently, the site's implementation is limited to English. However, official/accurate translations are OK on a case by case basis.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="right-panels">
+    <div class="content-panel content-panel--narrow">
+        <div class="header header-center">
+            <h2>Contact info</h2>
+        </div>
+        <div class="info-box">
+            <p class="info-text" style="text-align: center;">Please feel free to contact us regarding any issues or inquiries.</p>
+            <p class="info-text" style="text-align: center;"><b>Email:</b> tidbits.webapp@gmail.com</p>
+        </div>
+    </div>
+    <div class="content-panel content-panel--narrow">
+        <div class="header header-center">
+            <h2>Marcello's Github</h2>
+        </div>
+        <div class="info-box">
+            <p class="info-text" style="text-align: center;">https://github.com/cello-guglielmi/</p>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
