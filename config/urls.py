@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
+from quotes.views import HelpSection
 # from debug_toolbar import debug_toolbar_urls
 
 urlpatterns = [
+    path('', RedirectView.as_view(pattern_name='quotes:daily_page', permanent=False), name='home'),
+    path('help', HelpSection.as_view(), name='help'),
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls', namespace='accounts')),            # defines: register/, profile/, etc.
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 	path('quotes/', include('quotes.urls', namespace='quotes'))
 ] # + debug_toolbar_urls()
 
