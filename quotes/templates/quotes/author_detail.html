@@ -23,7 +23,11 @@
     </div>
     <!-- Quote list -->
     <div id="list-container">
-        {% include 'quotes/quote_list.html' with batch_size=2 list_author=author.slug sort_panel=True%}
+        {% include 'quotes/quote_list.html' with sort_panel=True %}
+        <div id="list-const" class="hidden">
+            <input type="hidden" name="batch_size" value="5">
+            <input type="hidden" name="list_author" value="{{ author.slug }}">
+        </div>
     </div>
 
 {% endblock %}

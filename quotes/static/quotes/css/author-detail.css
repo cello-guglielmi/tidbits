@@ -1,5 +1,5 @@
 :root {
-  --bg-image: url('/static/images/bg/paper_bg.jpg');
+  --bg-image: url('/static/images/paper.jpg');
   /* --bg-image: var(--gradient-bg); */
 }
 

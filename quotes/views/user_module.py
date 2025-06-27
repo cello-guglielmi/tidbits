@@ -14,7 +14,7 @@ def toggle_like(request, quote_id):
         quote.likes.remove(request.user)
     else:
         quote.likes.add(request.user)
-    return render(request, 'quotes/user_module/components/quote_card/like_button.html', {'quote': quote})
+    return render(request, 'quotes/user_module/components/like_button.html', {'quote': quote})
 
 @active_login_required
 @require_POST
@@ -24,7 +24,7 @@ def toggle_bookmark(request, quote_id):
         quote.bookmarked_by.remove(request.user)
     else:
         quote.bookmarked_by.add(request.user)
-    return render(request, 'quotes/user_module/components/quote_card/bookmark_button.html', {'quote': quote})
+    return render(request, 'quotes/user_module/components/bookmark_button.html', {'quote': quote})
 
 @active_login_required
 def submitQuote(request):

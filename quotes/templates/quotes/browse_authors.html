@@ -13,6 +13,9 @@
         <h1 id="titlehead" class="fancy-title"><span>Browse All Authors</span></h1>
     </div>
     <div id="list-container">
-        {% include 'quotes/author_list.html' with batch_size=5 %}
+        {% include 'quotes/author_list.html' %}
+        <div id="list-const" class="hidden">
+            <input type="hidden" name="batch_size" value="8">
+        </div>
     </div>
 {% endblock %}

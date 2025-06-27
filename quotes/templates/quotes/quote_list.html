@@ -10,9 +10,7 @@
             hx-get="{% url 'quotes:quote_cards' %}"
             hx-target="this"
             hx-swap="outerHTML"
-            hx-vals='{
-                "batch_size": "{{ batch_size }}",
-                "list_author": "{{ list_author }}"}'
+            hx-include='#list-const'
             hx-trigger="load">
         </div>
     </ul>
@@ -21,11 +19,11 @@
                 hx-get="{% url 'quotes:quote_cards' %}"
                 hx-target="#quote-list"
                 hx-swap="beforeend"
-                hx-include="#filters, #view-state, #sort-tracker">
+                hx-include="#filters, #list-var, #list-const, #sort-tracker">
             <i data-lucide="chevrons-down"></i>
         </button>
     </div>
-    <div id="view-state" class="hidden"></div>
+    <div id="list-var" class="hidden"></div>
 </section>
 {% if sort_panel %}
 <section id="list-right-cell">

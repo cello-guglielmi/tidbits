@@ -68,12 +68,12 @@ def quoteCards(request):
     mood_tags = request.GET.getlist('mood[]')
     if mood_tags:
         qs = qs.filter(mood__in=mood_tags)
-    user_contr = request.GET.get('contributions', '')
-    user_bms = request.GET.get('bookmarks', '')
-    if user_contr:
-        qs = qs.filter(submitted_by=user_contr)
-    elif user_bms:
-        qs = qs.filter(bookmarked_by=user_bms)
+    contributions = request.GET.get('user_contr', '')
+    if contributions:
+        qs = qs.filter(submitted_by=contributions)
+    bookmarks = request.GET.get('user_bms', '')
+    if bookmarks:
+        qs = qs.filter(bookmarked_by=bookmarks)
     sort = request.GET.get('sort_value', 'id')
     qs = qs.order_by(sort)
 
