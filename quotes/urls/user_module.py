@@ -9,7 +9,7 @@ urlpatterns = [
     path('like/<int:quote_id>', user_module.toggle_like, name='toggle_like'),
     path('save/<int:quote_id>', user_module.toggle_bookmark, name='toggle_bookmark'),
     path('bookmarks', user_module.myBookmarks, name='bookmarks'),
-    path('contributions', user_module.myContributions, name='contributions'),
+    path('entries', user_module.myEntries, name='entries'),
     path('past_submissions', user_module.pastSubmissions, name='past_subs'),
     path('past_sub_cards', user_module.pastSubCards, name='past_sub_cards'),
 ]

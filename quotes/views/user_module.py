@@ -51,8 +51,8 @@ def myBookmarks(request):
     return render(request, 'quotes/user_module/user_bookmarks.html', {'user': request.user})
 
 @active_login_required
-def myContributions(request):
-    return render(request, 'quotes/user_module/user_contributions.html', {'user': request.user})
+def myEntries(request):
+    return render(request, 'quotes/user_module/user_entries.html', {'user': request.user})
 
 @active_login_required
 def pastSubmissions(request):
