@@ -90,6 +90,7 @@ class QuoteSubmission(models.Model):
     submitted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='quote_submissions')
     reviewed_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     status = models.CharField(max_length=20, choices=(('approved', 'Approved'), ('rejected', 'Rejected'), ('pending', 'Pending')), default='pending')
+    moderation_comment = models.CharField(max_length=120, blank=True, help_text="Provide a justification regarding this quote's approval decision to the submitting user.")
     MOODS = {
         'love': 'Love',
         'motivational': 'Motivational',

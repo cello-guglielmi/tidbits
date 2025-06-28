@@ -55,12 +55,22 @@ def myEntries(request):
     return render(request, 'quotes/user_module/user_entries.html', {'user': request.user})
 
 @active_login_required
-def pastSubmissions(request):
-    return render(request, 'quotes/user_module/submissions/past_subs_list.html', {'user': request.user})
+def submissionList(request):
+    user_subs = request.user.quote_submissions
+    list_type = request.GET.get('list_type')
+    print('TPYE IS:', list_type)
+    qs = user_subs.filter(status='pending') if list_type == 'pending' else user_subs.exclude(status='pending')
+    context = {
+        'list_type': list_type,
+        'submission_list': qs,
+    }
+    return render(request, 'quotes/user_module/submissions/submission_list.html', context)
 
 @active_login_required
-def pastSubCards(request):
-    qs = QuoteSubmission.objects.exclude(status='pending')
+def submissionCards(request):
+    user_subs = request.user.quote_submissions
+    list_type = request.GET.get('list_type')
+    qs = user_subs.filter(status='pending') if list_type == 'pending' else user_subs.exclude(status='pending')
 
     batchSize = int(request.GET.get('batch_size', 1))
     itemCounter = int(request.GET.get('item_counter', batchSize))
@@ -79,4 +89,4 @@ def pastSubCards(request):
         'batchSize': batchSize,
         'hasMore': hasMore,
     }
-    return render(request, 'quotes/user_module/submissions/components/past-subs-cards.html', context)
+    return render(request, 'quotes/user_module/submissions/components/submission_cards.html', context)

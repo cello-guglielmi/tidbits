@@ -5,6 +5,9 @@ from . import models
 from . import forms
 from django.utils.safestring import mark_safe
 from django.db import transaction
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.conf import settings
 
 # Register your models here.
 
@@ -55,7 +58,7 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
     readonly_fields = ['status', 'author_status', 'author', 'new_author_submission', 'created_at', 'submitted_by', 'updated_at', 'reviewed_by']
     fieldsets = (
         (None, {
-            'fields': ('sentence', 'mood', 'status')
+            'fields': ('sentence', 'mood', 'status', 'moderation_comment')
         }),
         ('Author Information', {
             'fields': ('author_status', 'author', 'new_author_submission')
@@ -68,9 +71,9 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
     actions = ['approve_submissions', 'reject_submissions']
 
     def author_status(self, obj):
-        return 'Valid ✔' if obj.author else 'Submission ⚠️'
+        return 'Valid ✔' if obj.author else 'Submission ⚠️'  
 
-    @admin.action(description='Approve selected submissions')
+    @admin.action(description='Approve Selected Submissions')
     def approve_submissions(self, request, queryset):
         # Could be collapsed into a one-pass loop, aggregating error results over individual iteration.
         # But for clarity and because selected rows are supposedly few at a time, we'll go with separate filters.
@@ -78,24 +81,77 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
         missing_author = queryset.filter(author=None)
         to_approve = queryset.filter(status='pending').exclude(author=None)
         if not_pending.exists():
-            self.message_user(request, f'{not_pending.count()} of selected submissions are not pending approval.', level=messages.WARNING)
+            self.message_user(request, f'{not_pending.count()} of selected submissions are not pending approval.', level=messages.ERROR)
         if missing_author.exists():
-            self.message_user(request, f'{missing_author.count()} of selected submissions do not have an approved author.', level=messages.WARNING)
+            self.message_user(request, f'{missing_author.count()} of selected submissions do not have an approved author.', level=messages.ERROR)
         
         if to_approve.exists():
+            message = (
+                "Hi {nickname},\n\n"
+                "We're happy to inform that your quote '{sentence}' has been approved, and is now part of our quotes collection!\n"
+                "You can view your contributions under 📕Entries:\n"
+                "{url}\n\n"
+                "We kindly thank you for your awesome contribution! 😊\n"
+                "— The Tidbits Team"
+            )
             for subm in to_approve:
-
                 models.Quote.objects.create(
                     sentence = subm.sentence,
                     author = subm.author,
                     mood = subm.mood,
                     submitted_by = subm.submitted_by,
                 )
-
                 subm.status = 'approved'
                 subm.reviewed_by = request.user
                 subm.save()
+                send_mail("Your quote submission has been approved!",
+                          message.format(
+                              nickname=subm.submitted_by.nickname,
+                              sentence=subm.sentence,
+                              url=request.build_absolute_uri(reverse('quotes:user:user_contributions'))
+                          ),
+                          settings.DEFAULT_FROM_EMAIL,
+                          [subm.submitted_by.email],
+                          fail_silently=False,
+                )
             self.message_user(request, f'{to_approve.count()} of selected submissions were successfully approved!', level=messages.SUCCESS)
+
+    @admin.action(description='Reject Selected Submissions')
+    def reject_submissions(self, request, queryset):
+        not_pending = queryset.exclude(status='pending')
+        missing_comment = queryset.filter(moderation_comment='')
+        to_reject = queryset.filter(status='pending').exclude(moderation_comment='')
+        if not_pending.exists():
+            self.message_user(request, f'{not_pending.count()} of selected submissions are not pending approval.', level=messages.ERROR)
+        if missing_comment.exists():
+            self.message_user(request, f'{missing_comment.count()} of selected submissions are missing a moderation comment.', level=messages.ERROR)
+        
+        if to_reject.exists():
+            message = (
+                "Hi {nickname},\n\n"
+                "We regret to inform you that your quote '{sentence}' has been rejected by our moderation staff.\n"
+                "Reason: {comment}\n\n"
+                "You can view your submission history here:\n"
+                "{url}\n\n"
+                "Feel free to revise and submit again if you'd like.\n"
+                "— The Tidbits Team"
+            )
+            for subm in to_reject:             
+                subm.status = 'rejected'
+                subm.reviewed_by = request.user
+                subm.save()
+                send_mail("Your quote submission has been rejected.",
+                          message.format(
+                              nickname=subm.submitted_by.nickname,
+                              sentence=subm.sentence,
+                              comment=subm.moderation_comment,
+                              url=request.build_absolute_uri(reverse('accounts:user_profile'))
+                          ),
+                          settings.DEFAULT_FROM_EMAIL,
+                          [subm.submitted_by.email],
+                          fail_silently=False,
+                )
+            self.message_user(request, f'{to_reject.count()} of selected submissions were successfully rejected.', level=messages.SUCCESS)
 
 @admin.register(models.AuthorSubmission)
 class AuthorSubmissionAdmin(admin.ModelAdmin):

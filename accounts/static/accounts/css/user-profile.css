@@ -19,6 +19,35 @@
 #close-account { grid-area: clacc; }
 #user-submissions { grid-area: usub; }
 
+/* === Submissions section === */
+#past-subs-wrapper {
+    margin-top: 1em;
+}
+
+#subs-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mod-note {
+    font-size: smaller;
+    font-style: italic;
+    color: #999;
+}
+
+.toggle-button {
+    color: #ccc;
+}
+
+.active {
+    color: #333;
+}
+
+.divisor {
+    align-self: flex-end;
+}
+
 /* === Nickname edittable === */
 #nickname-inline {
     color: #e36883;

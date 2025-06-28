@@ -1,0 +1,58 @@
+{% if submission_list %}
+    <section id="list-center-cell">
+        <ul id="submission-list" class="object-list">
+            <div id="past-sub-cards-standin"
+                hx-get="{% url 'quotes:user:submission_cards' %}"
+                hx-target="this"
+                hx-include="#list-const"
+                hx-swap="outerHTML"
+                hx-trigger="load">
+            </div>
+        </ul>
+        <div id="show-more-button-wrapper">
+            <button id="show-more-button" data-action="loadmore"
+                    hx-get="{% url 'quotes:user:submission_cards' %}"
+                    hx-target="#submission-list"
+                    hx-include="#list-const, #list-var"
+                    hx-swap="beforeend">
+                <i data-lucide="chevrons-down"></i>
+            </button>
+        </div>
+        <div id="list-var" class="hidden"></div>
+    </section>
+    <div id="list-const" class="hidden">
+        <input type="hidden" name="batch_size" value="2">
+        <input type="hidden" name="list_type" value="{{ list_type }}">
+    </div>
+{% else %}
+    <p>You don't have any {{ list_type }} submissions!</p>
+{% endif %}
+
+{% if list_type == 'pending' %}
+<div id="subs-header" class="header" hx-swap-oob="true">
+    <h2 class="active">Current submissions</h2>
+    <span class="divisor"><i data-lucide="chevrons-left"></i><i data-lucide="chevrons-right"></i></span>
+    <button id="toggle-past-subs"
+            class="link-style toggle-button"
+            hx-get="{% url "quotes:user:submission_list" %}"
+            hx-vals='{"list_type": "past"}'
+            hx-target="#list-container"
+            hx-swap="innerHTML">
+        <h2>Past Submissions</h2>
+    </button>
+</div>
+{% endif %}
+{% if list_type == 'past' %}
+<div id="subs-header" class="header" hx-swap-oob="true">
+    <button id="toggle-pending-subs"
+            class="link-style toggle-button"
+            hx-get="{% url "quotes:user:submission_list" %}"
+            hx-vals='{"list_type": "pending"}'
+            hx-target="#list-container"
+            hx-swap="innerHTML">
+        <h2>Current submissions</h2>
+    </button>
+    <span class="divisor"><i data-lucide="chevrons-left"></i><i data-lucide="chevrons-right"></i></span>
+    <h2 class="active">Past Submissions</h2>
+</div>
+{% endif %}

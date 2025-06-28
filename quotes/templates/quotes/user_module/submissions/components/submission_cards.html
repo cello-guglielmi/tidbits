@@ -16,9 +16,14 @@
                 <div>Status: <span class="status {{ quote_sub.status }}">{{ quote_sub.status|capfirst }}</span></div>
             </section>
             <section class="card-footer">
-                <div><span>Created at:{{ quote_sub.created_at }}</span></div>
-                <div><span>Updated at:{{ quote_sub.updated_at }}</span></div>
+                <div><span>Created at: {{ quote_sub.created_at }}</span></div>
+                <div><span>Updated at: {{ quote_sub.updated_at }}</span></div>
             </section>
+            {% if quote_sub.moderation_comment %}
+            <section class="card-footer">
+                <div><span class="mod-note">{{ quote_sub.moderation_comment }}</span></div>
+            </section>
+            {% endif %}
         </div>
     </li>
 {% endfor %}
@@ -26,3 +31,7 @@
 {% if not hasMore %}
     <div id="show-more-button-wrapper" hx-swap-oob="true"></div>
 {% endif %}
+
+<div id="list-var" class="hidden" hx-swap-oob="true">
+    <input type="hidden" name="item_counter" value="{{ itemCounter }}">
+</div>

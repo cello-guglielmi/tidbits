@@ -20,12 +20,7 @@ def signup(request):
 
 @active_login_required
 def userProfile(request):
-    context = {
-        'user': request.user,
-        'pending_quote_subs': QuoteSubmission.objects.filter(status='pending'),
-        'past_quote_subs': QuoteSubmission.objects.exclude(status='pending'),
-    }
-    return render(request, 'accounts/user_profile.html', context)
+    return render(request, 'accounts/user_profile.html', {'user': request.user})
 
 @active_login_required
 def closeAccount(request):
