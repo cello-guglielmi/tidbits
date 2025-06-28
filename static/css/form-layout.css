@@ -174,5 +174,6 @@ h2 { font-size: 1.75rem; }
   font: inherit;
   color: inherit;
   cursor: pointer;
+  transition: ease 200ms;
 }
-.link-style:hover { text-decoration: underline; color: #e36883; }
+.link-style:hover { text-decoration: none; color: #e36883; }

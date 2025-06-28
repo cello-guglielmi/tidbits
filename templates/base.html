@@ -1,70 +1,69 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Quotes App</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/form-layout.css' %}">
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Merienda:wght@300..900&family=Onest:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!-- Merienda, Manrope, Onset, Plus Jakarta Sans, Space Grotesk, Urbanist -->
-    {% block head %}
-    {% endblock %}
-</head>
-<body {% block background_styling %}{% endblock %}>
-    <header id="topbar-container">
-        <nav id='topbar-nav' class="navbar">
-            <div id="left-side" class="subnav">
-                <img style="display: inline; margin: 0 5px;" src="{% static '/images/logo.png' %}" height="50" />
-                <a href="{% url 'quotes:browse_quotes' %}">Browse Quotes</a>
-                <a href="{% url 'quotes:browse_authors' %}">Browse Authors</a>
-            </div>
-            <div id="right-side" class="subnav">
-                <a href="{% url 'help' %}">Help</a>
-                {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="link-style">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
-                {% endif %}
-            </div> 
-        </nav>
-    </header>
-    <aside id="sidebar-container">
-        <nav id="sidebar-nav" class="navbar">
-            <a href="{% url 'quotes:daily_page' %}"><i data-lucide="sun"></i><span>Daily</span></a>
-            <a href="{% url 'accounts:user_profile' %}"><i data-lucide="user-round"></i><span>Profile</span></a>
-            <a href="{% url 'quotes:user:bookmarks' %}"><i data-lucide="bookmark-check"></i><span>Marks</span></a>
-            <a href="{% url 'quotes:user:entries' %}"><i data-lucide="book-text"></i><span>Entries</span></a>
-            <a href="{% url 'quotes:user:submit_quote' %}"><i data-lucide="notebook-pen"></i><span>Submit</span></a>
-        </nav>
-    </aside>
-    <main id="content">{% block content %}{% endblock %}</main>
-</body>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    lucide.createIcons();
-  });
-  document.body.addEventListener("htmx:afterSwap", (evt) => {
-    lucide.createIcons()
-  });
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Quotes App</title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/form-layout.css' %}">
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Merienda:wght@300..900&family=Onest:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <!-- Merienda, Manrope, Onset, Plus Jakarta Sans, Space Grotesk, Urbanist -->
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body {% block background_styling %}{% endblock %}>
+        <header id="topbar-container">
+            <nav id='topbar-nav' class="navbar">
+                <div id="left-side" class="subnav">
+                    <img style="display: inline; margin: 0 5px;" src="{% static '/images/logo.png' %}" height="50" />
+                    <a class="link-style" href="{% url 'quotes:browse_quotes' %}">Browse Quotes</a>
+                    <a class="link-style" href="{% url 'quotes:browse_authors' %}">Browse Authors</a>
+                </div>
+                <div id="right-side" class="subnav">
+                    <a class="link-style" href="{% url 'help' %}">Help</a>
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="link-style">Logout</button>
+                        </form>
+                    {% else %}
+                        <a class="link-style" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
+                    {% endif %}
+                </div> 
+            </nav>
+        </header>
+        <aside id="sidebar-container">
+            <nav id="sidebar-nav" class="navbar">
+                <a class="link-style" href="{% url 'quotes:daily_page' %}"><i data-lucide="sun"></i><span>Daily</span></a>
+                <a class="link-style" href="{% url 'accounts:user_profile' %}"><i data-lucide="user-round"></i><span>Profile</span></a>
+                <a class="link-style" href="{% url 'quotes:user:bookmarks' %}"><i data-lucide="bookmark-check"></i><span>Marks</span></a>
+                <a class="link-style" href="{% url 'quotes:user:entries' %}"><i data-lucide="book-text"></i><span>Entries</span></a>
+                <a class="link-style" href="{% url 'quotes:user:submit_quote' %}"><i data-lucide="notebook-pen"></i><span>Submit</span></a>
+            </nav>
+        </aside>
+        <main id="content">{% block content %}{% endblock %}</main>
 
-
-  function updateStickyOffset() {
-    const header = document.getElementById("header");
-    const offset = header ? header.offsetHeight : 0;
-    document.documentElement.style.setProperty("--header-offset", `${offset}px`);
-  }
-  window.addEventListener("DOMContentLoaded",  updateStickyOffset);
-  window.addEventListener("resize", updateStickyOffset);
-  updateStickyOffset();
-
-</script>
+        {% block extra_scripts %}{% endblock %}
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                lucide.createIcons();
+            });
+            document.body.addEventListener("htmx:afterSwap", (evt) => {
+                lucide.createIcons()
+            });
+            function updateStickyOffset() {
+                const header = document.getElementById("header");
+                const offset = header ? header.offsetHeight : 0;
+                document.documentElement.style.setProperty("--header-offset", `${offset}px`);
+            }
+            window.addEventListener("DOMContentLoaded",  updateStickyOffset);
+            window.addEventListener("resize", updateStickyOffset);
+            updateStickyOffset();
+        </script>
+    </body>
 </html>

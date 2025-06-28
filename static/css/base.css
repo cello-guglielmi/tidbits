@@ -100,15 +100,3 @@ main {
     padding-left: 4px;
 }
 
-/* === Navbars Content === */
-.navbar a {
-    color: inherit;
-    white-space: nowrap;
-    text-decoration: none;
-    transition: color 0.1s;
-}
-.navbar a:hover, .navbar a:focus {
-    color: #e36883;
-    text-decoration: none;
-}
-

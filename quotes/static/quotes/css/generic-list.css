@@ -101,7 +101,7 @@
     color: #333333cc;
 }
 /* == show more button */
-.show-more-button {
+#show-more-button {
     cursor: pointer;
     margin: 1em auto;
     border: none;
@@ -111,10 +111,10 @@
     color: #333;
     transition: all 250ms ease;
 }
-.show-more-button:hover {
+#show-more-button:hover {
     transform: scale(1.2);
 }
-.show-more-button svg {
+#show-more-button svg {
     filter: drop-shadow(0 0 2px white)
             drop-shadow(0 0 2px white)
             drop-shadow(0 0 4px white);
