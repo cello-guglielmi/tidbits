@@ -4,6 +4,7 @@ from django.db.models import Count
 from . import models
 from . import forms
 from django.utils.safestring import mark_safe
+from django.shortcuts import get_object_or_404
 from django.db import transaction
 from django.core.mail import send_mail
 from django.urls import reverse
@@ -75,10 +76,12 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
 
     @admin.action(description='Approve Selected Submissions')
     def approve_submissions(self, request, queryset):
+
         # Could be collapsed into a one-pass loop, aggregating error results over individual iteration.
         # But for clarity and because selected rows are supposedly few at a time, we'll go with separate filters.
         not_pending = queryset.exclude(status='pending')
         missing_author = queryset.filter(author=None)
+        
         to_approve = queryset.filter(status='pending').exclude(author=None)
         if not_pending.exists():
             self.message_user(request, f'{not_pending.count()} of selected submissions are not pending approval.', level=messages.ERROR)
@@ -86,34 +89,10 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
             self.message_user(request, f'{missing_author.count()} of selected submissions do not have an approved author.', level=messages.ERROR)
         
         if to_approve.exists():
-            message = (
-                "Hi {nickname},\n\n"
-                "We're happy to inform that your quote '{sentence}' has been approved, and is now part of our quotes collection!\n"
-                "You can view your contributions under 📕Entries:\n"
-                "{url}\n\n"
-                "We kindly thank you for your awesome contribution! 😊\n"
-                "— The Tidbits Team"
-            )
             for subm in to_approve:
-                models.Quote.objects.create(
-                    sentence = subm.sentence,
-                    author = subm.author,
-                    mood = subm.mood,
-                    submitted_by = subm.submitted_by,
-                )
                 subm.status = 'approved'
                 subm.reviewed_by = request.user
                 subm.save()
-                send_mail("Your quote submission has been approved!",
-                          message.format(
-                              nickname=subm.submitted_by.nickname,
-                              sentence=subm.sentence,
-                              url=request.build_absolute_uri(reverse('quotes:user:user_contributions'))
-                          ),
-                          settings.DEFAULT_FROM_EMAIL,
-                          [subm.submitted_by.email],
-                          fail_silently=False,
-                )
             self.message_user(request, f'{to_approve.count()} of selected submissions were successfully approved!', level=messages.SUCCESS)
 
     @admin.action(description='Reject Selected Submissions')
@@ -127,30 +106,10 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
             self.message_user(request, f'{missing_comment.count()} of selected submissions are missing a moderation comment.', level=messages.ERROR)
         
         if to_reject.exists():
-            message = (
-                "Hi {nickname},\n\n"
-                "We regret to inform you that your quote '{sentence}' has been rejected by our moderation staff.\n"
-                "Reason: {comment}\n\n"
-                "You can view your submission history here:\n"
-                "{url}\n\n"
-                "Feel free to revise and submit again if you'd like.\n"
-                "— The Tidbits Team"
-            )
             for subm in to_reject:             
                 subm.status = 'rejected'
                 subm.reviewed_by = request.user
                 subm.save()
-                send_mail("Your quote submission has been rejected.",
-                          message.format(
-                              nickname=subm.submitted_by.nickname,
-                              sentence=subm.sentence,
-                              comment=subm.moderation_comment,
-                              url=request.build_absolute_uri(reverse('accounts:user_profile'))
-                          ),
-                          settings.DEFAULT_FROM_EMAIL,
-                          [subm.submitted_by.email],
-                          fail_silently=False,
-                )
             self.message_user(request, f'{to_reject.count()} of selected submissions were successfully rejected.', level=messages.SUCCESS)
 
 @admin.register(models.AuthorSubmission)
@@ -159,7 +118,7 @@ class AuthorSubmissionAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'status', 'author_obj', 'created_at', 'submitted_by', 'updated_at', 'reviewed_by']
     search_fields = ['name']
     list_filter = ['status']
-    readonly_fields = ['status', 'author_obj', 'created_at', 'submitted_by', 'updated_at', 'reviewed_by']
+    readonly_fields = ['author_obj', 'created_at', 'submitted_by', 'updated_at', 'reviewed_by']
     fieldsets = (
         (None, {
             'fields': ('name', 'status',)
@@ -172,7 +131,7 @@ class AuthorSubmissionAdmin(admin.ModelAdmin):
                 "<h4>• The author name is correct and no duplicates exist.</h4>"
                 "<h4>• The nationality is accurate.</h4>"
                 "<h4>• The portrait image is clear and appropriate.</h4>"
-                "<h3>Saving this form will generate a proper Author object.</h3>"
+                "<h3>Saving this form with 'Approved' status will generate a proper Author object.</h3>"
             ),
             'fields': ('nationality', 'portrait'),
         }),
@@ -198,29 +157,33 @@ class AuthorSubmissionAdmin(admin.ModelAdmin):
         return all_fs
 
     def save_model(self, request, obj, form, change):
+        new_status = obj.status
+        old_status = None
+        if change:
+            old_status = get_object_or_404(models.AuthorSubmission, pk=obj.pk).status
+            obj.reviewed_by = request.user
 
-        if obj.status == 'pending':        
-            with transaction.atomic(): 
-                author = models.Author.objects.create(
-                    name = obj.name,
-                    portrait = form.cleaned_data['portrait'],
-                    nationality = form.cleaned_data['nationality'],
-                )
-
-                models.QuoteSubmission.objects.filter(
-                    new_author_submission=obj
-                ).update(
-                    author=author,
-                    new_author_submission=None
-                )
-
-                obj.status = 'approved'
-                obj.author_obj = author
-                obj.reviewed_by = request.user
-
-                self.message_user(request, f'Author {author.name!r} successfully created from submission {obj.pk}.', level=messages.SUCCESS)
-
-        else:
-            self.message_user(request, f'Submission {obj.pk} is already approved. No new Author created.', level=messages.WARNING)
+        if old_status != new_status:
+            quote_subs = models.QuoteSubmission.objects.filter(new_author_submission=obj)
+            if new_status == 'approved':        
+                with transaction.atomic(): 
+                    author = models.Author.objects.create(
+                        name = obj.name,
+                        portrait = form.cleaned_data['portrait'],
+                        nationality = form.cleaned_data['nationality'],
+                    )
+                    quote_subs.update(
+                        author=author,
+                        new_author_submission=None
+                    )
+                    obj.author_obj = author
+                    self.message_user(request, f'Author {author.name!r} successfully created from submission {obj.pk}.', level=messages.SUCCESS)
+            elif obj.status == 'rejected':
+                with transaction.atomic():
+                    for sub in quote_subs:
+                        sub.status = 'rejected'
+                        sub.moderation_comment = 'Rejected due to associated Author Submission being rejected.'
+                        sub.save()
+                    self.message_user(request, f'Author submission {obj.pk} successfully rejected, along with {quote_subs.count()} associatd Quote submissions.', level=messages.SUCCESS)
 
         return super().save_model(request, obj, form, change)

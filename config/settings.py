@@ -91,6 +91,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# URL definitions
+URL_PROTOCOL = "https"
+BASE_DOMAIN = "127.0.0.1:8000"
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
