@@ -45,9 +45,21 @@ class QuoteSubmissionForm(forms.ModelForm):
 
 class AuthorSubmissionAdminForm(forms.ModelForm):
     # Extra fields for approval
-    portrait = forms.ImageField(required=True, help_text='Required for approval.')
-    nationality = forms.ModelChoiceField(queryset=models.Nationality.objects.all(), required=True, help_text='Required for approval.')
+    portrait = forms.ImageField(required=False, help_text='Required for approval.')
+    nationality = forms.ModelChoiceField(queryset=models.Nationality.objects.all(), required=False, help_text='Required for approval.')
 
     class Meta:
         model = models.AuthorSubmission
         fields = '__all__'
+
+    def clean(self):
+        cleaned = super().clean()
+        status = cleaned.get('status')
+
+        if status == 'approved':
+            if not cleaned.get('portrait'):
+                self.add_error('portrait', 'Portrait is required for Author instantiation.')
+            if not cleaned.get('nationality'):
+                self.add_error('nationality', 'Nationality is required for Author instantiation.')
+        
+        return cleaned

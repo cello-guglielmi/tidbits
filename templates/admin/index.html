@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load i18n static %}
+{% load static %}
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
 
@@ -13,30 +13,89 @@
 
 {% block content %}
 <div id="content-main">
-  {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
-   <h1>Custom Admin Dashboard</h1>
-   <!--<h2>Polls</h2>
-    <ul>
-	<li><a href="{ % url 'admin:polls_question_changelist' %}">Manage Questions</a></li>
-	<li><a href="{ % url 'admin:polls_question_add' %}">Add new Question</a></li>
-   </ul> -->
+    <section id="quotes-dashboard" class="dashboard-section">
+        <h1>Quotes Dashboard</h1>
+        <div id="dashboard-stats">
+            <h2 class="section-title">This Week's Submissions</h2>
+            <div class="stat-board">
+                <div id="qsub_wrapper" class="stat-wrapper">
+                    <span class="counter">{{ quote_subs_count }}</span>
+                    <p class="label">Submitted</p>
+                </div>
+                <div id="qappr_wrapper" class="stat-wrapper">
+                    <span class="counter">{{ quote_apprs_count }}</span>
+                    <p class="label">Approved</p>
+                </div>
+                <div id="qrej_wrapper" class="stat-wrapper">
+                    <span class="counter">{{ quote_rejs_count }}</span>
+                    <p class="label">Rejected</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2 class="section-title">Review Pending Requests</h2>
+        <div class="dashboard-cards">  
+            <div class="card">
+                <h2>Pending Quotes</h2>
+                <p class="count">{{ pending_quote_count }}</p>
+                <a href="{% url 'admin:quotes_quotesubmission_changelist' %}?status__exact=pending" class="button">Review Quotes &rarr;</a>
+                <br>
+                <ul>
+                {% for sub in recent_quote_submissions %}
+                    <li>
+                    {{ sub.author }}, "{{ sub }}" —
+                    <a href="{% url 'admin:quotes_quotesubmission_change' sub.pk %}">View</a>
+                    </li>
+                {% empty %}
+                    <li>No recent pending submissions.</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="card">
+                <h2>Pending Authors</h2>
+                <p class="count">{{ pending_author_count }}</p>
+                <a href="{% url 'admin:quotes_authorsubmission_changelist' %}?status__exact=pending" class="button">Review Authors &rarr;</a>
+                <br>
+                <ul>
+                {% for sub in recent_author_submissions %}
+                    <li>
+                    "{{ sub.name }}" —
+                    <a href="{% url 'admin:quotes_authorsubmission_change' sub.pk %}">View</a>
+                    </li>
+                {% empty %}
+                    <li>No recent pending submissions.</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section id="app-lists" class="dashboard-section">
+        <h1>App Content Lists</h1>
+        <p class="subtitle">List access to other models within the project.</p>
+        <br>
+        <div id="tables-wrapper">
+            {% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+        </div>
+    </section>
 </div>
+
 {% endblock %}
 
 {% block sidebar %}
 <div id="content-related">
     <div class="module" id="recent-actions-module">
-        <h2>{% translate 'Recent actions' %}</h2>
-        <h3>{% translate 'My actions' %}</h3>
+        <h2>Recent actions</h2>
+        <h3>My actions</h3>
             {% load log %}
             {% get_admin_log 10 as admin_log for_user user %}
             {% if not admin_log %}
-            <p>{% translate 'None available' %}</p>
+            <p>None available</p>
             {% else %}
             <ul class="actionlist">
             {% for entry in admin_log %}
             <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
-                <span class="visually-hidden">{% if entry.is_addition %}{% translate 'Added:' %}{% elif entry.is_change %}{% translate 'Changed:' %}{% elif entry.is_deletion %}{% translate 'Deleted:' %}{% endif %}</span>
+                <span class="visually-hidden">{% if entry.is_addition %}Added:{% elif entry.is_change %}Changed:{% elif entry.is_deletion %}Deleted:{% endif %}</span>
                 {% if entry.is_deletion or not entry.get_admin_url %}
                     {{ entry.object_repr }}
                 {% else %}
@@ -46,7 +105,7 @@
                 {% if entry.content_type %}
                     <span class="mini quiet">{% filter capfirst %}{{ entry.content_type.name }}{% endfilter %}</span>
                 {% else %}
-                    <span class="mini quiet">{% translate 'Unknown content' %}</span>
+                    <span class="mini quiet">Unknown content</span>
                 {% endif %}
             </li>
             {% endfor %}

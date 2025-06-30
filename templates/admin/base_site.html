@@ -1,15 +1,17 @@
 {% extends "admin/base.html" %}
+{% load i18n static %}
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block extrastyle %}<link rel="stylesheet" href="{% static 'css/admin.css' %}">{% endblock %}
+
+{% block title %}Tidbits Admin{% endblock %}
+
+{% block content_title %}{% endblock %}
 
 {% block branding %}
-<!-- <div id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></div> -->
-<div id="site-name"><a href="{% url 'admin:index' %}">Cello's Django project</a></div>
+<div id="site-name"><a href="{% url 'admin:index' %}">Tidbits Administration</a></div>
 {% if user.is_anonymous %}
   {% include "admin/color_theme_toggle.html" %}
 {% endif %}
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
-
-<!-- could use the django.contrib.admin.AdminSite.site_header attribute to more easily make this particular customization.-->
