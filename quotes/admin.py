@@ -12,38 +12,60 @@ from django.conf import settings
 
 # Register your models here.
 
-
 @admin.register(models.Quote)
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'created_at', 'updated_at', 'mood', 'author', 'num_likes', 'num_faves', 'submitted_by']
-    list_editable = ['mood',] # 'likes']
+    list_display = ['__str__', 'created_at', 'updated_at', 'mood', 'author', 'num_likes', 'num_bookmarks', 'submitted_by']
+    list_editable = ['mood',]
     list_filter = ['mood']
     search_fields = ['sentence', 'author__name']
+    readonly_fields = ['author', 'created_at', 'submitted_by', 'updated_at', 'num_likes', 'num_bookmarks']
+    fieldsets = (
+        (None, {
+            'fields': ('sentence', 'mood', 'num_likes', 'num_bookmarks')
+        }),
+        ('Author Information', {
+            'fields': ('author',)
+        }),
+        ('Audit Trail', {
+            'classes': ('collapse',),
+            'fields': ('submitted_by', 'created_at', 'updated_at')
+        }),
+    )
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        # annotate each Quote with a _likes_count attribute
-        return qs.annotate(likes_count=Count('likes'), fave_count=Count('bookmarked_by'))
+        return qs.annotate(likes_count=Count('likes'), bm_count=Count('bookmarked_by'))
 
     def num_likes(self, obj):
         return obj.likes_count
     
-    def num_faves(self, obj):
-        return obj.fave_count
+    def num_bookmarks(self, obj):
+        return obj.bm_count
     
     num_likes.admin_order_field = 'likes_count'
-    num_faves.admin_order_field = 'fave_count'
+    num_bookmarks.admin_order_field = 'bm_count'
+
+
+class QuoteInline(admin.TabularInline):
+    model = models.Quote
+    fields = ('sentence', 'mood', 'created_at', 'updated_at')
+    readonly_fields = fields
+    extra = 0
+    show_change_link = True
+    can_delete = False
+
 
 @admin.register(models.Author)
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'slug', 'nationality', 'portrait', 'id']
     list_filter = ['nationality']
     search_fields = ['name', 'nationality']
+    inlines = [QuoteInline,]
+
 
 @admin.register(models.Nationality)
 class NationalityAdmin(admin.ModelAdmin):
     search_fields = ['name']
-
 
 #==========================================================
 # Considered building a custom admin dashboard app
@@ -112,6 +134,16 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
                 subm.save()
             self.message_user(request, f'{to_reject.count()} of selected submissions were successfully rejected.', level=messages.SUCCESS)
 
+
+class QuoteSubmissionInline(admin.TabularInline):
+    model = models.QuoteSubmission
+    fields = ('__str__', 'status', 'mood', 'submitted_by', 'created_at', 'reviewed_by', 'updated_at')
+    readonly_fields = fields
+    extra = 0
+    can_delete = False
+    show_change_link = True
+
+
 @admin.register(models.AuthorSubmission)
 class AuthorSubmissionAdmin(admin.ModelAdmin):
     form = forms.AuthorSubmissionAdminForm
@@ -119,6 +151,7 @@ class AuthorSubmissionAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['status']
     readonly_fields = ['author_obj', 'created_at', 'submitted_by', 'updated_at', 'reviewed_by']
+    inlines = [QuoteSubmissionInline,]
     fieldsets = (
         (None, {
             'fields': ('name', 'status',)
