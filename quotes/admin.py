@@ -78,7 +78,7 @@ class QuoteSubmissionAdmin(admin.ModelAdmin):
     search_fields = ['sentence', 'mood', 'author', 'author_status']
     list_filter = ['status']
     list_editable = ['mood']
-    readonly_fields = ['status', 'author_status', 'author', 'new_author_submission', 'created_at', 'submitted_by', 'updated_at', 'reviewed_by']
+    readonly_fields = ['author_status', 'author', 'new_author_submission', 'created_at', 'submitted_by', 'updated_at', 'reviewed_by']
     fieldsets = (
         (None, {
             'fields': ('sentence', 'mood', 'status', 'moderation_comment')

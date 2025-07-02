@@ -1,7 +1,6 @@
 /* === Top Cell Content === */
 /* == mood filter box */
 .tag-box {
-    float: right;
     max-width: 150px;
     line-height: 1.5;
     font-size: 0.9rem;

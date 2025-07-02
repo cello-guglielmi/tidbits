@@ -18,11 +18,11 @@
             <div class="field-wrapper">
                 <label class="field-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                 <input class="field-input" id="{{ form.username.id_for_label }}"
-                    name="{{ form.username.html_name }}"
-                    value="{{ form.username.value|default_if_none:'' }}"
-                    placeholder="example@gmail.com"
-                    class="account-input"
-                    type="email">
+                       name="{{ form.username.html_name }}"
+                       value="{{ form.username.value|default_if_none:'' }}"
+                       placeholder="example@gmail.com"
+                       class="account-input"
+                       type="email">
             </div>
             {{ form.username.errors }}
         </div>

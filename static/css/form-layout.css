@@ -76,7 +76,7 @@ h2 { font-size: 1.75rem; }
     margin-top: 1rem;
 }
 
-/* === Individual Elements === */
+/* === Content Elements === */
 .field-wrapper label {
     display: block;
 }
@@ -111,7 +111,8 @@ h2 { font-size: 1.75rem; }
 
 .info-field {
     padding: 5px;
-    width: 20ch;
+    min-width: 20ch;
+    max-width: fit-content;
     background-color: #ddd;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     border-radius: 4px;
@@ -135,6 +136,18 @@ h2 { font-size: 1.75rem; }
 
 .errorlist {
     color: crimson;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.color-inherit {
+    color: inherit;
+}
+
+.btn-choice-wrapper .button-style{
+    margin: 1rem 0.5rem 0;
 }
 
 /* === Re-style an <a> link as a button element. === */

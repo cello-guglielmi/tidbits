@@ -12,6 +12,7 @@
 
     <form method="POST" action="{% url 'accounts:signup' %}">
         {% csrf_token %}
+        <pre>{{ form.errors }}</pre>
         {{ form.non_field_errors }}
         <!-- Username / Email Field -->
         <div class="field-row">

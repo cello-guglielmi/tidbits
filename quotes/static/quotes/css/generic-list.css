@@ -122,13 +122,16 @@
 /* === Top Cell Content === */
 /* == filters */
 #filters {
+    display: flex;
+    justify-content: space-between;
     position: relative;
+    gap: 3rem;
 }
 /* == search bar */
 .search-bar {
     grid-area: search;
+    flex: 1 1 220px;
     color: #666;
-    width: 80%;
     height: 2em;
     border: none;
     outline: none;

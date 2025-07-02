@@ -1,7 +1,7 @@
 /* === Profile Boxes === */
 .left-panels, .right-panels {
     display: flex;
-    flex: 2;
+    flex: 4;
     flex-direction: column;
     gap: 2rem;
 }

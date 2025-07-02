@@ -32,6 +32,7 @@ main {
     display: flex;
     align-items: flex-start;
     overflow-y: scroll;
+    overflow-x: hidden;
     grid-area: content;
     scrollbar-color: #333 rgba(51, 51, 51, 0.5);
     padding: 50px 20vw 80px 80px;
@@ -56,25 +57,27 @@ main {
     z-index: 9998;
 }
 /* || navbars */
-#topbar-nav {
+
+.navbar {
     display: flex;
+    color: #f5f5f5;
+    white-space: nowrap;
+}
+
+#topbar-nav {
     justify-content: space-between;
     align-items: center;
     height: 5rem;
-    padding: 0 .5em;
-    color: #f5f5f5;
-    background: #333;
+    padding: 0 0.5em;
+    
     background: linear-gradient(180deg, rgba(51, 51, 51, 1) 20%, rgba(31, 31, 31, 1) 100%);
 }
 #sidebar-nav {
-    display: flex;
     justify-content: flex-start;
     flex-direction: column;
     height: calc(100vh - 75px);
-    /* width: 12ch; */
     gap: 1em;
     padding: 1em;
-    color: #f5f5f5;
     background-color: rgba(51, 51, 51, .8);
     backdrop-filter: blur(5px);
 }
@@ -83,7 +86,7 @@ main {
     display: flex;
     width: 50%;
     justify-content: flex-start;
-    gap: 2em
+    gap: 1.5em
 }
 #right-side {
     justify-content: flex-end;
@@ -91,12 +94,12 @@ main {
 
 /* || side navbar subs */
 
-#sidebar-nav span, #sidebar-nav svg {
+.navbar span, .navbar svg {
     display: inline-block;
     vertical-align: middle;
 }
 
-#sidebar-nav span {
+.navbar span {
     padding-left: 4px;
 }
 

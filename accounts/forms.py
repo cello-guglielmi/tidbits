@@ -8,12 +8,16 @@ class EmailLoginForm(AuthenticationForm):
     username= forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'autofocus': True}))
 
 class EmailSignupForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ["username", "password1", "password2"]
+
     username= forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'autofocus': True}))
     def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data["username"]
-        if commit:
-            user.save()
+        email = self.cleaned_data['username']
+        password = self.cleaned_data['password1']
+        user = User.objects.create_user(email=email, password=password)
         return user
 
 class NicknameForm(forms.ModelForm):

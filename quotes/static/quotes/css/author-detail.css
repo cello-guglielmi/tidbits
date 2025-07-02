@@ -14,7 +14,8 @@ body {
 
 /* main, # */
 #content {
-    padding: 0 calc((100vw - 600px)/2) 0 10rem;
+    padding-left: 10vw;
+    padding-top: 0;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) 57px; /* side panel width 105px - gap 3rem (48px) */
     grid-template-rows: auto auto minmax(0, 1fr);
@@ -35,8 +36,9 @@ body {
 #header {
     grid-area: aHeader;
     position: sticky;
+    min-width: fit-content;
     top: 0;
-    padding: 50px 10px 3rem 0;
+    padding: 50px 10px 50px 0;
     margin-right: -10px;
     z-index: 10;
     background: var(--bg-image);
@@ -52,7 +54,7 @@ body {
     align-items: center;
     white-space: nowrap;
     height: 7rem;
-    gap: 2em;
+    gap: 9em;
     padding: 1em;
     background-color: rgba(255, 255, 255, .8);
     border-bottom: 2px solid #333;
