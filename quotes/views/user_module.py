@@ -7,7 +7,6 @@ from django.views.decorators.http import require_POST
 # Create your views here.
 
 @active_login_required
-@require_POST
 def toggle_like(request, quote_id):
     quote = get_object_or_404(Quote, pk=quote_id)
     if request.user in quote.likes.all():
