@@ -34,13 +34,14 @@ def dailyPage(request):
         return seed
     
     def get_bg(mood, seed):
-        idx = seed % 4
+        idx = (seed % 4) + 1
         filename = f'{mood}{idx}.png'
         filepath = static(f'images/bg/{filename}')
         bg_url = f'style="background-image: url(\'{filepath}\');"'
         return bg_url
     
     today = datetime.date.today()
+    today
     ql = list(Quote.objects.all())
     seed = get_daily_seed(today)
     idx = seed % len(ql)
