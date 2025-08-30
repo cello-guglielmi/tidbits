@@ -12,7 +12,7 @@
 - [Introduction](#introduction)
 - [Key Features](#key-features)
 - [User Section](#user-section)
-- [Moderation](#admin-section)
+- [Moderation](#moderation)
 - [Miscellaneous](#misc)
 - [Project Download](#installation)
 
@@ -34,13 +34,23 @@ Tidbits is a  quote curation and display platform. Built with a Django framework
 
 A few notable features in Tidbits:
 
-* Daily Quote landing page - Pleasing asthetics and rotating assortment.
-* Quote list repository - With filtering & sorting mechanisms.
-* Author list repository - With filtering, sorting, and invidual profiles
-* User account Creation/Login
-* Quote "Like" counter and "Bookmark" option.
-* User submissions - Complete with moderation approval workflows.
-* Administrative custom panel - Refactored from Django's pre-built admin.
+* ### ✨ Daily Quote Landing Page
+Start your day with a rotating highlight of inspirational quotes, styled for both desktop and mobile.
+
+* ### 📚 Quote & Author Repositories
+Browse an ever-growing library of quotes with intuitive filtering, mood-based tagging, and real-time search. Dive deeper into detailed author profiles with their full list of works.
+
+* ### 💾 Personalized Profiles
+Create an account to bookmark favorites, submit your own quotes, and keep a personal collection.
+
+* ### 👍 Interactive Engagement
+Like, sort, and filter quotes to shape your own feed of inspiration.
+
+* ### 📝 User Submissions with Moderation
+Contribute your own quotes and authors! Submissions go through a streamlined moderation flow before joining the public library.
+
+* ### 🛠 Custom Admin Panel
+A reimagined interface built on top of Django’s admin, designed to make moderation efficient and approachable.
 
 
 ## Repository Browsing
@@ -78,7 +88,7 @@ The app generates "Submission" objects for user submitted content (both quote or
 </p>
 
 <p align="center">
-  <img src = "https://i.imgur.com/sD6WpXe.gifg" width=900>
+  <img src = "https://i.imgur.com/sD6WpXe.gif" width=900>
 </p>
 
 ## Miscellaneous
