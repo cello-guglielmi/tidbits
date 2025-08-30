@@ -1,16 +1,12 @@
 <h1 align="center"> Tidbits </h1> <br>
 <p align="center">
-  <a href="https://gitpoint.co/">
-    <img alt="GitPoint" title="GitPoint" src="https://i.imgur.com/NhkTg5U.png" width="450">
-  </a>
+  <img alt="Tidbits Logo" title="Tidbits Logo" src="https://i.imgur.com/NhkTg5U.png" width="450">
 </p>
 
 <p align="center">
   by Marcello Guglielmi
 </p>
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -19,8 +15,6 @@
 - [Moderation](#admin-section)
 - [Miscellaneous](#misc)
 - [Project Download](#installation)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Introduction
 
@@ -38,7 +32,7 @@ Tidbits is a  quote curation and display platform. Built with a Django framework
 
 ## Key Features
 
-A few of the things you can do with GitPoint:
+A few notable features in Tidbits:
 
 * Daily Quote landing page - Pleasing asthetics and rotating assortment.
 * Quote list repository - With filtering & sorting mechanisms.
@@ -126,7 +120,7 @@ services:
       - .:/app
 ```
 
-**dockerfile**
+<b>dockerfile</b>
 ```
 # Use official Python image
 FROM python:3.13.2-slim
